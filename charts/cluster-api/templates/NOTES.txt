@@ -1,3 +1,0 @@
-Cluster API is now Installed!
-
-See https://github.com/unikorn-cloud/helm-cluster-api#deploying-infrastructure-providers-and-clusters to deploy a cluster.
