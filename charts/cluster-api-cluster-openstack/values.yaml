@@ -1,5 +1,5 @@
 # Label domain for implicit labels defined in this chart.
-labelDomain: eschercloud.ai
+labelDomain: unikorn-cloud.org
 
 # Legacy resource names are very easy to go over the 63 character resource name
 # limit as you can imagine a 53 character release concatenated with an arbitrary

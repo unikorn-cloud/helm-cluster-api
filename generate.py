@@ -35,7 +35,7 @@ def main():
         'type': 'application',
         'version': args.version,
         'appVersion': args.app_version,
-        'icon': 'https://raw.githubusercontent.com/eschercloudai/helm-cluster-api/main/icons/default.png',
+        'icon': 'https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.png',
     }
 
     with open(f'{chart_root}/Chart.yaml', 'w') as out:

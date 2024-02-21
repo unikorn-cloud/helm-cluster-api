@@ -31,7 +31,7 @@ spec:
     namespace: foo
   project: default
   source:
-    repoURL: https://eschercloudai.github.io/helm-cluster-api
+    repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-cluster-openstack
     targetRevision: v0.1.2
     helm:
