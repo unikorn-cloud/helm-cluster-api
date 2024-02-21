@@ -35,9 +35,6 @@ kind: Application
 metadata:
   generateName: cert-manager-
   namespace: argocd
-  labels:
-    project.unikorn.eschercloud.ai: ${PROJECT}
-    controlplane.unikorn.eschercloud.ai: ${CONTROL_PLANE}
 spec:
   project: default
   source:
@@ -68,9 +65,9 @@ There is a top level chart-of-charts that will just install everything as a big 
 <summary>Helm</summary>
 
 ```shell
-helm repo add eschercloudai-capi https://eschercloudai.github.io/helm-cluster-api
+helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm install eschercloudai-capi/cluster-api --version v0.1.1
+helm install unikorn-cloud-capi/cluster-api --version v0.1.1
 ```
 </details>
 
@@ -86,7 +83,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://eschercloudai.github.io/helm-cluster-api
+    repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api
     targetRevision: v0.1.9
   destination:
@@ -126,9 +123,9 @@ You may want to be a little less gung-ho and deploy the pieces as separate appli
 <summary>Helm</summary>
 
 ```shell
-helm repo add eschercloudai-capi https://eschercloudai.github.io/helm-cluster-api
+helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm install eschercloudai-capi/cluster-api-core --version v0.1.1
+helm install unikorn-cloud-capi/cluster-api-core --version v0.1.1
 ```
 </details>
 
@@ -144,7 +141,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://eschercloudai.github.io/helm-cluster-api
+    repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-core
     targetRevision: v0.1.9
   destination:
@@ -175,9 +172,9 @@ spec:
 <summary>Helm</summary>
 
 ```shell
-helm repo add eschercloudai-capi https://eschercloudai.github.io/helm-cluster-api
+helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm install eschercloudai-capi/cluster-api-bootstrap-kubeadm --version v0.1.1
+helm install unikorn-cloud-capi/cluster-api-bootstrap-kubeadm --version v0.1.1
 ```
 </details>
 
@@ -193,7 +190,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://eschercloudai.github.io/helm-cluster-api
+    repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-bootstrap-kubeadm
     targetRevision: v0.1.9
   destination:
@@ -217,9 +214,9 @@ spec:
 <summary>Helm</summary>
 
 ```shell
-helm repo add eschercloudai-capi https://eschercloudai.github.io/helm-cluster-api
+helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm install eschercloudai-capi/cluster-api-control-plane-kubeadm --version v0.1.1
+helm install unikorn-cloud-capi/cluster-api-control-plane-kubeadm --version v0.1.1
 ```
 </details>
 
@@ -235,7 +232,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://eschercloudai.github.io/helm-cluster-api
+    repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-control-plane-kubeadm
     targetRevision: v0.1.9
   destination:
