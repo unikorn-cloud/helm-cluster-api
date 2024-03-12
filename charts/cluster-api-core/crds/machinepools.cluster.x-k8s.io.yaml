@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: capi-system/capi-serving-cert
-    controller-gen.kubebuilder.io/version: v0.11.4
+    controller-gen.kubebuilder.io/version: v0.13.0
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: machinepools.cluster.x-k8s.io
@@ -246,10 +246,10 @@ spec:
                               description: 'Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
                               type: string
                             name:
-                              description: 'Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
+                              description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names'
                               type: string
                             uid:
-                              description: 'UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids'
+                              description: 'UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids'
                               type: string
                           required:
                           - apiVersion
@@ -543,6 +543,7 @@ spec:
                       description: 'UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids'
                       type: string
                   type: object
+                  x-kubernetes-map-type: atomic
                 type: array
               observedGeneration:
                 description: ObservedGeneration is the latest generation observed
@@ -574,7 +575,7 @@ spec:
                 type: integer
             type: object
         type: object
-    served: true
+    served: false
     storage: false
     subresources:
       scale:
@@ -952,6 +953,7 @@ spec:
                       description: 'UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids'
                       type: string
                   type: object
+                  x-kubernetes-map-type: atomic
                 type: array
               observedGeneration:
                 description: ObservedGeneration is the latest generation observed
@@ -983,7 +985,7 @@ spec:
                 type: integer
             type: object
         type: object
-    served: true
+    served: false
     storage: false
     subresources:
       scale:
@@ -1049,9 +1051,10 @@ spec:
                   type: string
                 type: array
               minReadySeconds:
-                description: Minimum number of seconds for which a newly created machine
-                  instances should be ready. Defaults to 0 (machine instance will
-                  be considered available as soon as it is ready)
+                description: 'Minimum number of seconds for which a newly created
+                  machine instances should be ready. Defaults to 0 (machine instance
+                  will be considered available as soon as it is ready) NOTE: No logic
+                  is implemented for this field and it currently has no behaviour.'
                 format: int32
                 type: integer
               providerIDList:
@@ -1381,6 +1384,7 @@ spec:
                       description: 'UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids'
                       type: string
                   type: object
+                  x-kubernetes-map-type: atomic
                 type: array
               observedGeneration:
                 description: ObservedGeneration is the latest generation observed

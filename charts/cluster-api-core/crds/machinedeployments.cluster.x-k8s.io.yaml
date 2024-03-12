@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: capi-system/capi-serving-cert
-    controller-gen.kubebuilder.io/version: v0.11.4
+    controller-gen.kubebuilder.io/version: v0.13.0
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: machinedeployments.cluster.x-k8s.io
@@ -305,10 +305,10 @@ spec:
                               description: 'Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
                               type: string
                             name:
-                              description: 'Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
+                              description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names'
                               type: string
                             uid:
-                              description: 'UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids'
+                              description: 'UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids'
                               type: string
                           required:
                           - apiVersion
@@ -518,7 +518,7 @@ spec:
                 type: integer
             type: object
         type: object
-    served: true
+    served: false
     storage: false
     subresources:
       scale:
@@ -981,7 +981,7 @@ spec:
                 type: integer
             type: object
         type: object
-    served: true
+    served: false
     storage: false
     subresources:
       scale:
@@ -1054,9 +1054,10 @@ spec:
                 minLength: 1
                 type: string
               minReadySeconds:
-                description: Minimum number of seconds for which a newly created machine
-                  should be ready. Defaults to 0 (machine will be considered available
-                  as soon as it is ready)
+                description: MinReadySeconds is the minimum number of seconds for
+                  which a Node for a newly created machine should be ready before
+                  considering the replica available. Defaults to 0 (machine will be
+                  considered available as soon as the Node is ready)
                 format: int32
                 type: integer
               paused:
@@ -1206,7 +1207,8 @@ spec:
                         x-kubernetes-int-or-string: true
                     type: object
                   type:
-                    description: Type of deployment. Default is RollingUpdate.
+                    description: Type of deployment. Allowed values are RollingUpdate
+                      and OnDelete. The default is RollingUpdate.
                     enum:
                     - RollingUpdate
                     - OnDelete
