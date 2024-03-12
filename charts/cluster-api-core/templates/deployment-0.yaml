@@ -21,8 +21,9 @@ spec:
       containers:
       - args:
         - --leader-elect
-        - --metrics-bind-addr=localhost:8080
-        - --feature-gates=MachinePool={{ .Values.exp_machine_pool }},ClusterResourceSet={{ .Values.exp_cluster_resource_set }},ClusterTopology={{ .Values.cluster_topology }},RuntimeSDK={{ .Values.exp_runtime_sdk }},LazyRestmapper={{ .Values.exp_lazy_restmapper }}
+        - --diagnostics-address={{ .Values.capi_diagnostics_address }}
+        - --insecure-diagnostics={{ .Values.capi_insecure_diagnostics }}
+        - --feature-gates=MachinePool={{ .Values.exp_machine_pool }},ClusterResourceSet={{ .Values.exp_cluster_resource_set }},ClusterTopology={{ .Values.cluster_topology }},RuntimeSDK={{ .Values.exp_runtime_sdk }},MachineSetPreflightChecks={{ .Values.exp_machine_set_preflight_checks }}
         - --logging-format=json
         command:
         - /manager
@@ -52,6 +53,9 @@ spec:
           protocol: TCP
         - containerPort: 9440
           name: healthz
+          protocol: TCP
+        - containerPort: 8443
+          name: metrics
           protocol: TCP
         readinessProbe:
           httpGet:

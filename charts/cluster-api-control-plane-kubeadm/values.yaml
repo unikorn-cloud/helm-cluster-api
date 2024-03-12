@@ -1,4 +1,5 @@
+capi_diagnostics_address: :8443
+capi_insecure_diagnostics: false
 cluster_topology: false
 exp_kubeadm_bootstrap_format_ignition: false
-exp_lazy_restmapper: false
-image: registry.k8s.io/cluster-api/kubeadm-control-plane-controller:v1.4.3
+image: registry.k8s.io/cluster-api/kubeadm-control-plane-controller:v1.6.2
