@@ -1,8 +1,7 @@
 apiVersion: v2
-# @todo: Update this as well? Seems our internal version.
-appVersion: v1.6.2
+appVersion: v1.7.0
 description: A Helm chart for deploying cluster API.
 icon: https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.png
 name: cluster-api-control-plane-kubeadm
 type: application
-version: v0.1.11
+version: v0.1.12
