@@ -1,4 +1,5 @@
 apiVersion: v2
+# @todo: Update this as well? Seems our internal version.
 appVersion: v1.6.2
 description: A Helm chart for deploying cluster API.
 icon: https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.png
