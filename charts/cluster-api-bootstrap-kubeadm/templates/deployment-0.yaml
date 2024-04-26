@@ -28,6 +28,19 @@ spec:
         - --logging-format=json
         command:
         - /manager
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_UID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.uid
         image: '{{ .Values.image }}'
         imagePullPolicy: IfNotPresent
         livenessProbe:
