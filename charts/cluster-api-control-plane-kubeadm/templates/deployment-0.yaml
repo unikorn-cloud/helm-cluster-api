@@ -23,7 +23,7 @@ spec:
         - --leader-elect
         - --diagnostics-address={{ .Values.capi_diagnostics_address }}
         - --insecure-diagnostics={{ .Values.capi_insecure_diagnostics }}
-        - --feature-gates=ClusterTopology={{ .Values.cluster_topology }},KubeadmBootstrapFormatIgnition={{ .Values.exp_kubeadm_bootstrap_format_ignition }}
+        - --feature-gates=MachinePool={{ .Values.exp_machine_pool }},ClusterTopology={{ .Values.cluster_topology }},KubeadmBootstrapFormatIgnition={{ .Values.exp_kubeadm_bootstrap_format_ignition }}
         - --logging-format=json
         command:
         - /manager

@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: capi-system/capi-serving-cert
-    controller-gen.kubebuilder.io/version: v0.13.0
+    controller-gen.kubebuilder.io/version: v0.14.0
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: clusterresourcesetbindings.addons.cluster.x-k8s.io
@@ -34,19 +34,36 @@ spec:
     name: v1alpha3
     schema:
       openAPIV3Schema:
-        description: "ClusterResourceSetBinding lists all matching ClusterResourceSets\
-          \ with the cluster it belongs to. \n Deprecated: This type will be removed\
-          \ in one of the next releases."
+        description: 'ClusterResourceSetBinding lists all matching ClusterResourceSets
+          with the cluster it belongs to.
+
+
+
+          Deprecated: This type will be removed in one of the next releases.'
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              of an object.
+
+              Servers should convert recognized schemas to the latest internal value,
+              and
+
+              may reject unrecognized values.
+
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
             description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              object represents.
+
+              Servers may infer this from the endpoint the client submits requests
+              to.
+
+              Cannot be updated.
+
+              In CamelCase.
+
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -77,10 +94,11 @@ spec:
                               to the cluster or not.
                             type: boolean
                           hash:
-                            description: Hash is the hash of a resource's data. This
-                              can be used to decide if a resource is changed. For
-                              "ApplyOnce" ClusterResourceSet.spec.strategy, this is
-                              no-op as that strategy does not act on change.
+                            description: 'Hash is the hash of a resource''s data.
+                              This can be used to decide if a resource is changed.
+
+                              For "ApplyOnce" ClusterResourceSet.spec.strategy, this
+                              is no-op as that strategy does not act on change.'
                             type: string
                           kind:
                             description: 'Kind of the resource. Supported kinds are:
@@ -124,19 +142,36 @@ spec:
     name: v1alpha4
     schema:
       openAPIV3Schema:
-        description: "ClusterResourceSetBinding lists all matching ClusterResourceSets\
-          \ with the cluster it belongs to. \n Deprecated: This type will be removed\
-          \ in one of the next releases."
+        description: 'ClusterResourceSetBinding lists all matching ClusterResourceSets
+          with the cluster it belongs to.
+
+
+
+          Deprecated: This type will be removed in one of the next releases.'
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              of an object.
+
+              Servers should convert recognized schemas to the latest internal value,
+              and
+
+              may reject unrecognized values.
+
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
             description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              object represents.
+
+              Servers may infer this from the endpoint the client submits requests
+              to.
+
+              Cannot be updated.
+
+              In CamelCase.
+
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -167,10 +202,11 @@ spec:
                               to the cluster or not.
                             type: boolean
                           hash:
-                            description: Hash is the hash of a resource's data. This
-                              can be used to decide if a resource is changed. For
-                              "ApplyOnce" ClusterResourceSet.spec.strategy, this is
-                              no-op as that strategy does not act on change.
+                            description: 'Hash is the hash of a resource''s data.
+                              This can be used to decide if a resource is changed.
+
+                              For "ApplyOnce" ClusterResourceSet.spec.strategy, this
+                              is no-op as that strategy does not act on change.'
                             type: string
                           kind:
                             description: 'Kind of the resource. Supported kinds are:
@@ -218,13 +254,27 @@ spec:
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              of an object.
+
+              Servers should convert recognized schemas to the latest internal value,
+              and
+
+              may reject unrecognized values.
+
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
             description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              object represents.
+
+              Servers may infer this from the endpoint the client submits requests
+              to.
+
+              Cannot be updated.
+
+              In CamelCase.
+
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -255,10 +305,11 @@ spec:
                               to the cluster or not.
                             type: boolean
                           hash:
-                            description: Hash is the hash of a resource's data. This
-                              can be used to decide if a resource is changed. For
-                              "ApplyOnce" ClusterResourceSet.spec.strategy, this is
-                              no-op as that strategy does not act on change.
+                            description: 'Hash is the hash of a resource''s data.
+                              This can be used to decide if a resource is changed.
+
+                              For "ApplyOnce" ClusterResourceSet.spec.strategy, this
+                              is no-op as that strategy does not act on change.'
                             type: string
                           kind:
                             description: 'Kind of the resource. Supported kinds are:
@@ -289,7 +340,9 @@ spec:
                 type: array
               clusterName:
                 description: 'ClusterName is the name of the Cluster this binding
-                  applies to. Note: this field mandatory in v1beta2.'
+                  applies to.
+
+                  Note: this field mandatory in v1beta2.'
                 type: string
             type: object
         type: object
