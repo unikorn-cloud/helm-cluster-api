@@ -8,17 +8,17 @@ icon: https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.pn
 
 dependencies:
 - name: cluster-api-core
-  version: v0.1.11
+  version: v0.2.0
   repository: file://../cluster-api-core
 - name: cluster-api-bootstrap-kubeadm
-  version: v0.1.11
+  version: v0.2.0
   repository: file://../cluster-api-bootstrap-kubeadm
   condition: kubeadm.enabled
 - name: cluster-api-control-plane-kubeadm
-  version: v0.1.11
+  version: v0.2.0
   repository: file://../cluster-api-control-plane-kubeadm
   condition: kubeadm.enabled
 - name: cluster-api-provider-openstack
-  version: v0.1.11
+  version: v0.2.0
   repository: file://../cluster-api-provider-openstack
   condition: openstack.enabled
