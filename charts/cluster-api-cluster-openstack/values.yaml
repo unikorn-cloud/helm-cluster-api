@@ -84,7 +84,7 @@ controlPlane:
     # Control plane machine type.
     flavor: m1.large
 
-    # Ephemeral disk size in GB.  If specified this overrides the default
+    # Ephemeral disk size in GiB.  If specified this overrides the default
     # size for the flavor.
     # diskSize: 80
 

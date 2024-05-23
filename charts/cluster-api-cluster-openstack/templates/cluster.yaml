@@ -37,10 +37,9 @@ metadata:
     # Let CAPO do this in its chosen order.
     argocd.argoproj.io/sync-options: Delete=false
 spec:
-  cloudName: {{ .Values.openstack.cloud }}
   identityRef:
     name: {{ include "cloudconfig.name" . }}
-    kind: Secret
+    cloudName: {{ .Values.openstack.cloud }}
   apiServerLoadBalancer:
     enabled: true
     {{- with $api := .Values.api }}
@@ -51,14 +50,13 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
-  managedSecurityGroups: true
-  allowAllInClusterTraffic: true
-  nodeCidr: {{ .Values.network.nodeCIDR }}
-  dnsNameservers:
-    {{- range .Values.network.dnsNameservers}}
-    {{- printf "- %s" . | nindent 2 }}
-    {{- end }}
-  externalNetworkId: {{ .Values.openstack.externalNetworkID }}
+  managedSecurityGroups:
+    allowAllInClusterTraffic: true
+  managedSubnets:
+  - cidr: {{ .Values.network.nodeCIDR }}
+    dnsNameservers: {{ toJson .Values.network.dnsNameservers }}
+  externalNetwork:
+    id: {{ .Values.openstack.externalNetworkID }}
 ---
 apiVersion: v1
 kind: Secret
