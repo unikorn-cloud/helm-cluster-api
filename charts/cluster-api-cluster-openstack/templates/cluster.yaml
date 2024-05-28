@@ -19,7 +19,7 @@ spec:
         {{- end }}
     serviceDomain: "cluster.local"
   infrastructureRef:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha7
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
     kind: OpenStackCluster
     name: {{ include "openstackcluster.name" . }}
   controlPlaneRef:
@@ -27,7 +27,7 @@ spec:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     name: {{ include "kubeadmcontrolplane.name" . }}
 ---
-apiVersion: infrastructure.cluster.x-k8s.io/v1alpha7
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: OpenStackCluster
 metadata:
   name: {{ include "openstackcluster.name" . }}
@@ -37,10 +37,9 @@ metadata:
     # Let CAPO do this in its chosen order.
     argocd.argoproj.io/sync-options: Delete=false
 spec:
-  cloudName: {{ .Values.openstack.cloud }}
   identityRef:
     name: {{ include "cloudconfig.name" . }}
-    kind: Secret
+    cloudName: {{ .Values.openstack.cloud }}
   apiServerLoadBalancer:
     enabled: true
     {{- with $api := .Values.api }}
@@ -51,14 +50,13 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
-  managedSecurityGroups: true
-  allowAllInClusterTraffic: true
-  nodeCidr: {{ .Values.network.nodeCIDR }}
-  dnsNameservers:
-    {{- range .Values.network.dnsNameservers}}
-    {{- printf "- %s" . | nindent 2 }}
-    {{- end }}
-  externalNetworkId: {{ .Values.openstack.externalNetworkID }}
+  managedSecurityGroups:
+    allowAllInClusterTraffic: true
+  managedSubnets:
+  - cidr: {{ .Values.network.nodeCIDR }}
+    dnsNameservers: {{ toJson .Values.network.dnsNameservers }}
+  externalNetwork:
+    id: {{ .Values.openstack.externalNetworkID }}
 ---
 apiVersion: v1
 kind: Secret
