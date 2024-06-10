@@ -67,10 +67,9 @@ spec:
       identityRef:
         name: {{ include "cloudconfig.name" $ }}
         cloudName: {{ $.Values.openstack.cloud }}
-      flavor: {{ $pool.machine.flavor }}
+      flavor: {{ $pool.machine.flavorID }}
       image:
-        filter:
-          name: {{ $pool.machine.image }}
+        id: {{ $pool.machine.imageID }}
       {{- if $.Values.openstack.sshKeyName }}
       sshKeyName: {{ $.Values.openstack.sshKeyName }}
       {{- end }}

@@ -81,10 +81,10 @@ controlPlane:
   # Modifications to this object will trigger a control plane upgrade.
   machine:
     # Openstack image name.
-    image: ubuntu-2204-kubernetes-1.25.0
+    imageID: f810a963-437d-4a24-a972-a0bff942542b
 
     # Control plane machine type.
-    flavor: m1.large
+    flavorID: 6ac45c49-3e3b-4cdf-acbc-d98a321a92c0
 
     # Ephemeral disk size in GiB.  If specified this overrides the default
     # size for the flavor.
@@ -108,10 +108,10 @@ controlPlane:
 #    # Modifications to these objects will trigger a affected workload pool upgrades.
 #    machine:
 #      # Openstack image name.
-#      image: ubuntu-2204-kubernetes-1.25.0
+#      imageID: f810a963-437d-4a24-a972-a0bff942542b
 #
 #      # Workload machine type.
-#      flavor: m1.large
+#      flavorID: 6ac45c49-3e3b-4cdf-acbc-d98a321a92c0
 #
 #      # Ephemeral disk size in GiB.  If specified this overrides the default
 #      # size for the flavor.

@@ -101,14 +101,14 @@
 		"machine": {
 			"type": "object",
 			"required": [
-				"image",
-				"flavor"
+				"imageID",
+				"flavorID"
 			],
 			"properties": {
-				"image": {
+				"imageID": {
                                         "type": "string"
                                 },
-				"flavor": {
+				"flavorID": {
                                         "type": "string"
                                 },
                                 "disk": {
