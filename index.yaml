@@ -130,6 +130,16 @@ entries:
     version: v0.1.0
   cluster-api-cluster-openstack:
   - apiVersion: v2
+    created: "2024-06-10T13:35:17.515026055Z"
+    description: A Helm chart to deploy a Kubernetes Cluster
+    digest: 463227581220e9ba1dae6e7ca416e7da87b8787562bb1f2e0d6f54f99851fca2
+    icon: https://raw.githubusercontent.com/unikorn-cloud/helm-cluster-api/main/icons/default.png
+    name: cluster-api-cluster-openstack
+    type: application
+    urls:
+    - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-cluster-openstack-v0.4.3/cluster-api-cluster-openstack-v0.4.3.tgz
+    version: v0.4.3
+  - apiVersion: v2
     created: "2024-06-10T13:30:36.400077593Z"
     description: A Helm chart to deploy a Kubernetes Cluster
     digest: 1977b916e1e7241f9368085c56082b1f9b1257ca33107635b094b0d29f7556b0
@@ -281,4 +291,4 @@ entries:
     urls:
     - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-provider-openstack-v0.1.10/cluster-api-provider-openstack-v0.1.10.tgz
     version: v0.1.10
-generated: "2024-06-10T13:30:36.400136303Z"
+generated: "2024-06-10T13:35:17.515231209Z"
