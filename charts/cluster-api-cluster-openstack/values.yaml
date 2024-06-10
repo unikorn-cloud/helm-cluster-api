@@ -20,7 +20,9 @@ openstack:
   cloudsYAML: Y2hhbmdlIG1lIQ==
 
   # External (public) network ID.
-  externalNetworkID: b19ce45a-3278-48e4-8a0e-83100af68778
+  # If one is not specified, CAPO will use the only network it finds, otherwise
+  # it will error.
+  # externalNetworkID: b19ce45a-3278-48e4-8a0e-83100af68778
 
   # Openstack endpoint CA, base64 encoded.
   # ca: Y2hhbmdlIG1lIQ==

@@ -235,7 +235,6 @@
 			"required": [
 				"cloud",
 				"cloudsYAML",
-				"externalNetworkID",
 				"computeFailureDomain"
 			],
 			"properties": {
