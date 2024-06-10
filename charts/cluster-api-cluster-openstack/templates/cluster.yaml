@@ -55,8 +55,10 @@ spec:
   managedSubnets:
   - cidr: {{ .Values.network.nodeCIDR }}
     dnsNameservers: {{ toJson .Values.network.dnsNameservers }}
+  {{- with $net := .Values.openstack.externalNetworkID }}
   externalNetwork:
-    id: {{ .Values.openstack.externalNetworkID }}
+    id: {{ $net }}
+  {{- end }}
 ---
 apiVersion: v1
 kind: Secret
