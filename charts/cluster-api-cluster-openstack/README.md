@@ -63,16 +63,16 @@ spec:
           replicas: 3
           machine:
             version:  v1.25.4
-            image: ubu2204-v1.25.5-9d105bc5
-            flavor: g.4.standard
+            imageID: 7a517603-aa70-47a9-a6f3-c102d30e67c0
+            flavorID: 061f0cf2-2503-4005-89ed-ff1dc217874f
             diskSize: 40
         workloadPools:
           general-purpose:
             replicas: 3
             machine:
               version:  v1.25.4
-              image: ubu2204-v1.25.5-9d105bc5
-              flavor: g.4.standard
+              imageID: 7a517603-aa70-47a9-a6f3-c102d30e67c0
+              flavorID: 061f0cf2-2503-4005-89ed-ff1dc217874f
               diskSize: 100
             autoscaling:
               limits:
@@ -85,8 +85,8 @@ spec:
             replicas: 3
             machine:
               version: v1.25.4
-              image: ubu2204-v1.25.5-gpu-510.73.08-2cbfe3d7
-              flavor: g.4.highmem.a100.1g.10gb
+              imageID: 7a517603-aa70-47a9-a6f3-c102d30e67c0
+              flavorID: 061f0cf2-2503-4005-89ed-ff1dc217874f
               diskSize: 100
             autoscaling:
               limits:
