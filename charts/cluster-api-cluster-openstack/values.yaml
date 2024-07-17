@@ -45,6 +45,7 @@ openstack:
 # cluster:
   # Applies taints to all nodes on creation.  Once a node is provisioned you
   # will need to manually update these.
+  # NOTE: Cilium chart will automatically add these taints shown below
   # taints:
   # - key: node.cilium.io/agent-not-ready
   #   effect: NoSchedule
