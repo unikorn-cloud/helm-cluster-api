@@ -37,9 +37,6 @@ metadata:
   generateName: cert-manager-
   namespace: argocd
 spec:
-  destination:
-    server: ${TARGET_VCLUSTER}
-    namespace: cert-manager
   project: default
   source:
     chart: cert-manager
@@ -50,6 +47,9 @@ spec:
       parameters:
       - name: installCRDs
         value: "true"
+  destination:
+    server: ${TARGET_VCLUSTER}
+    namespace: cert-manager
   syncPolicy:
     automated:
       selfHeal: true
@@ -271,7 +271,7 @@ Add providers to allow CAPI to talk to various cloud providers.
 ### OpenStack
 
 * [Install the provider](charts/cluster-api-provider-openstack/README.md)
-* [Install a cluster](charts/cluster-api-provider-openstack/README.md)
+* [Install a cluster](charts/cluster-api-cluster-openstack/README.md)
 
 ## Developers
 

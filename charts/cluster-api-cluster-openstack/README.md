@@ -4,8 +4,8 @@
 
 ## Configuration Variables
 
-Please consult the [`values.yaml`](../cluster-api-cluster-openstack/values.yaml) file for some basic examples.
-The [`values.schema.json`](../cluster-api-cluster-openstack/values.schema.json) file documents structure, types and required fields further.
+Please consult the [`values.yaml`](values.yaml) file for some basic examples.
+The [`values.schema.json`](values.schema.json) file documents structure, types and required fields further.
 
 ## Helm
 
