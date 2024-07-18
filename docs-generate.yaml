@@ -1,0 +1,30 @@
+variables:
+- name: CAPI_CHART_VERSION
+  yaml:
+    file: charts/cluster-api/Chart.yaml
+    pointer: /version
+- name: CAPI_BOOTSTRAP_KUBEADM_CHART_VERISON
+  yaml:
+    file: charts/cluster-api-bootstrap-kubeadm/Chart.yaml
+    pointer: /version
+- name: CAPI_CONTROLPLANE_KUBEADM_CHART_VERSION
+  yaml:
+    file: charts/cluster-api-control-plane-kubeadm/Chart.yaml
+    pointer: /version
+- name: CAPI_CORE_CHART_VERSION
+  yaml:
+    file: charts/cluster-api-core/Chart.yaml
+    pointer: /version
+- name: CAPO_CHART_VERSION
+  yaml:
+    file: charts/cluster-api-cluster-openstack/Chart.yaml
+    pointer: /version
+- name: CLUSTER_OPENSTACK_CHART_VERSION
+  yaml:
+    file: charts/cluster-api-cluster-openstack/Chart.yaml
+    pointer: /version
+files:
+- in: README.md.tmpl
+  out: README.md
+- in: charts/cluster-api-cluster-openstack/README.md.tmpl
+  out: charts/cluster-api-cluster-openstack/README.md
