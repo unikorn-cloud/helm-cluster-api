@@ -58,7 +58,6 @@ spec:
         controlPlane:
           version:  v1.30.2
           replicas: 3
-          registerNodes: true
           skipKubeProxy: false
           machine:
             imageID: 7a517603-aa70-47a9-a6f3-c102d30e67c0
