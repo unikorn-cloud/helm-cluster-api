@@ -1,5 +1,5 @@
 # Update this for every tagged release.
-CHART_VERSION = v0.2.0
+CHART_VERSION = v0.2.1
 
 # Defines the versions to use for cluster API components.
 CAPI_VERSION = v1.7.4
@@ -24,7 +24,7 @@ all: cluster-api
 
 .PHONY: cluster-api
 cluster-api: $(CHARTS)
-	./generate-capi.py $(CHARTS)
+	./generate-capi.py -v $(CHART_VERSION) -c $(CAPI_VERSION) $(CHARTS)
 
 .PHONY: cluster-api-core
 cluster-api-core:

@@ -25,6 +25,10 @@ spec:
           node-labels: {{- include "openstack.nodelabels.control-plane" . | nindent 12 }}
         taints:
           {{- include "openstack.taints.control-plane" . | nindent 8 }}
+      {{- if .Values.controlPlane.kubeadmSkipPhases }}
+      skipPhases:
+        {{- toYaml $.Values.controlPlane.kubeadmSkipPhases | nindent 6 }}
+      {{- end }}
     joinConfiguration:
       nodeRegistration:
         name: {{ "'{{ local_hostname }}'" }}

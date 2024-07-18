@@ -312,6 +312,12 @@
 				},
 				"machine": {
 					"$ref": "#/$defs/machine"
+				},
+				"kubeadmSkipPhases": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
 				}
 			}
 		},

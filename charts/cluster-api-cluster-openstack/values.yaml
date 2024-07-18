@@ -73,10 +73,20 @@ openstack:
 # Modifications to this object will trigger a control plane upgrade.
 controlPlane:
   # Version of Kubernetes, should match that installed on the base images.
-  version: v1.25.2
+  version: v1.30.2
 
   # Number of control plane machines.
   replicas: 3
+
+  # kubeadm uses phases to init a node.
+  # https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init-phase
+  # Any phase can be skipped by adding --skip-phase NAME to the kubeadm init command.
+  # To skip kubeadm phases in Unikorn, you can supply a list below
+  # WARNING: Skipping phases may cause cluster instability so make sure you know what you're skipping before enabling this!
+  # List of Phases: https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/
+  kubeadmSkipPhases: []
+  #  - addon/kube-proxy
+  #  - addon/coredns
 
   # Defines the physical properties of a machine.
   # Modifications to this object will trigger a control plane upgrade.
@@ -84,8 +94,8 @@ controlPlane:
     # Openstack image name.
     imageID: f810a963-437d-4a24-a972-a0bff942542b
 
-    # Control plane machine type.
-    flavorID: 6ac45c49-3e3b-4cdf-acbc-d98a321a92c0
+    # Control plane machine type (This is the name of the flavor rather than the actual ID).
+    flavorID: some-flavor-name
 
     # Ephemeral disk size in GiB.  If specified this overrides the default
     # size for the flavor.
@@ -100,7 +110,7 @@ controlPlane:
 #  default:
 #    # Version of Kubernetes, should match that installed on the base images
 #    # in order to improve provisioning and scaling time.
-#    version: v1.25.2
+#    version: v1.30.2
 #
 #    # Number of workload machines.
 #    replicas: 3
@@ -111,8 +121,8 @@ controlPlane:
 #      # Openstack image name.
 #      imageID: f810a963-437d-4a24-a972-a0bff942542b
 #
-#      # Workload machine type.
-#      flavorID: 6ac45c49-3e3b-4cdf-acbc-d98a321a92c0
+#      # Workload machine type (This is the name of the flavor rather than the actual ID).
+#      flavorID: some-flavor-name
 #
 #      # Ephemeral disk size in GiB.  If specified this overrides the default
 #      # size for the flavor.
