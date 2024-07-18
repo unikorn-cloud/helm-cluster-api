@@ -312,6 +312,9 @@
 				},
 				"machine": {
 					"$ref": "#/$defs/machine"
+				},
+				"skipKubeProxy": {
+					"type": "boolean"
 				}
 			}
 		},
