@@ -6,7 +6,7 @@
 ```shell
 helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm install cluster-api-provider-openstack --version v0.2.0
+helm install cluster-api-provider-openstack unikorn-cloud-capi/cluster-api-provider-openstack --version v0.2.0
 ```
 </details>
 
@@ -28,7 +28,8 @@ spec:
     chart: cluster-api-provider-openstack
     targetRevision: v0.2.0
   destination:
-    server: ${TARGET_CLUSTER}
+    server: https://kubernetes.default.svc
+    namespace: foo
   ignoreDifferences:
     - group: apiextensions.k8s.io
       kind: CustomResourceDefinition
@@ -39,6 +40,7 @@ spec:
       selfHeal: true
     syncOptions:
       - RespectIgnoreDifferences=true
+      - CreateNamespace=true
 ```
 </details>
 

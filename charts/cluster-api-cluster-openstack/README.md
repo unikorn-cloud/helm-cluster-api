@@ -28,7 +28,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    server: ${TARGET_CLUSTER}
+    server: https://kubernetes.default.svc
     namespace: foo
   project: default
   source:

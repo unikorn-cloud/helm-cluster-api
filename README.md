@@ -48,7 +48,7 @@ spec:
       - name: installCRDs
         value: "true"
   destination:
-    server: ${TARGET_VCLUSTER}
+    server: https://kubernetes.default.svc
     namespace: cert-manager
   syncPolicy:
     automated:
@@ -89,7 +89,7 @@ spec:
     chart: cluster-api
     targetRevision: v0.2.0
   destination:
-    server: ${TARGET_CLUSTER}
+    server: https://kubernetes.default.svc
     namespace: foo
   ignoreDifferences:
   # Aggregated roles are mangically updated by the API.
@@ -149,7 +149,7 @@ spec:
     chart: cluster-api-core
     targetRevision: v0.2.0
   destination:
-    server: ${TARGET_CLUSTER}
+    server: https://kubernetes.default.svc
     namespace: foo
   ignoreDifferences:
   # Aggregated roles are mangically updated by the API.
@@ -200,7 +200,7 @@ spec:
     chart: cluster-api-bootstrap-kubeadm
     targetRevision: v0.2.0
   destination:
-    server: ${TARGET_CLUSTER}
+    server: https://kubernetes.default.svc
     namespace: foo
   ignoreDifferences:
   - group: apiextensions.k8s.io
@@ -244,7 +244,7 @@ spec:
     chart: cluster-api-control-plane-kubeadm
     targetRevision: v0.2.0
   destination:
-    server: ${TARGET_CLUSTER}
+    server: https://kubernetes.default.svc
     namespace: foo
   ignoreDifferences:
   - group: rbac.authorization.k8s.io
