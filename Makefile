@@ -24,7 +24,7 @@ all: cluster-api
 
 .PHONY: cluster-api
 cluster-api: $(CHARTS)
-	./generate-capi.py $(CHARTS)
+	./generate-capi.py -v $(CHART_VERSION) -c $(CAPI_VERSION) $(CHARTS)
 
 .PHONY: cluster-api-core
 cluster-api-core:

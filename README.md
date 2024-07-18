@@ -28,7 +28,7 @@ There is a top level chart-of-charts that will just install everything as a big 
 ```shell
 helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm upgrade --install cluster-api unikorn-cloud-capi/cluster-api -n cluster-api --create-namespace --version v0.2.0
+helm upgrade --install cluster-api unikorn-cloud-capi/cluster-api -n cluster-api --create-namespace --version v0.2.1
 ```
 </details>
 
@@ -47,7 +47,7 @@ spec:
   source:
     repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api
-    targetRevision: v0.2.0
+    targetRevision: v0.2.1
   destination:
     server: https://kubernetes.default.svc
     namespace: cluster-api
