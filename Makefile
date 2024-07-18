@@ -50,3 +50,8 @@ test:
 		helm lint --strict charts/$${chart}; \
 		helm template charts/$${chart} > /dev/null; \
 	done
+
+.PHONY: docs
+docs:
+	@go install github.com/unikorn-cloud/core/hack/docs-generate@main
+	docs-generate

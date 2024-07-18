@@ -1,5 +1,3 @@
-<!-- THIS FILE IS AUTO-GENERATED. DO NOT EDIT -->
-
 # Installing an OpenStack Cluster
 
 ... is quite involved!
@@ -36,7 +34,7 @@ spec:
   source:
     repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-cluster-openstack
-    targetRevision: v0.4.3
+    targetRevision: {{ .CLUSTER_OPENSTACK_CHART_VERSION }}
     helm:
       releaseName: foo
       # Remove the default work queue.
