@@ -78,8 +78,15 @@ controlPlane:
   # Number of control plane machines.
   replicas: 3
 
-  # Skips the kube proxy init phase in kubeadm.
-  skipKubeProxy: false
+  # kubeadm uses phases to init a node.
+  # https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init-phase
+  # Any phase can be skipped by adding --skip-phase NAME to the kubeadm init command.
+  # To skip kubeadm phases in Unikorn, you can supply a list below
+  # WARNING: Skipping phases may cause cluster instability so make sure you know what you're skipping before enabling this!
+  # List of Phases: https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/
+  kubeadmSkipPhases: []
+  #  - addon/kube-proxy
+  #  - addon/coredns
 
   # Defines the physical properties of a machine.
   # Modifications to this object will trigger a control plane upgrade.

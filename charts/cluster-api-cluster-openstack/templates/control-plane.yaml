@@ -9,7 +9,6 @@ metadata:
     controlplane.cluster.x-k8s.io/skip-kube-proxy: "{{ .Values.controlPlane.skipKubeProxy }}"
     # Let CAPO do this in its chosen order.
     argocd.argoproj.io/sync-options: Delete=false
-
 spec:
   version: "{{ .Values.controlPlane.version }}"
   replicas: {{ .Values.controlPlane.replicas }}
@@ -27,9 +26,9 @@ spec:
           node-labels: {{- include "openstack.nodelabels.control-plane" . | nindent 12 }}
         taints:
           {{- include "openstack.taints.control-plane" . | nindent 8 }}
-      {{- if .Values.controlPlane.skipKubeProxy }}
+      {{- if .Values.controlPlane.kubeadmSkipPhases }}
       skipPhases:
-        - addon/kube-proxy
+        {{- toYaml $.Values.controlPlane.kubeadmSkipPhases | nindent 6 }}
       {{- end }}
     joinConfiguration:
       nodeRegistration:

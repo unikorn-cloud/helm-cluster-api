@@ -313,8 +313,11 @@
 				"machine": {
 					"$ref": "#/$defs/machine"
 				},
-				"skipKubeProxy": {
-					"type": "boolean"
+				"kubeadmSkipPhases": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
 				}
 			}
 		},
