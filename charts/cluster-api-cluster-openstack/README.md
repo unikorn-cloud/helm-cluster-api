@@ -1,6 +1,6 @@
 # Installing an OpenStack Cluster
 
-... is quite involved!  
+... is quite involved!
 
 ## Configuration Variables
 
@@ -20,6 +20,7 @@ This is the only supported method of operation.
 Here's an example application:
 
 ```yaml
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -27,13 +28,13 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    server: kubernetes.default.svc
+    server: https://kubernetes.default.svc
     namespace: foo
   project: default
   source:
     repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-cluster-openstack
-    targetRevision: v0.1.2
+    targetRevision: v0.4.3
     helm:
       releaseName: foo
       # Remove the default work queue.
@@ -49,28 +50,24 @@ spec:
           region: en-west-1
           failureDomain: eu-west-1a
           externalNetworkID: dadfef54-d1c5-447a-8933-f515eeadd822
-        cluster:
-          taints:
-          - key: node.cilium.io/agent-not-ready
-            effect: NoSchedule
-            value: 'true'
         api:
           allowList:
           - 123.45.67.89
           certificateSANs:
           - kubernetes.my-domain.com
         controlPlane:
+          version:  v1.30.2
           replicas: 3
+          skipKubeProxy: false
           machine:
-            version:  v1.25.4
             imageID: 7a517603-aa70-47a9-a6f3-c102d30e67c0
             flavorID: 061f0cf2-2503-4005-89ed-ff1dc217874f
             diskSize: 40
         workloadPools:
           general-purpose:
             replicas: 3
+            version:  v1.30.2
             machine:
-              version:  v1.25.4
               imageID: 7a517603-aa70-47a9-a6f3-c102d30e67c0
               flavorID: 061f0cf2-2503-4005-89ed-ff1dc217874f
               diskSize: 100
@@ -82,9 +79,9 @@ spec:
                 cpu: 4
                 memory: 16G
           gpu:
+            version: v1.30.2
             replicas: 3
             machine:
-              version: v1.25.4
               imageID: 7a517603-aa70-47a9-a6f3-c102d30e67c0
               flavorID: 061f0cf2-2503-4005-89ed-ff1dc217874f
               diskSize: 100
@@ -119,7 +116,7 @@ See below for more details.
 
 ### Getting Working Cluster
 
-To acheive a working cluster that is correctly scaled and works, you will also need to concurrently install:
+To achieve a working cluster that is correctly scaled and works, you will also need to concurrently install:
 
 * A CNI
 * [The Openstack cloud provider](https://github.com/kubernetes/cloud-provider-openstack)

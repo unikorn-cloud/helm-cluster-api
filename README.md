@@ -2,13 +2,13 @@
 
 ## Why?
 
-`clusterctl` is very opinionated, it will pull down some kustomize generated maifests, then do some environment substitution on them.
+`clusterctl` is very opinionated, it will pull down some kustomize generated manifests, then do some environment substitution on them.
 This isn't compatible with ArgoCD for example, hence this project.
 
 ## How
 
 In simple terms, we run `kubectl kustomize`, chop up the manifests and auto generate templates.
-When we encounter one of the annoying evironment variables, we replace it with Go templating, then add the replacement into `values.yaml`.
+When we encounter one of the annoying environment variables, we replace it with Go templating, then add the replacement into `values.yaml`.
 
 ## Deploying Prerequisites
 
@@ -22,7 +22,7 @@ This chart requires the following to be installed on the target cluster first:
 ```shell
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
-helm install cert-manager jetstack/cert-manager --version v1.10.1 --namespace cert-manager --create-namespace
+helm install cert-manager jetstack/cert-manager --version v1.15.1 --namespace cert-manager --create-namespace --set crds.enabled=true
 ```
 </details>
 
@@ -30,6 +30,7 @@ helm install cert-manager jetstack/cert-manager --version v1.10.1 --namespace ce
 <summary>ArgoCD</summary>
 
 ```yaml
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -40,14 +41,14 @@ spec:
   source:
     chart: cert-manager
     repoURL: https://charts.jetstack.io
-    targetRevision: v1.10.1
+    targetRevision: v1.15.1
     helm:
       releaseName: cert-manager
       parameters:
       - name: installCRDs
-        value: true
+        value: "true"
   destination:
-    name: ${TARGET_VCLUSTER}
+    server: https://kubernetes.default.svc
     namespace: cert-manager
   syncPolicy:
     automated:
@@ -67,7 +68,7 @@ There is a top level chart-of-charts that will just install everything as a big 
 ```shell
 helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm install unikorn-cloud-capi/cluster-api --version v0.1.1
+helm install cluster-api unikorn-cloud-capi/cluster-api --version v0.2.0
 ```
 </details>
 
@@ -75,6 +76,7 @@ helm install unikorn-cloud-capi/cluster-api --version v0.1.1
 <summary>ArgoCD</summary>
 
 ```yaml
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -85,9 +87,10 @@ spec:
   source:
     repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api
-    targetRevision: v0.1.9
+    targetRevision: v0.2.0
   destination:
-    server: https://172.18.255.200:443
+    server: https://kubernetes.default.svc
+    namespace: foo
   ignoreDifferences:
   # Aggregated roles are mangically updated by the API.
   - group: rbac.authorization.k8s.io
@@ -125,7 +128,7 @@ You may want to be a little less gung-ho and deploy the pieces as separate appli
 ```shell
 helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm install unikorn-cloud-capi/cluster-api-core --version v0.1.1
+helm install cluster-api-core unikorn-cloud-capi/cluster-api-core --version v0.2.0
 ```
 </details>
 
@@ -133,6 +136,7 @@ helm install unikorn-cloud-capi/cluster-api-core --version v0.1.1
 <summary>ArgoCD</summary>
 
 ```yaml
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -143,9 +147,10 @@ spec:
   source:
     repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-core
-    targetRevision: v0.1.9
+    targetRevision: v0.2.0
   destination:
-    server: https://172.18.255.200:443
+    server: https://kubernetes.default.svc
+    namespace: foo
   ignoreDifferences:
   # Aggregated roles are mangically updated by the API.
   - group: rbac.authorization.k8s.io
@@ -174,7 +179,7 @@ spec:
 ```shell
 helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm install unikorn-cloud-capi/cluster-api-bootstrap-kubeadm --version v0.1.1
+helm install cluster-api-bootstrap-kubeadm unikorn-cloud-capi/cluster-api-bootstrap-kubeadm --version v0.2.0
 ```
 </details>
 
@@ -182,6 +187,7 @@ helm install unikorn-cloud-capi/cluster-api-bootstrap-kubeadm --version v0.1.1
 <summary>ArgoCD</summary>
 
 ```yaml
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -192,9 +198,10 @@ spec:
   source:
     repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-bootstrap-kubeadm
-    targetRevision: v0.1.9
+    targetRevision: v0.2.0
   destination:
-    server: https://172.18.255.200:443
+    server: https://kubernetes.default.svc
+    namespace: foo
   ignoreDifferences:
   - group: apiextensions.k8s.io
     jsonPointers:
@@ -216,7 +223,7 @@ spec:
 ```shell
 helm repo add unikorn-cloud-capi https://unikorn-cloud.github.io/helm-cluster-api
 helm repo update
-helm install unikorn-cloud-capi/cluster-api-control-plane-kubeadm --version v0.1.1
+helm install cluster-api-control-plane-kubeadm unikorn-cloud-capi/cluster-api-control-plane-kubeadm --version v0.2.0
 ```
 </details>
 
@@ -224,6 +231,7 @@ helm install unikorn-cloud-capi/cluster-api-control-plane-kubeadm --version v0.1
 <summary>ArgoCD</summary>
 
 ```yaml
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -234,9 +242,10 @@ spec:
   source:
     repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-control-plane-kubeadm
-    targetRevision: v0.1.9
+    targetRevision: v0.2.0
   destination:
-    server: https://172.18.255.200:443
+    server: https://kubernetes.default.svc
+    namespace: foo
   ignoreDifferences:
   - group: rbac.authorization.k8s.io
     jsonPointers:
