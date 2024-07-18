@@ -17,7 +17,7 @@ variables:
     pointer: /version
 - name: CAPO_CHART_VERSION
   yaml:
-    file: charts/cluster-api-cluster-openstack/Chart.yaml
+    file: charts/cluster-api-provider-openstack/Chart.yaml
     pointer: /version
 - name: CLUSTER_OPENSTACK_CHART_VERSION
   yaml:
@@ -26,5 +26,7 @@ variables:
 files:
 - in: README.md.tmpl
   out: README.md
+- in: README.provider-openstack.md.tmpl
+  out: README.provider-openstack.md
 - in: charts/cluster-api-cluster-openstack/README.md.tmpl
   out: charts/cluster-api-cluster-openstack/README.md
