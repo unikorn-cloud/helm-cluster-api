@@ -12,11 +12,6 @@ The resource names are common all over the place, so define in a canonical locat
 */}}
 {{- $pool_name := printf "%s-pool-%s" $.Release.Name ( $name | sha256sum | trunc 8 ) }}
 {{- $pool_name_discriminated := printf "%s-pool-%s-%s"  $.Release.Name ( $name | sha256sum | trunc 8 ) ( include "openstack.discriminator.workload" $context ) }}
-
-{{- if $values.legacyResourceNames }}
-  {{- $pool_name = printf "%v-pool-%v" $.Release.Name $name }}
-  {{- $pool_name_discriminated = printf "%v-pool-%v-%v" $.Release.Name $name (include "openstack.discriminator.workload" $context) }}
-{{- end }}
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
@@ -39,7 +34,7 @@ spec:
   template:
     spec:
       clusterName: {{ include "cluster.name" $ }}
-      version: "{{ $pool.version }}"
+      version: "{{ $.Values.version }}"
       failureDomain: {{ include "openstack.failureDomain.compute.workload" $context }}
       bootstrap:
         configRef:

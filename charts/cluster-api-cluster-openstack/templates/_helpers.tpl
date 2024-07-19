@@ -16,14 +16,6 @@ dev/staging/production CAPI instances.
 {{- printf "%s-cloud-config" .Release.Name }}
 {{- end }}
 
-{{- define "kubeadmcontrolplane.name" }}
-{{- if .Values.legacyResourceNames }}
-  {{- printf "%s-control-plane" .Release.Name }}
-{{- else }}
-  {{- .Release.Name }}
-{{- end }}
-{{- end }}
-
 {{/*
 The machine templates are a bit special in that their names will directly
 influence the hostnames of the nodes.

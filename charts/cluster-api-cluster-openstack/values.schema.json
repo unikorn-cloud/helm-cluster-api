@@ -125,14 +125,10 @@
 		"workloadMachineSet": {
 			"type": "object",
 			"required": [
-				"version",
 				"replicas",
 				"machine"
 			],
 			"properties": {
-				"version": {
-                                        "$ref": "#/$defs/semanticVersion"
-                                },
 				"replicas": {
 					"$ref": "#/$defs/nonNegativeNumber"
 				},
@@ -218,17 +214,18 @@
 	},
 	"type": "object",
 	"required": [
+		"version",
 		"labelDomain",
 		"openstack",
 		"controlPlane",
 		"network"
 	],
 	"properties": {
+		"version": {
+			"$ref": "#/$defs/semanticVersion"
+		},
 		"labelDomain": {
 			"type": "string"
-		},
-		"legacyResourceNames": {
-			"type": "boolean"
 		},
 		"openstack": {
 			"type:": "object",
@@ -299,14 +296,10 @@
                 "controlPlane": {
 			"type": "object",
 			"required": [
-				"version",
 				"replicas",
 				"machine"
 			],
 			"properties": {
-				"version": {
-                                        "$ref": "#/$defs/semanticVersion"
-                                },
 				"replicas": {
 					"$ref": "#/$defs/nonNegativeNumber"
 				},
