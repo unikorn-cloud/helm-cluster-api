@@ -1,13 +1,10 @@
 # Label domain for implicit labels defined in this chart.
 labelDomain: unikorn-cloud.org
 
-# Legacy resource names are very easy to go over the 63 character resource name
-# limit as you can imagine a 53 character release concatenated with an arbitrary
-# sized pool name, and a random instance ID.  With this set to false, we'll put
-# tainted inputs through SHA2 and extract an 8 character substring (that's still
-# 4 billion possible outcomes).  Try to kee the release name in the ~20 character
-# range to avoid overflows (if this means hashing, do it).
-legacyResourceNames: false
+# Version of Kubernetes, should match that pre-installed on the base images
+# otherwise you'll have to pay a start-up penalty as kubeadm downloads the
+# images.
+version: v1.30.2
 
 # OpenStack specific configuration.
 # Contains credentials for the cloud, networking options and other
@@ -72,9 +69,6 @@ openstack:
 # Control plane topology.
 # Modifications to this object will trigger a control plane upgrade.
 controlPlane:
-  # Version of Kubernetes, should match that installed on the base images.
-  version: v1.30.2
-
   # Number of control plane machines.
   replicas: 3
 
@@ -108,10 +102,6 @@ controlPlane:
 # workloadPools:
 #  # Pool name
 #  default:
-#    # Version of Kubernetes, should match that installed on the base images
-#    # in order to improve provisioning and scaling time.
-#    version: v1.30.2
-#
 #    # Number of workload machines.
 #    replicas: 3
 #

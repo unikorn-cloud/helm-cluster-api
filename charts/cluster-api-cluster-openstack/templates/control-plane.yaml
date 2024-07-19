@@ -2,14 +2,14 @@
 kind: KubeadmControlPlane
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 metadata:
-  name: {{ include "kubeadmcontrolplane.name" . }}
+  name: {{ .Release.Name }}
   labels:
     {{- include "openstackcluster.labels" . | nindent 4 }}
   annotations:
     # Let CAPO do this in its chosen order.
     argocd.argoproj.io/sync-options: Delete=false
 spec:
-  version: "{{ .Values.controlPlane.version }}"
+  version: "{{ .Values.version }}"
   replicas: {{ .Values.controlPlane.replicas }}
   machineTemplate:
     infrastructureRef:
