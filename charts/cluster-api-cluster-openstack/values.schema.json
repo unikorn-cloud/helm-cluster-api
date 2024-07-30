@@ -340,7 +340,10 @@
                                 },
                                 "dnsNameservers": {
 					"$ref": "#/$defs/nonEmptyIPV4List"
-                                }
+                                },
+				"networkID": {
+					"type": "string"
+				}
 			}
 		}
 	}
