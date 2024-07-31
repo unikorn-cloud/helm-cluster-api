@@ -100,5 +100,6 @@ spec:
         {{- end }}
       {{- end }}
       {{- if .Values.controlPlane.machine.serverGroupID }}
-      serverGroupID: {{ .Values.controlPlane.machine.serverGroupID }}
+      serverGroup:
+        id: {{ .Values.controlPlane.machine.serverGroupID }}
       {{- end }}
