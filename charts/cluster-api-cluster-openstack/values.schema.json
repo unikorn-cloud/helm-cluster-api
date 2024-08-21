@@ -341,8 +341,20 @@
                                 "dnsNameservers": {
 					"$ref": "#/$defs/nonEmptyIPV4List"
                                 },
-				"networkID": {
-					"type": "string"
+				"provider": {
+					"type": "object",
+					"required": [
+						"networkID",
+						"subnetID"
+					],
+					"properties": {
+						"networkID": {
+							"type": "string"
+						},
+						"subnetID": {
+							"type": "string"
+						}
+					}
 				}
 			}
 		}

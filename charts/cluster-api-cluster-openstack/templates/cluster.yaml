@@ -52,13 +52,16 @@ spec:
     {{- end }}
   managedSecurityGroups:
     allowAllInClusterTraffic: true
-  {{- if .Values.network.networkID }}
+  {{- if .Values.network.provider }}
   network:
-    id: {{ .Values.network.networkID }}
-  {{- end }}
+    id: {{ .Values.network.provider.networkID }}
+  subnets:
+  - id: {{ .Values.network.provider.subnetID }}
+  {{- else }}
   managedSubnets:
   - cidr: {{ .Values.network.nodeCIDR }}
     dnsNameservers: {{ toJson .Values.network.dnsNameservers }}
+  {{- end }}
   {{- with $net := .Values.openstack.externalNetworkID }}
   externalNetwork:
     id: {{ $net }}
