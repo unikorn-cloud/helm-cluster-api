@@ -52,6 +52,10 @@ spec:
     {{- end }}
   managedSecurityGroups:
     allowAllInClusterTraffic: true
+  {{- if .Values.network.networkID }}
+  network:
+    id: {{ .Values.network.networkID }}
+  {{- end }}
   managedSubnets:
   - cidr: {{ .Values.network.nodeCIDR }}
     dnsNameservers: {{ toJson .Values.network.dnsNameservers }}

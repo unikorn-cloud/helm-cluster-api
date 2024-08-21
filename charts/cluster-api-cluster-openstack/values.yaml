@@ -188,3 +188,8 @@ network:
   # DNS nameservers to use.
   dnsNameservers:
   - 8.8.8.8
+
+  # If specified defines an existing nwtork to use, if not defined a network
+  # will be created by CAPO.  This allows you to use non-standard network
+  # types e.g. a VLAN to be used for baremetal nodes.
+  # networkID: 8f526b54-fab3-435d-b4b3-f65fd8474b8a
