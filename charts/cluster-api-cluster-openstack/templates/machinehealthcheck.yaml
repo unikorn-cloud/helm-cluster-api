@@ -10,7 +10,8 @@ metadata:
 spec:
   clusterName: {{ include "cluster.name" . }}
   maxUnhealthy: 50%
-  nodeStartupTimeout: 10m0s
+  # Note this is really relaxed because of ironic taking forever.
+  nodeStartupTimeout: 2h0m0s
   selector:
     matchLabels:
       cluster.x-k8s.io/cluster-name: {{ include "cluster.name" . }}
