@@ -36,7 +36,7 @@ spec:
   source:
     repoURL: https://unikorn-cloud.github.io/helm-cluster-api
     chart: cluster-api-cluster-openstack
-    targetRevision: v0.5.4
+    targetRevision: v0.5.5
     helm:
       releaseName: foo
       # Remove the default work queue.
