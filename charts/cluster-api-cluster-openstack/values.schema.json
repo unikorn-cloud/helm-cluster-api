@@ -355,6 +355,47 @@
 							"type": "string"
 						}
 					}
+				},
+				"securityGroupRules": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [
+							"name",
+							"direction"
+						],
+						"properties": {
+							"name": {
+								"type": "string"
+							},
+							"direction": {
+								"type": "string",
+								"enum": [
+									"ingress",
+									"egress"
+								]
+							},
+							"etherType": {
+								"type": "string",
+								"enum": [
+									"IPv4",
+									"IPv6"
+								]
+							},
+							"protocol": {
+								"type": "string",
+								"enum": [
+									"TCP"
+								]
+							},
+							"portRangeMin": {
+								"type": "integer"
+							},
+							"portRangeMax": {
+								"type": "integer"
+							}
+						}
+					}
 				}
 			}
 		}

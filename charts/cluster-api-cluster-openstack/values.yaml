@@ -196,3 +196,12 @@ network:
   # provider:
   #   networkID: 8f526b54-fab3-435d-b4b3-f65fd8474b8a
   #   subnetID: e3b15dd0-17e4-47c0-bc6c-1b8ea1f1018f
+
+  # If specified these security group rules are added to all nodes.
+  # securityGroupRules:
+  # - name: ssh-ingress
+  #   direction: ingress
+  #   etherType: IPv4
+  #   protocol: TCP
+  #   portRangeMin: 22
+  #   portRangeMax: 22
