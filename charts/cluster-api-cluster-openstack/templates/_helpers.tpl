@@ -94,7 +94,11 @@ Workload failure domain.
 Workload volume failure domain.
 */}}
 {{- define "openstack.failureDomain.volume.workload" -}}
-{{ .pool.machine.disk.failureDomain | default .values.openstack.volumeFailureDomain }}
+{{- if .pool.machine.disk.failureDomain -}}
+{{ .pool.machine.disk.failureDomain }}
+{{- else if .values.openstack.volumeFailureDomain -}}
+{{ .values.openstack.volumeFailureDomain }}
+{{- end }}
 {{- end }}
 
 {{/*

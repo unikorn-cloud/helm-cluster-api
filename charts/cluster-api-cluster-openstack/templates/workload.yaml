@@ -70,8 +70,11 @@ spec:
       {{- end }}
       {{- with $disk := $pool.machine.disk }}
       rootVolume:
-        availabilityZone: {{ include "openstack.failureDomain.volume.workload" $context }}
         sizeGiB: {{ $disk.size }}
+        {{- with $availabilityZone := (include "openstack.failureDomain.volume.workload" $context) }}
+        availabilityZone:
+          name: {{ $availabilityZone }}
+        {{- end }}
       {{- end }}
       {{- with $cluster := $.Values.cluster -}}
         {{- with $metadata := $cluster.serverMetadata -}}
