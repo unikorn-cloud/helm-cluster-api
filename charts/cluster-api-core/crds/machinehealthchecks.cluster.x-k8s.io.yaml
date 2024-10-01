@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: capi-system/capi-serving-cert
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: machinehealthchecks.cluster.x-k8s.io
@@ -12,7 +12,6 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
         service:
           name: capi-webhook-service
           namespace: capi-system
@@ -214,11 +213,13 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: atomic
                       required:
                       - key
                       - operator
                       type: object
                     type: array
+                    x-kubernetes-list-type: atomic
                   matchLabels:
                     additionalProperties:
                       type: string
@@ -560,11 +561,13 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: atomic
                       required:
                       - key
                       - operator
                       type: object
                     type: array
+                    x-kubernetes-list-type: atomic
                   matchLabels:
                     additionalProperties:
                       type: string
@@ -793,7 +796,13 @@ spec:
                 description: 'Any further remediation is only allowed if at most "MaxUnhealthy"
                   machines selected by
 
-                  "selector" are not healthy.'
+                  "selector" are not healthy.
+
+
+
+                  Deprecated: This field is deprecated and is going to be removed
+                  in the next apiVersion. Please see https://github.com/kubernetes-sigs/cluster-api/issues/10722
+                  for more details.'
                 x-kubernetes-int-or-string: true
               nodeStartupTimeout:
                 description: 'NodeStartupTimeout allows to set the maximum time for
@@ -933,11 +942,13 @@ spec:
                           items:
                             type: string
                           type: array
+                          x-kubernetes-list-type: atomic
                       required:
                       - key
                       - operator
                       type: object
                     type: array
+                    x-kubernetes-list-type: atomic
                   matchLabels:
                     additionalProperties:
                       type: string
@@ -982,7 +993,6 @@ spec:
                   - timeout
                   - type
                   type: object
-                minItems: 1
                 type: array
               unhealthyRange:
                 description: 'Any further remediation is only allowed if the number
@@ -994,13 +1004,18 @@ spec:
 
                   (a) there are at least 3 unhealthy machines (and)
 
-                  (b) there are at most 5 unhealthy machines'
+                  (b) there are at most 5 unhealthy machines
+
+
+
+                  Deprecated: This field is deprecated and is going to be removed
+                  in the next apiVersion. Please see https://github.com/kubernetes-sigs/cluster-api/issues/10722
+                  for more details.'
                 pattern: ^\[[0-9]+-[0-9]+\]$
                 type: string
             required:
             - clusterName
             - selector
-            - unhealthyConditions
             type: object
           status:
             description: Most recently observed status of MachineHealthCheck resource
