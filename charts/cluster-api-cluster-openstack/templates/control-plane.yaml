@@ -76,7 +76,7 @@ metadata:
 spec:
   template:
     spec:
-      flavor: {{ .Values.controlPlane.machine.flavorID }}
+      flavorID: {{ .Values.controlPlane.machine.flavorID }}
       image:
         id: {{ .Values.controlPlane.machine.imageID }}
       {{- if .Values.openstack.sshKeyName }}
