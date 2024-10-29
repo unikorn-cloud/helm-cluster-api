@@ -138,6 +138,11 @@ controlPlane:
 #    - path: /etc/cat
 #      content: bWVvdw==
 #
+#    # Additional configuration to be passed to the kubelet can be specifed here
+#    kubelet:
+#      # For example:
+#      serializeImagePulls: "false"
+#
 #    # Enable or disable cluster autoscaling.
 #    # This object is considered immutable.
 #    autoscaling:

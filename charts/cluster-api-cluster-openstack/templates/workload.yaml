@@ -107,6 +107,15 @@ spec:
         path: {{ $file.path }}
         permissions: "0600"
       {{- end }}
+      {{- with $config := $pool.kubelet -}}
+      {{ $_ := set $config "apiVersion" "kubelet.config.k8s.io/v1beta1" -}}
+      {{ $_ := set $config "kind" "KubeletConfiguration" }}
+      - path: /etc/kubernetes/patches/kubeletconfiguration0+strategic.json
+        owner: "root:root"
+        permissions: "0644"
+        content: |
+          {{ $config | toJson }}
+      {{- end }}
       joinConfiguration:
         nodeRegistration:
           name: {{ "'{{ local_hostname }}'" }}
@@ -115,4 +124,8 @@ spec:
             node-labels: {{- include "openstack.nodelabels.workload" $context | nindent 14 }}
           taints:
             {{- include "openstack.taints.workload" $ | nindent 10 }}
+        {{- if $pool.kubelet }}
+        patches:
+          directory: /etc/kubernetes/patches
+        {{- end }}
 {{- end }}
