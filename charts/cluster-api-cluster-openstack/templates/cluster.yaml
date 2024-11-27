@@ -23,7 +23,7 @@ spec:
     kind: OpenStackCluster
     name: {{ include "openstackcluster.name" . }}
   controlPlaneRef:
-    kind: KubeadmControlPlane
+    kind: KamajiControlPlane
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     name: {{ .Release.Name }}
 ---
@@ -41,15 +41,9 @@ spec:
     name: {{ include "cloudconfig.name" . }}
     cloudName: {{ .Values.openstack.cloud }}
   apiServerLoadBalancer:
-    enabled: true
-    {{- with $api := .Values.api }}
-      {{- with $allowList := $api.allowList }}
-        {{- "allowedCidrs:" | nindent 4 }}
-        {{- range $allowList }}
-          {{- printf "- %s" . | nindent 4 }}
-        {{- end }}
-      {{- end }}
-    {{- end }}
+    enabled: false
+  disableAPIServerFloatingIP: true
+  apiServerFixedIP: ""
   managedSecurityGroups:
     allowAllInClusterTraffic: true
   {{- if .Values.network.securityGroupRules }}
