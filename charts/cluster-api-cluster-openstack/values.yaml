@@ -179,15 +179,16 @@ network:
 
   # Network prefixes service VIPs will be allocated from.
   serviceCIDRs:
-  - 172.16.0.0/12
+  - 10.43.0.0/16
 
   # Network prefixes pods will be allocated from.
   podCIDRs:
-  - 10.0.0.0/8
+  - 10.42.0.0/16
 
   # DNS nameservers to use.
   dnsNameservers:
-  - 8.8.8.8
+  - 1.1.1.1
+  - 1.0.0.1
 
   # If specified defines an existing nwtork to use, if not defined a network
   # will be created by CAPO.  This allows you to use non-standard network
