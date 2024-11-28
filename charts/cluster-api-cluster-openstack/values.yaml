@@ -98,6 +98,10 @@ controlPlane:
     # Set the server group of the control plane (e.g. anti-affinity rules).
     # serverGroupID: foo
 
+  # Any additional configuration to be passed to the kubelet can be specifed here
+  kubelet:
+    serializeImagePulls: false
+
 # Workload pools topology.
 # workloadPools:
 #  # Pool name
@@ -137,6 +141,11 @@ controlPlane:
 #    files:
 #    - path: /etc/cat
 #      content: bWVvdw==
+#
+#    # Additional configuration to be passed to the kubelet can be specifed here
+#    kubelet:
+#      # For example:
+#      serializeImagePulls: false
 #
 #    # Enable or disable cluster autoscaling.
 #    # This object is considered immutable.
