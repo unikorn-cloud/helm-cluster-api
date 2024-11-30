@@ -14227,7 +14227,7 @@ spec:
         - --feature-gates=ExternalClusterReference=false,ExternalClusterReferenceCrossNamespace=false,SkipInfraClusterPatch=false
         command:
         - /manager
-        image: docker.io/clastix/cluster-api-control-plane-provider-kamaji:v0.13.0
+        image: docker.io/yankcrime/cluster-api-control-plane-provider-kamaji:2245
         livenessProbe:
           httpGet:
             path: /healthz
