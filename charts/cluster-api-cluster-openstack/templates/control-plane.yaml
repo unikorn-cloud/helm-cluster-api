@@ -13,10 +13,7 @@ spec:
   replicas: {{ .Values.controlPlane.replicas }}
   dataStoreName: default
   addons:
-    coreDNS:
-      dnsServiceIPs:
-      - 10.43.1.10
-    kubeProxy: {}
+    coreDNS: {}
     konnectivity: {}
   kubelet:
     preferredAddressTypes:
