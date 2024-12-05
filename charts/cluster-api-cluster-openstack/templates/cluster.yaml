@@ -43,7 +43,6 @@ spec:
   apiServerLoadBalancer:
     enabled: false
   disableAPIServerFloatingIP: true
-  apiServerFixedIP: ""
   managedSecurityGroups:
     allowAllInClusterTraffic: true
   {{- if .Values.network.securityGroupRules }}
