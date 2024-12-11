@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: ipaddressclaims.ipam.cluster.x-k8s.io
@@ -98,11 +98,23 @@ spec:
                   for this claim.
                 properties:
                   name:
+                    default: ''
                     description: 'Name of the referent.
+
+                      This field is effectively required, but due to backwards compatibility
+                      is
+
+                      allowed to be empty. Instances of this type with an empty value
+                      here are
+
+                      almost certainly wrong.
+
+                      TODO: Add other useful fields. apiVersion, kind, uid?
 
                       More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
-                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                      TODO: Drop `kubebuilder:default` when controller-gen doesn''t
+                      need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.'
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
@@ -216,6 +228,10 @@ spec:
           spec:
             description: IPAddressClaimSpec is the desired state of an IPAddressClaim.
             properties:
+              clusterName:
+                description: ClusterName is the name of the Cluster this object belongs
+                  to.
+                type: string
               poolRef:
                 description: PoolRef is a reference to the pool from which an IP address
                   should be created.
@@ -250,11 +266,23 @@ spec:
                   for this claim.
                 properties:
                   name:
+                    default: ''
                     description: 'Name of the referent.
+
+                      This field is effectively required, but due to backwards compatibility
+                      is
+
+                      allowed to be empty. Instances of this type with an empty value
+                      here are
+
+                      almost certainly wrong.
+
+                      TODO: Add other useful fields. apiVersion, kind, uid?
 
                       More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
-                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                      TODO: Drop `kubebuilder:default` when controller-gen doesn''t
+                      need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.'
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
