@@ -24,7 +24,7 @@ spec:
         - --diagnostics-address={{ .Values.capi_diagnostics_address }}
         - --insecure-diagnostics={{ .Values.capi_insecure_diagnostics }}
         - --use-deprecated-infra-machine-naming={{ .Values.capi_use_deprecated_infra_machine_naming }}
-        - --feature-gates=MachinePool={{ .Values.exp_machine_pool }},ClusterResourceSet={{ .Values.exp_cluster_resource_set }},ClusterTopology={{ .Values.cluster_topology }},RuntimeSDK={{ .Values.exp_runtime_sdk }},MachineSetPreflightChecks={{ .Values.exp_machine_set_preflight_checks }}
+        - --feature-gates=MachinePool={{ .Values.exp_machine_pool }},ClusterResourceSet={{ .Values.exp_cluster_resource_set }},ClusterTopology={{ .Values.cluster_topology }},RuntimeSDK={{ .Values.exp_runtime_sdk }},MachineSetPreflightChecks={{ .Values.exp_machine_set_preflight_checks }},MachineWaitForVolumeDetachConsiderVolumeAttachments={{ .Values.exp_machine_waitforvolumedetach_consider_volumeattachments }}
         - --logging-format=json
         command:
         - /manager
@@ -70,6 +70,7 @@ spec:
           privileged: false
           runAsGroup: 65532
           runAsUser: 65532
+        terminationMessagePolicy: FallbackToLogsOnError
         volumeMounts:
         - mountPath: /tmp/k8s-webhook-server/serving-certs
           name: cert

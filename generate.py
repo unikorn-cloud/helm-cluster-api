@@ -74,7 +74,8 @@ def main():
             # CAPI for breaking semantic versioning.
             o['spec']['template']['spec']['containers'][0]['imagePullPolicy'] = 'IfNotPresent'
             # Make the logs structured, for obvious reasons.
-            o['spec']['template']['spec']['containers'][0]['args'].append('--logging-format=json')
+            if args.chart != "openstack-resource-controller":
+                o['spec']['template']['spec']['containers'][0]['args'].append('--logging-format=json')
             # TODO: add in scheduling requests/limits for proper scheduling.
 
         # Cluster API for some reason embed environment variables in their manifests
