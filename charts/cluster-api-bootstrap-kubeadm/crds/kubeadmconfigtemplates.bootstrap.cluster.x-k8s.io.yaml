@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: capi-kubeadm-bootstrap-system/capi-kubeadm-bootstrap-serving-cert
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     cluster.x-k8s.io/provider: bootstrap-kubeadm
     cluster.x-k8s.io/v1beta1: v1beta1
@@ -13,7 +13,6 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
         service:
           name: capi-kubeadm-bootstrap-webhook-service
           namespace: capi-kubeadm-bootstrap-system
@@ -37,7 +36,6 @@ spec:
       openAPIV3Schema:
         description: 'KubeadmConfigTemplate is the Schema for the kubeadmconfigtemplates
           API.
-
 
 
           Deprecated: This type will be removed in one of the next releases.'
@@ -81,7 +79,7 @@ spec:
                       defined or the JoinConfiguration should be defined.'
                     properties:
                       clusterConfiguration:
-                        description: ClusterConfiguration along with InitConfiguration
+                        description: clusterConfiguration along with InitConfiguration
                           are the configurations necessary for the init command
                         properties:
                           apiServer:
@@ -97,13 +95,8 @@ spec:
                               extraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'ExtraArgs is an extra set of flags to
+                                description: ExtraArgs is an extra set of flags to
                                   pass to the control plane component.
-
-                                  TODO: This is temporary and ideally we would like
-                                  to switch all components to
-
-                                  use ComponentConfig + ConfigMaps.'
                                 type: object
                               extraVolumes:
                                 description: ExtraVolumes is an extra set of host
@@ -207,13 +200,8 @@ spec:
                               extraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'ExtraArgs is an extra set of flags to
+                                description: ExtraArgs is an extra set of flags to
                                   pass to the control plane component.
-
-                                  TODO: This is temporary and ideally we would like
-                                  to switch all components to
-
-                                  use ComponentConfig + ConfigMaps.'
                                 type: object
                               extraVolumes:
                                 description: ExtraVolumes is an extra set of host
@@ -441,13 +429,8 @@ spec:
                               extraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'ExtraArgs is an extra set of flags to
+                                description: ExtraArgs is an extra set of flags to
                                   pass to the control plane component.
-
-                                  TODO: This is temporary and ideally we would like
-                                  to switch all components to
-
-                                  use ComponentConfig + ConfigMaps.'
                                 type: object
                               extraVolumes:
                                 description: ExtraVolumes is an extra set of host
@@ -493,48 +476,48 @@ spec:
                             type: boolean
                         type: object
                       diskSetup:
-                        description: DiskSetup specifies options for the creation
+                        description: diskSetup specifies options for the creation
                           of partition tables and file systems on devices.
                         properties:
                           filesystems:
-                            description: Filesystems specifies the list of file systems
+                            description: filesystems specifies the list of file systems
                               to setup.
                             items:
                               description: Filesystem defines the file systems to
                                 be created.
                               properties:
                                 device:
-                                  description: Device specifies the device name
+                                  description: device specifies the device name
                                   type: string
                                 extraOpts:
-                                  description: ExtraOpts defined extra options to
+                                  description: extraOpts defined extra options to
                                     add to the command for creating the file system.
                                   items:
                                     type: string
                                   type: array
                                 filesystem:
-                                  description: Filesystem specifies the file system
+                                  description: filesystem specifies the file system
                                     type.
                                   type: string
                                 label:
-                                  description: Label specifies the file system label
+                                  description: label specifies the file system label
                                     to be used. If set to None, no label is used.
                                   type: string
                                 overwrite:
-                                  description: 'Overwrite defines whether or not to
+                                  description: 'overwrite defines whether or not to
                                     overwrite any existing filesystem.
 
                                     If true, any pre-existing file system will be
                                     destroyed. Use with Caution.'
                                   type: boolean
                                 partition:
-                                  description: 'Partition specifies the partition
+                                  description: 'partition specifies the partition
                                     to use. The valid options are: "auto|any", "auto",
                                     "any", "none", and <NUM>, where NUM is the actual
                                     partition number.'
                                   type: string
                                 replaceFS:
-                                  description: 'ReplaceFS is a special directive,
+                                  description: 'replaceFS is a special directive,
                                     used for Microsoft Azure that instructs cloud-init
                                     to replace a file system of <FS_TYPE>.
 
@@ -548,17 +531,17 @@ spec:
                               type: object
                             type: array
                           partitions:
-                            description: Partitions specifies the list of the partitions
+                            description: partitions specifies the list of the partitions
                               to setup.
                             items:
                               description: Partition defines how to create and layout
                                 a partition.
                               properties:
                                 device:
-                                  description: Device is the name of the device.
+                                  description: device is the name of the device.
                                   type: string
                                 layout:
-                                  description: 'Layout specifies the device layout.
+                                  description: 'layout specifies the device layout.
 
                                     If it is true, a single partition will be created
                                     for the entire device.
@@ -567,14 +550,14 @@ spec:
                                     or ignore existing partitioning.'
                                   type: boolean
                                 overwrite:
-                                  description: 'Overwrite describes whether to skip
+                                  description: 'overwrite describes whether to skip
                                     checks and create the partition if a partition
                                     or filesystem is found on the device.
 
                                     Use with caution. Default is ''false''.'
                                   type: boolean
                                 tableType:
-                                  description: 'TableType specifies the tupe of partition
+                                  description: 'tableType specifies the tupe of partition
                                     table. The following are supported:
 
                                     ''mbr'': default and setups a MS-DOS partition
@@ -589,29 +572,29 @@ spec:
                             type: array
                         type: object
                       files:
-                        description: Files specifies extra files to be passed to user_data
+                        description: files specifies extra files to be passed to user_data
                           upon creation.
                         items:
                           description: File defines the input for generating write_files
                             in cloud-init.
                           properties:
                             content:
-                              description: Content is the actual content of the file.
+                              description: content is the actual content of the file.
                               type: string
                             contentFrom:
-                              description: ContentFrom is a referenced source of content
+                              description: contentFrom is a referenced source of content
                                 to populate the file.
                               properties:
                                 secret:
-                                  description: Secret represents a secret that should
+                                  description: secret represents a secret that should
                                     populate this file.
                                   properties:
                                     key:
-                                      description: Key is the key in the secret's
+                                      description: key is the key in the secret's
                                         data map for this value.
                                       type: string
                                     name:
-                                      description: Name of the secret in the KubeadmBootstrapConfig's
+                                      description: name of the secret in the KubeadmBootstrapConfig's
                                         namespace to use.
                                       type: string
                                   required:
@@ -622,7 +605,7 @@ spec:
                               - secret
                               type: object
                             encoding:
-                              description: Encoding specifies the encoding of the
+                              description: encoding specifies the encoding of the
                                 file contents.
                               enum:
                               - base64
@@ -630,15 +613,15 @@ spec:
                               - gzip+base64
                               type: string
                             owner:
-                              description: Owner specifies the ownership of the file,
+                              description: owner specifies the ownership of the file,
                                 e.g. "root:root".
                               type: string
                             path:
-                              description: Path specifies the full path on disk where
+                              description: path specifies the full path on disk where
                                 to store the file.
                               type: string
                             permissions:
-                              description: Permissions specifies the permissions to
+                              description: permissions specifies the permissions to
                                 assign to the file, e.g. "0640".
                               type: string
                           required:
@@ -646,13 +629,13 @@ spec:
                           type: object
                         type: array
                       format:
-                        description: Format specifies the output format of the bootstrap
+                        description: format specifies the output format of the bootstrap
                           data
                         enum:
                         - cloud-config
                         type: string
                       initConfiguration:
-                        description: InitConfiguration along with ClusterConfiguration
+                        description: initConfiguration along with ClusterConfiguration
                           are the configurations necessary for the init command
                         properties:
                           apiVersion:
@@ -863,7 +846,7 @@ spec:
                             type: object
                         type: object
                       joinConfiguration:
-                        description: JoinConfiguration is the kubeadm configuration
+                        description: joinConfiguration is the kubeadm configuration
                           for the join command
                         properties:
                           apiVersion:
@@ -883,9 +866,7 @@ spec:
 
                               secure comunications between node and control-plane.
 
-                              Defaults to "/etc/kubernetes/pki/ca.crt".
-
-                              TODO: revisit when there is defaulting from k/k'
+                              Defaults to "/etc/kubernetes/pki/ca.crt".'
                             type: string
                           controlPlane:
                             description: 'ControlPlane defines the additional control
@@ -916,10 +897,8 @@ spec:
                                 type: object
                             type: object
                           discovery:
-                            description: 'Discovery specifies the options for the
-                              kubelet to use during the TLS Bootstrap process
-
-                              TODO: revisit when there is defaulting from k/k'
+                            description: Discovery specifies the options for the kubelet
+                              to use during the TLS Bootstrap process
                             properties:
                               bootstrapToken:
                                 description: 'BootstrapToken is used to set the options
@@ -1007,9 +986,7 @@ spec:
 
                                   If .File is set, this field **must be set** in case
                                   the KubeConfigFile does not contain any other authentication
-                                  information
-
-                                  TODO: revisit when there is defaulting from k/k'
+                                  information'
                                 type: string
                             type: object
                           kind:
@@ -1115,7 +1092,7 @@ spec:
                             type: object
                         type: object
                       mounts:
-                        description: Mounts specifies a list of mount points to be
+                        description: mounts specifies a list of mount points to be
                           setup.
                         items:
                           description: MountPoints defines input for generated mounts
@@ -1125,35 +1102,34 @@ spec:
                           type: array
                         type: array
                       ntp:
-                        description: NTP specifies NTP configuration
+                        description: ntp specifies NTP configuration
                         properties:
                           enabled:
-                            description: Enabled specifies whether NTP should be enabled
+                            description: enabled specifies whether NTP should be enabled
                             type: boolean
                           servers:
-                            description: Servers specifies which NTP servers to use
+                            description: servers specifies which NTP servers to use
                             items:
                               type: string
                             type: array
                         type: object
                       postKubeadmCommands:
-                        description: PostKubeadmCommands specifies extra commands
+                        description: postKubeadmCommands specifies extra commands
                           to run after kubeadm runs
                         items:
                           type: string
                         type: array
                       preKubeadmCommands:
-                        description: PreKubeadmCommands specifies extra commands to
+                        description: preKubeadmCommands specifies extra commands to
                           run before kubeadm runs
                         items:
                           type: string
                         type: array
                       useExperimentalRetryJoin:
-                        description: 'UseExperimentalRetryJoin replaces a basic kubeadm
+                        description: 'useExperimentalRetryJoin replaces a basic kubeadm
                           command with a shell
 
                           script with retries for joins.
-
 
 
                           This is meant to be an experimental temporary workaround
@@ -1165,68 +1141,66 @@ spec:
                           kubeadm proper and use that functionality.
 
 
-
                           This will add about 40KB to userdata
-
 
 
                           For more information, refer to https://github.com/kubernetes-sigs/cluster-api/pull/2763#discussion_r397306055.'
                         type: boolean
                       users:
-                        description: Users specifies extra users to add
+                        description: users specifies extra users to add
                         items:
                           description: User defines the input for a generated user
                             in cloud-init.
                           properties:
                             gecos:
-                              description: Gecos specifies the gecos to use for the
+                              description: gecos specifies the gecos to use for the
                                 user
                               type: string
                             groups:
-                              description: Groups specifies the additional groups
+                              description: groups specifies the additional groups
                                 for the user
                               type: string
                             homeDir:
-                              description: HomeDir specifies the home directory to
+                              description: homeDir specifies the home directory to
                                 use for the user
                               type: string
                             inactive:
-                              description: Inactive specifies whether to mark the
+                              description: inactive specifies whether to mark the
                                 user as inactive
                               type: boolean
                             lockPassword:
-                              description: LockPassword specifies if password login
+                              description: lockPassword specifies if password login
                                 should be disabled
                               type: boolean
                             name:
-                              description: Name specifies the user name
+                              description: name specifies the user name
                               type: string
                             passwd:
-                              description: Passwd specifies a hashed password for
+                              description: passwd specifies a hashed password for
                                 the user
                               type: string
                             primaryGroup:
-                              description: PrimaryGroup specifies the primary group
+                              description: primaryGroup specifies the primary group
                                 for the user
                               type: string
                             shell:
-                              description: Shell specifies the user's shell
+                              description: shell specifies the user's shell
                               type: string
                             sshAuthorizedKeys:
-                              description: SSHAuthorizedKeys specifies a list of ssh
+                              description: sshAuthorizedKeys specifies a list of ssh
                                 authorized keys for the user
                               items:
                                 type: string
                               type: array
                             sudo:
-                              description: Sudo specifies a sudo role for the user
+                              description: sudo specifies a sudo role for the user
                               type: string
                           required:
                           - name
                           type: object
                         type: array
                       verbosity:
-                        description: 'Verbosity is the number for the kubeadm log
+                        description: 'verbosity is the number for the kubeadm log
                           level verbosity.
 
                           It overrides the `--v` flag in kubeadm commands.'
@@ -1251,7 +1225,6 @@ spec:
       openAPIV3Schema:
         description: 'KubeadmConfigTemplate is the Schema for the kubeadmconfigtemplates
           API.
-
 
 
           Deprecated: This type will be removed in one of the next releases.'
@@ -1295,15 +1268,15 @@ spec:
                       defined or the JoinConfiguration should be defined.'
                     properties:
                       clusterConfiguration:
-                        description: ClusterConfiguration along with InitConfiguration
+                        description: clusterConfiguration along with InitConfiguration
                           are the configurations necessary for the init command
                         properties:
                           apiServer:
-                            description: APIServer contains extra settings for the
+                            description: apiServer contains extra settings for the
                               API server control plane component
                             properties:
                               certSANs:
-                                description: CertSANs sets extra Subject Alternative
+                                description: certSANs sets extra Subject Alternative
                                   Names for the API Server signing cert.
                                 items:
                                   type: string
@@ -1311,16 +1284,11 @@ spec:
                               extraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'ExtraArgs is an extra set of flags to
+                                description: extraArgs is an extra set of flags to
                                   pass to the control plane component.
-
-                                  TODO: This is temporary and ideally we would like
-                                  to switch all components to
-
-                                  use ComponentConfig + ConfigMaps.'
                                 type: object
                               extraVolumes:
-                                description: ExtraVolumes is an extra set of host
+                                description: extraVolumes is an extra set of host
                                   volumes, mounted to the control plane component.
                                 items:
                                   description: 'HostPathMount contains elements describing
@@ -1329,24 +1297,24 @@ spec:
                                     host.'
                                   properties:
                                     hostPath:
-                                      description: 'HostPath is the path in the host
+                                      description: 'hostPath is the path in the host
                                         that will be mounted inside
 
                                         the pod.'
                                       type: string
                                     mountPath:
-                                      description: MountPath is the path inside the
+                                      description: mountPath is the path inside the
                                         pod where hostPath will be mounted.
                                       type: string
                                     name:
-                                      description: Name of the volume inside the pod
+                                      description: name of the volume inside the pod
                                         template.
                                       type: string
                                     pathType:
-                                      description: PathType is the type of the HostPath.
+                                      description: pathType is the type of the HostPath.
                                       type: string
                                     readOnly:
-                                      description: ReadOnly controls write access
+                                      description: readOnly controls write access
                                         to the volume
                                       type: boolean
                                   required:
@@ -1356,7 +1324,7 @@ spec:
                                   type: object
                                 type: array
                               timeoutForControlPlane:
-                                description: TimeoutForControlPlane controls the timeout
+                                description: timeoutForControlPlane controls the timeout
                                   that we use for API server to appear
                                 type: string
                             type: object
@@ -1372,7 +1340,7 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
                             type: string
                           certificatesDir:
-                            description: 'CertificatesDir specifies where to store
+                            description: 'certificatesDir specifies where to store
                               or look for all required certificates.
 
                               NB: if not provided, this will default to `/etc/kubernetes/pki`'
@@ -1381,7 +1349,7 @@ spec:
                             description: The cluster name
                             type: string
                           controlPlaneEndpoint:
-                            description: 'ControlPlaneEndpoint sets a stable IP address
+                            description: 'controlPlaneEndpoint sets a stable IP address
                               or DNS name for the control plane; it
 
                               can be a valid IP address or a RFC-1123 DNS subdomain,
@@ -1415,22 +1383,17 @@ spec:
                               object status.apiEndpoints array.'
                             type: string
                           controllerManager:
-                            description: ControllerManager contains extra settings
+                            description: controllerManager contains extra settings
                               for the controller manager control plane component
                             properties:
                               extraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'ExtraArgs is an extra set of flags to
+                                description: extraArgs is an extra set of flags to
                                   pass to the control plane component.
-
-                                  TODO: This is temporary and ideally we would like
-                                  to switch all components to
-
-                                  use ComponentConfig + ConfigMaps.'
                                 type: object
                               extraVolumes:
-                                description: ExtraVolumes is an extra set of host
+                                description: extraVolumes is an extra set of host
                                   volumes, mounted to the control plane component.
                                 items:
                                   description: 'HostPathMount contains elements describing
@@ -1439,24 +1402,24 @@ spec:
                                     host.'
                                   properties:
                                     hostPath:
-                                      description: 'HostPath is the path in the host
+                                      description: 'hostPath is the path in the host
                                         that will be mounted inside
 
                                         the pod.'
                                       type: string
                                     mountPath:
-                                      description: MountPath is the path inside the
+                                      description: mountPath is the path inside the
                                         pod where hostPath will be mounted.
                                       type: string
                                     name:
-                                      description: Name of the volume inside the pod
+                                      description: name of the volume inside the pod
                                         template.
                                       type: string
                                     pathType:
-                                      description: PathType is the type of the HostPath.
+                                      description: pathType is the type of the HostPath.
                                       type: string
                                     readOnly:
-                                      description: ReadOnly controls write access
+                                      description: readOnly controls write access
                                         to the volume
                                       type: boolean
                                   required:
@@ -1467,18 +1430,18 @@ spec:
                                 type: array
                             type: object
                           dns:
-                            description: DNS defines the options for the DNS add-on
+                            description: dns defines the options for the DNS add-on
                               installed in the cluster.
                             properties:
                               imageRepository:
-                                description: 'ImageRepository sets the container registry
+                                description: 'imageRepository sets the container registry
                                   to pull images from.
 
                                   if not set, the ImageRepository defined in ClusterConfiguration
                                   will be used instead.'
                                 type: string
                               imageTag:
-                                description: 'ImageTag allows to specify a tag for
+                                description: 'imageTag allows to specify a tag for
                                   the image.
 
                                   In case this value is set, kubeadm does not change
@@ -1487,36 +1450,36 @@ spec:
                                 type: string
                             type: object
                           etcd:
-                            description: 'Etcd holds configuration for etcd.
+                            description: 'etcd holds configuration for etcd.
 
                               NB: This value defaults to a Local (stacked) etcd'
                             properties:
                               external:
-                                description: 'External describes how to connect to
+                                description: 'external describes how to connect to
                                   an external etcd cluster
 
                                   Local and External are mutually exclusive'
                                 properties:
                                   caFile:
-                                    description: 'CAFile is an SSL Certificate Authority
+                                    description: 'caFile is an SSL Certificate Authority
                                       file used to secure etcd communication.
 
                                       Required if using a TLS connection.'
                                     type: string
                                   certFile:
-                                    description: 'CertFile is an SSL certification
+                                    description: 'certFile is an SSL certification
                                       file used to secure etcd communication.
 
                                       Required if using a TLS connection.'
                                     type: string
                                   endpoints:
-                                    description: Endpoints of etcd members. Required
+                                    description: endpoints of etcd members. Required
                                       for ExternalEtcd.
                                     items:
                                       type: string
                                     type: array
                                   keyFile:
-                                    description: 'KeyFile is an SSL key file used
+                                    description: 'keyFile is an SSL key file used
                                       to secure etcd communication.
 
                                       Required if using a TLS connection.'
@@ -1528,13 +1491,13 @@ spec:
                                 - keyFile
                                 type: object
                               local:
-                                description: 'Local provides configuration knobs for
+                                description: 'local provides configuration knobs for
                                   configuring the local etcd instance
 
                                   Local and External are mutually exclusive'
                                 properties:
                                   dataDir:
-                                    description: 'DataDir is the directory etcd will
+                                    description: 'dataDir is the directory etcd will
                                       place its data.
 
                                       Defaults to "/var/lib/etcd".'
@@ -1542,20 +1505,20 @@ spec:
                                   extraArgs:
                                     additionalProperties:
                                       type: string
-                                    description: 'ExtraArgs are extra arguments provided
+                                    description: 'extraArgs are extra arguments provided
                                       to the etcd binary
 
                                       when run inside a static pod.'
                                     type: object
                                   imageRepository:
-                                    description: 'ImageRepository sets the container
+                                    description: 'imageRepository sets the container
                                       registry to pull images from.
 
                                       if not set, the ImageRepository defined in ClusterConfiguration
                                       will be used instead.'
                                     type: string
                                   imageTag:
-                                    description: 'ImageTag allows to specify a tag
+                                    description: 'imageTag allows to specify a tag
                                       for the image.
 
                                       In case this value is set, kubeadm does not
@@ -1563,13 +1526,13 @@ spec:
                                       components during upgrades.'
                                     type: string
                                   peerCertSANs:
-                                    description: PeerCertSANs sets extra Subject Alternative
+                                    description: peerCertSANs sets extra Subject Alternative
                                       Names for the etcd peer signing cert.
                                     items:
                                       type: string
                                     type: array
                                   serverCertSANs:
-                                    description: ServerCertSANs sets extra Subject
+                                    description: serverCertSANs sets extra Subject
                                       Alternative Names for the etcd server signing
                                       cert.
                                     items:
@@ -1580,10 +1543,10 @@ spec:
                           featureGates:
                             additionalProperties:
                               type: boolean
-                            description: FeatureGates enabled by the user.
+                            description: featureGates enabled by the user.
                             type: object
                           imageRepository:
-                            description: 'ImageRepository sets the container registry
+                            description: 'imageRepository sets the container registry
                               to pull images from.
 
                               If empty, `registry.k8s.io` will be used by default;
@@ -1610,23 +1573,23 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
                             type: string
                           kubernetesVersion:
-                            description: 'KubernetesVersion is the target version
+                            description: 'kubernetesVersion is the target version
                               of the control plane.
 
                               NB: This value defaults to the Machine object spec.version'
                             type: string
                           networking:
-                            description: 'Networking holds configuration for the networking
+                            description: 'networking holds configuration for the networking
                               topology of the cluster.
 
                               NB: This value defaults to the Cluster object spec.clusterNetwork.'
                             properties:
                               dnsDomain:
-                                description: DNSDomain is the dns domain used by k8s
+                                description: dnsDomain is the dns domain used by k8s
                                   services. Defaults to "cluster.local".
                                 type: string
                               podSubnet:
-                                description: 'PodSubnet is the subnet used by pods.
+                                description: 'podSubnet is the subnet used by pods.
 
                                   If unset, the API server will not allocate CIDR
                                   ranges for every node.
@@ -1636,7 +1599,7 @@ spec:
                                   if that is set'
                                 type: string
                               serviceSubnet:
-                                description: 'ServiceSubnet is the subnet used by
+                                description: 'serviceSubnet is the subnet used by
                                   k8s services.
 
                                   Defaults to a comma-delimited string of the Cluster
@@ -1646,22 +1609,17 @@ spec:
                                 type: string
                             type: object
                           scheduler:
-                            description: Scheduler contains extra settings for the
+                            description: scheduler contains extra settings for the
                               scheduler control plane component
                             properties:
                               extraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'ExtraArgs is an extra set of flags to
+                                description: extraArgs is an extra set of flags to
                                   pass to the control plane component.
-
-                                  TODO: This is temporary and ideally we would like
-                                  to switch all components to
-
-                                  use ComponentConfig + ConfigMaps.'
                                 type: object
                               extraVolumes:
-                                description: ExtraVolumes is an extra set of host
+                                description: extraVolumes is an extra set of host
                                   volumes, mounted to the control plane component.
                                 items:
                                   description: 'HostPathMount contains elements describing
@@ -1670,24 +1628,24 @@ spec:
                                     host.'
                                   properties:
                                     hostPath:
-                                      description: 'HostPath is the path in the host
+                                      description: 'hostPath is the path in the host
                                         that will be mounted inside
 
                                         the pod.'
                                       type: string
                                     mountPath:
-                                      description: MountPath is the path inside the
+                                      description: mountPath is the path inside the
                                         pod where hostPath will be mounted.
                                       type: string
                                     name:
-                                      description: Name of the volume inside the pod
+                                      description: name of the volume inside the pod
                                         template.
                                       type: string
                                     pathType:
-                                      description: PathType is the type of the HostPath.
+                                      description: pathType is the type of the HostPath.
                                       type: string
                                     readOnly:
-                                      description: ReadOnly controls write access
+                                      description: readOnly controls write access
                                         to the volume
                                       type: boolean
                                   required:
@@ -1699,48 +1657,48 @@ spec:
                             type: object
                         type: object
                       diskSetup:
-                        description: DiskSetup specifies options for the creation
+                        description: diskSetup specifies options for the creation
                           of partition tables and file systems on devices.
                         properties:
                           filesystems:
-                            description: Filesystems specifies the list of file systems
+                            description: filesystems specifies the list of file systems
                               to setup.
                             items:
                               description: Filesystem defines the file systems to
                                 be created.
                               properties:
                                 device:
-                                  description: Device specifies the device name
+                                  description: device specifies the device name
                                   type: string
                                 extraOpts:
-                                  description: ExtraOpts defined extra options to
+                                  description: extraOpts defined extra options to
                                     add to the command for creating the file system.
                                   items:
                                     type: string
                                   type: array
                                 filesystem:
-                                  description: Filesystem specifies the file system
+                                  description: filesystem specifies the file system
                                     type.
                                   type: string
                                 label:
-                                  description: Label specifies the file system label
+                                  description: label specifies the file system label
                                     to be used. If set to None, no label is used.
                                   type: string
                                 overwrite:
-                                  description: 'Overwrite defines whether or not to
+                                  description: 'overwrite defines whether or not to
                                     overwrite any existing filesystem.
 
                                     If true, any pre-existing file system will be
                                     destroyed. Use with Caution.'
                                   type: boolean
                                 partition:
-                                  description: 'Partition specifies the partition
+                                  description: 'partition specifies the partition
                                     to use. The valid options are: "auto|any", "auto",
                                     "any", "none", and <NUM>, where NUM is the actual
                                     partition number.'
                                   type: string
                                 replaceFS:
-                                  description: 'ReplaceFS is a special directive,
+                                  description: 'replaceFS is a special directive,
                                     used for Microsoft Azure that instructs cloud-init
                                     to replace a file system of <FS_TYPE>.
 
@@ -1754,17 +1712,17 @@ spec:
                               type: object
                             type: array
                           partitions:
-                            description: Partitions specifies the list of the partitions
+                            description: partitions specifies the list of the partitions
                               to setup.
                             items:
                               description: Partition defines how to create and layout
                                 a partition.
                               properties:
                                 device:
-                                  description: Device is the name of the device.
+                                  description: device is the name of the device.
                                   type: string
                                 layout:
-                                  description: 'Layout specifies the device layout.
+                                  description: 'layout specifies the device layout.
 
                                     If it is true, a single partition will be created
                                     for the entire device.
@@ -1773,14 +1731,14 @@ spec:
                                     or ignore existing partitioning.'
                                   type: boolean
                                 overwrite:
-                                  description: 'Overwrite describes whether to skip
+                                  description: 'overwrite describes whether to skip
                                     checks and create the partition if a partition
                                     or filesystem is found on the device.
 
                                     Use with caution. Default is ''false''.'
                                   type: boolean
                                 tableType:
-                                  description: 'TableType specifies the tupe of partition
+                                  description: 'tableType specifies the tupe of partition
                                     table. The following are supported:
 
                                     ''mbr'': default and setups a MS-DOS partition
@@ -1795,29 +1753,29 @@ spec:
                             type: array
                         type: object
                       files:
-                        description: Files specifies extra files to be passed to user_data
+                        description: files specifies extra files to be passed to user_data
                           upon creation.
                         items:
                           description: File defines the input for generating write_files
                             in cloud-init.
                           properties:
                             content:
-                              description: Content is the actual content of the file.
+                              description: content is the actual content of the file.
                               type: string
                             contentFrom:
-                              description: ContentFrom is a referenced source of content
+                              description: contentFrom is a referenced source of content
                                 to populate the file.
                               properties:
                                 secret:
-                                  description: Secret represents a secret that should
+                                  description: secret represents a secret that should
                                     populate this file.
                                   properties:
                                     key:
-                                      description: Key is the key in the secret's
+                                      description: key is the key in the secret's
                                         data map for this value.
                                       type: string
                                     name:
-                                      description: Name of the secret in the KubeadmBootstrapConfig's
+                                      description: name of the secret in the KubeadmBootstrapConfig's
                                         namespace to use.
                                       type: string
                                   required:
@@ -1828,7 +1786,7 @@ spec:
                               - secret
                               type: object
                             encoding:
-                              description: Encoding specifies the encoding of the
+                              description: encoding specifies the encoding of the
                                 file contents.
                               enum:
                               - base64
@@ -1836,15 +1794,15 @@ spec:
                               - gzip+base64
                               type: string
                             owner:
-                              description: Owner specifies the ownership of the file,
+                              description: owner specifies the ownership of the file,
                                 e.g. "root:root".
                               type: string
                             path:
-                              description: Path specifies the full path on disk where
+                              description: path specifies the full path on disk where
                                 to store the file.
                               type: string
                             permissions:
-                              description: Permissions specifies the permissions to
+                              description: permissions specifies the permissions to
                                 assign to the file, e.g. "0640".
                               type: string
                           required:
@@ -1852,13 +1810,13 @@ spec:
                           type: object
                         type: array
                       format:
-                        description: Format specifies the output format of the bootstrap
+                        description: format specifies the output format of the bootstrap
                           data
                         enum:
                         - cloud-config
                         type: string
                       initConfiguration:
-                        description: InitConfiguration along with ClusterConfiguration
+                        description: initConfiguration along with ClusterConfiguration
                           are the configurations necessary for the init command
                         properties:
                           apiVersion:
@@ -1873,7 +1831,7 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
                             type: string
                           bootstrapTokens:
-                            description: 'BootstrapTokens is respected at `kubeadm
+                            description: 'bootstrapTokens is respected at `kubeadm
                               init` time and describes a set of Bootstrap Tokens to
                               create.
 
@@ -1884,13 +1842,13 @@ spec:
                                 token, stored as a Secret in the cluster.
                               properties:
                                 description:
-                                  description: 'Description sets a human-friendly
+                                  description: 'description sets a human-friendly
                                     message why this token exists and what it''s used
 
                                     for, so other administrators can know its purpose.'
                                   type: string
                                 expires:
-                                  description: 'Expires specifies the timestamp when
+                                  description: 'expires specifies the timestamp when
                                     this token expires. Defaults to being set
 
                                     dynamically at runtime based on the TTL. Expires
@@ -1898,7 +1856,7 @@ spec:
                                   format: date-time
                                   type: string
                                 groups:
-                                  description: 'Groups specifies the extra groups
+                                  description: 'groups specifies the extra groups
                                     that this token will authenticate as when/if
 
                                     used for authentication'
@@ -1906,19 +1864,19 @@ spec:
                                     type: string
                                   type: array
                                 token:
-                                  description: 'Token is used for establishing bidirectional
+                                  description: 'token is used for establishing bidirectional
                                     trust between nodes and control-planes.
 
                                     Used for joining nodes in the cluster.'
                                   type: string
                                 ttl:
-                                  description: 'TTL defines the time to live for this
+                                  description: 'ttl defines the time to live for this
                                     token. Defaults to 24h.
 
                                     Expires and TTL are mutually exclusive.'
                                   type: string
                                 usages:
-                                  description: 'Usages describes the ways in which
+                                  description: 'usages describes the ways in which
                                     this token can be used. Can by default be used
 
                                     for establishing bidirectional trust, but that
@@ -1944,7 +1902,7 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
                             type: string
                           localAPIEndpoint:
-                            description: 'LocalAPIEndpoint represents the endpoint
+                            description: 'localAPIEndpoint represents the endpoint
                               of the API server instance that''s deployed on this
                               control plane node
 
@@ -1965,11 +1923,11 @@ spec:
                               fails you may set the desired value here.'
                             properties:
                               advertiseAddress:
-                                description: AdvertiseAddress sets the IP address
+                                description: advertiseAddress sets the IP address
                                   for the API server to advertise.
                                 type: string
                               bindPort:
-                                description: 'BindPort sets the secure port for the
+                                description: 'bindPort sets the secure port for the
                                   API Server to bind to.
 
                                   Defaults to 6443.'
@@ -1977,7 +1935,7 @@ spec:
                                 type: integer
                             type: object
                           nodeRegistration:
-                            description: 'NodeRegistration holds fields that relate
+                            description: 'nodeRegistration holds fields that relate
                               to registering the new control-plane node to the cluster.
 
                               When used in the context of control plane nodes, NodeRegistration
@@ -1986,12 +1944,12 @@ spec:
                               across both InitConfiguration and JoinConfiguration'
                             properties:
                               criSocket:
-                                description: CRISocket is used to retrieve container
+                                description: criSocket is used to retrieve container
                                   runtime info. This information will be annotated
                                   to the Node API object, for later re-use
                                 type: string
                               ignorePreflightErrors:
-                                description: IgnorePreflightErrors provides a slice
+                                description: ignorePreflightErrors provides a slice
                                   of pre-flight errors to be ignored when the current
                                   node is registered.
                                 items:
@@ -2000,7 +1958,7 @@ spec:
                               kubeletExtraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'KubeletExtraArgs passes through extra
+                                description: 'kubeletExtraArgs passes through extra
                                   arguments to the kubelet. The arguments here are
                                   passed to the kubelet command line via the environment
                                   file
@@ -2014,7 +1972,7 @@ spec:
                                   on.'
                                 type: object
                               name:
-                                description: 'Name is the `.Metadata.Name` field of
+                                description: 'name is the `.Metadata.Name` field of
                                   the Node API object that will be created in this
                                   `kubeadm init` or `kubeadm join` operation.
 
@@ -2025,7 +1983,7 @@ spec:
                                   Defaults to the hostname of the node if not provided.'
                                 type: string
                               taints:
-                                description: 'Taints specifies the taints the Node
+                                description: 'taints specifies the taints the Node
                                   API object should be registered with. If this field
                                   is unset, i.e. nil, in the `kubeadm init` process
 
@@ -2073,7 +2031,7 @@ spec:
                             type: object
                         type: object
                       joinConfiguration:
-                        description: JoinConfiguration is the kubeadm configuration
+                        description: joinConfiguration is the kubeadm configuration
                           for the join command
                         properties:
                           apiVersion:
@@ -2088,33 +2046,31 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
                             type: string
                           caCertPath:
-                            description: 'CACertPath is the path to the SSL certificate
+                            description: 'caCertPath is the path to the SSL certificate
                               authority used to
 
                               secure comunications between node and control-plane.
 
-                              Defaults to "/etc/kubernetes/pki/ca.crt".
-
-                              TODO: revisit when there is defaulting from k/k'
+                              Defaults to "/etc/kubernetes/pki/ca.crt".'
                             type: string
                           controlPlane:
-                            description: 'ControlPlane defines the additional control
+                            description: 'controlPlane defines the additional control
                               plane instance to be deployed on the joining node.
 
                               If nil, no additional control plane instance will be
                               deployed.'
                             properties:
                               localAPIEndpoint:
-                                description: LocalAPIEndpoint represents the endpoint
+                                description: localAPIEndpoint represents the endpoint
                                   of the API server instance to be deployed on this
                                   node.
                                 properties:
                                   advertiseAddress:
-                                    description: AdvertiseAddress sets the IP address
+                                    description: advertiseAddress sets the IP address
                                       for the API server to advertise.
                                     type: string
                                   bindPort:
-                                    description: 'BindPort sets the secure port for
+                                    description: 'bindPort sets the secure port for
                                       the API Server to bind to.
 
                                       Defaults to 6443.'
@@ -2123,24 +2079,22 @@ spec:
                                 type: object
                             type: object
                           discovery:
-                            description: 'Discovery specifies the options for the
-                              kubelet to use during the TLS Bootstrap process
-
-                              TODO: revisit when there is defaulting from k/k'
+                            description: discovery specifies the options for the kubelet
+                              to use during the TLS Bootstrap process
                             properties:
                               bootstrapToken:
-                                description: 'BootstrapToken is used to set the options
+                                description: 'bootstrapToken is used to set the options
                                   for bootstrap token based discovery
 
                                   BootstrapToken and File are mutually exclusive'
                                 properties:
                                   apiServerEndpoint:
-                                    description: APIServerEndpoint is an IP or domain
+                                    description: apiServerEndpoint is an IP or domain
                                       name to the API server from which info will
                                       be fetched.
                                     type: string
                                   caCertHashes:
-                                    description: 'CACertHashes specifies a set of
+                                    description: 'caCertHashes specifies a set of
                                       public key pins to verify
 
                                       when token-based discovery is used. The root
@@ -2168,13 +2122,13 @@ spec:
                                       type: string
                                     type: array
                                   token:
-                                    description: 'Token is a token used to validate
+                                    description: 'token is a token used to validate
                                       cluster information
 
                                       fetched from the control-plane.'
                                     type: string
                                   unsafeSkipCAVerification:
-                                    description: 'UnsafeSkipCAVerification allows
+                                    description: 'unsafeSkipCAVerification allows
                                       token-based discovery
 
                                       without CA verification via CACertHashes. This
@@ -2187,14 +2141,14 @@ spec:
                                 - token
                                 type: object
                               file:
-                                description: 'File is used to specify a file or URL
+                                description: 'file is used to specify a file or URL
                                   to a kubeconfig file from which to load cluster
                                   information
 
                                   BootstrapToken and File are mutually exclusive'
                                 properties:
                                   kubeConfigPath:
-                                    description: KubeConfigPath is used to specify
+                                    description: kubeConfigPath is used to specify
                                       the actual file path or URL to the kubeconfig
                                       file from which to load cluster information
                                     type: string
@@ -2202,10 +2156,10 @@ spec:
                                 - kubeConfigPath
                                 type: object
                               timeout:
-                                description: Timeout modifies the discovery timeout
+                                description: timeout modifies the discovery timeout
                                 type: string
                               tlsBootstrapToken:
-                                description: 'TLSBootstrapToken is a token used for
+                                description: 'tlsBootstrapToken is a token used for
                                   TLS bootstrapping.
 
                                   If .BootstrapToken is set, this field is defaulted
@@ -2230,7 +2184,7 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
                             type: string
                           nodeRegistration:
-                            description: 'NodeRegistration holds fields that relate
+                            description: 'nodeRegistration holds fields that relate
                               to registering the new control-plane node to the cluster.
 
                               When used in the context of control plane nodes, NodeRegistration
@@ -2239,12 +2193,12 @@ spec:
                               across both InitConfiguration and JoinConfiguration'
                             properties:
                               criSocket:
-                                description: CRISocket is used to retrieve container
+                                description: criSocket is used to retrieve container
                                   runtime info. This information will be annotated
                                   to the Node API object, for later re-use
                                 type: string
                               ignorePreflightErrors:
-                                description: IgnorePreflightErrors provides a slice
+                                description: ignorePreflightErrors provides a slice
                                   of pre-flight errors to be ignored when the current
                                   node is registered.
                                 items:
@@ -2253,7 +2207,7 @@ spec:
                               kubeletExtraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'KubeletExtraArgs passes through extra
+                                description: 'kubeletExtraArgs passes through extra
                                   arguments to the kubelet. The arguments here are
                                   passed to the kubelet command line via the environment
                                   file
@@ -2267,7 +2221,7 @@ spec:
                                   on.'
                                 type: object
                               name:
-                                description: 'Name is the `.Metadata.Name` field of
+                                description: 'name is the `.Metadata.Name` field of
                                   the Node API object that will be created in this
                                   `kubeadm init` or `kubeadm join` operation.
 
@@ -2278,7 +2232,7 @@ spec:
                                   Defaults to the hostname of the node if not provided.'
                                 type: string
                               taints:
-                                description: 'Taints specifies the taints the Node
+                                description: 'taints specifies the taints the Node
                                   API object should be registered with. If this field
                                   is unset, i.e. nil, in the `kubeadm init` process
 
@@ -2326,7 +2280,7 @@ spec:
                             type: object
                         type: object
                       mounts:
-                        description: Mounts specifies a list of mount points to be
+                        description: mounts specifies a list of mount points to be
                           setup.
                         items:
                           description: MountPoints defines input for generated mounts
@@ -2336,35 +2290,34 @@ spec:
                           type: array
                         type: array
                       ntp:
-                        description: NTP specifies NTP configuration
+                        description: ntp specifies NTP configuration
                         properties:
                           enabled:
-                            description: Enabled specifies whether NTP should be enabled
+                            description: enabled specifies whether NTP should be enabled
                             type: boolean
                           servers:
-                            description: Servers specifies which NTP servers to use
+                            description: servers specifies which NTP servers to use
                             items:
                               type: string
                             type: array
                         type: object
                       postKubeadmCommands:
-                        description: PostKubeadmCommands specifies extra commands
+                        description: postKubeadmCommands specifies extra commands
                           to run after kubeadm runs
                         items:
                           type: string
                         type: array
                       preKubeadmCommands:
-                        description: PreKubeadmCommands specifies extra commands to
+                        description: preKubeadmCommands specifies extra commands to
                           run before kubeadm runs
                         items:
                           type: string
                         type: array
                       useExperimentalRetryJoin:
-                        description: 'UseExperimentalRetryJoin replaces a basic kubeadm
+                        description: 'useExperimentalRetryJoin replaces a basic kubeadm
                           command with a shell
 
                           script with retries for joins.
-
 
 
                           This is meant to be an experimental temporary workaround
@@ -2376,68 +2329,66 @@ spec:
                           kubeadm proper and use that functionality.
 
 
-
                           This will add about 40KB to userdata
-
 
 
                           For more information, refer to https://github.com/kubernetes-sigs/cluster-api/pull/2763#discussion_r397306055.'
                         type: boolean
                       users:
-                        description: Users specifies extra users to add
+                        description: users specifies extra users to add
                         items:
                           description: User defines the input for a generated user
                             in cloud-init.
                           properties:
                             gecos:
-                              description: Gecos specifies the gecos to use for the
+                              description: gecos specifies the gecos to use for the
                                 user
                               type: string
                             groups:
-                              description: Groups specifies the additional groups
+                              description: groups specifies the additional groups
                                 for the user
                               type: string
                             homeDir:
-                              description: HomeDir specifies the home directory to
+                              description: homeDir specifies the home directory to
                                 use for the user
                               type: string
                             inactive:
-                              description: Inactive specifies whether to mark the
+                              description: inactive specifies whether to mark the
                                 user as inactive
                               type: boolean
                             lockPassword:
-                              description: LockPassword specifies if password login
+                              description: lockPassword specifies if password login
                                 should be disabled
                               type: boolean
                             name:
-                              description: Name specifies the user name
+                              description: name specifies the user name
                               type: string
                             passwd:
-                              description: Passwd specifies a hashed password for
+                              description: passwd specifies a hashed password for
                                 the user
                               type: string
                             primaryGroup:
-                              description: PrimaryGroup specifies the primary group
+                              description: primaryGroup specifies the primary group
                                 for the user
                               type: string
                             shell:
-                              description: Shell specifies the user's shell
+                              description: shell specifies the user's shell
                               type: string
                             sshAuthorizedKeys:
-                              description: SSHAuthorizedKeys specifies a list of ssh
+                              description: sshAuthorizedKeys specifies a list of ssh
                                 authorized keys for the user
                               items:
                                 type: string
                               type: array
                             sudo:
-                              description: Sudo specifies a sudo role for the user
+                              description: sudo specifies a sudo role for the user
                               type: string
                           required:
                           - name
                           type: object
                         type: array
                       verbosity:
-                        description: 'Verbosity is the number for the kubeadm log
+                        description: 'verbosity is the number for the kubeadm log
                           level verbosity.
 
                           It overrides the `--v` flag in kubeadm commands.'
@@ -2503,7 +2454,7 @@ spec:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: 'Annotations is an unstructured key value map
+                        description: 'annotations is an unstructured key value map
                           stored with a resource that may be
 
                           set by external tools to store and retrieve arbitrary metadata.
@@ -2534,15 +2485,15 @@ spec:
                       defined or the JoinConfiguration should be defined.'
                     properties:
                       clusterConfiguration:
-                        description: ClusterConfiguration along with InitConfiguration
+                        description: clusterConfiguration along with InitConfiguration
                           are the configurations necessary for the init command
                         properties:
                           apiServer:
-                            description: APIServer contains extra settings for the
+                            description: apiServer contains extra settings for the
                               API server control plane component
                             properties:
                               certSANs:
-                                description: CertSANs sets extra Subject Alternative
+                                description: certSANs sets extra Subject Alternative
                                   Names for the API Server signing cert.
                                 items:
                                   type: string
@@ -2550,16 +2501,177 @@ spec:
                               extraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'ExtraArgs is an extra set of flags to
+                                description: extraArgs is an extra set of flags to
                                   pass to the control plane component.
-
-                                  TODO: This is temporary and ideally we would like
-                                  to switch all components to
-
-                                  use ComponentConfig + ConfigMaps.'
                                 type: object
+                              extraEnvs:
+                                description: 'extraEnvs is an extra set of environment
+                                  variables to pass to the control plane component.
+
+                                  Environment variables passed using ExtraEnvs will
+                                  override any existing environment variables, or
+                                  *_proxy environment variables that kubeadm adds
+                                  by default.
+
+                                  This option takes effect only on Kubernetes >=1.31.0.'
+                                items:
+                                  description: EnvVar represents an environment variable
+                                    present in a Container.
+                                  properties:
+                                    name:
+                                      description: Name of the environment variable.
+                                        Must be a C_IDENTIFIER.
+                                      type: string
+                                    value:
+                                      description: 'Variable references $(VAR_NAME)
+                                        are expanded
+
+                                        using the previously defined environment variables
+                                        in the container and
+
+                                        any service environment variables. If a variable
+                                        cannot be resolved,
+
+                                        the reference in the input string will be
+                                        unchanged. Double $$ are reduced
+
+                                        to a single $, which allows for escaping the
+                                        $(VAR_NAME) syntax: i.e.
+
+                                        "$$(VAR_NAME)" will produce the string literal
+                                        "$(VAR_NAME)".
+
+                                        Escaped references will never be expanded,
+                                        regardless of whether the variable
+
+                                        exists or not.
+
+                                        Defaults to "".'
+                                      type: string
+                                    valueFrom:
+                                      description: Source for the environment variable's
+                                        value. Cannot be used if value is not empty.
+                                      properties:
+                                        configMapKeyRef:
+                                          description: Selects a key of a ConfigMap.
+                                          properties:
+                                            key:
+                                              description: The key to select.
+                                              type: string
+                                            name:
+                                              default: ''
+                                              description: 'Name of the referent.
+
+                                                This field is effectively required,
+                                                but due to backwards compatibility
+                                                is
+
+                                                allowed to be empty. Instances of
+                                                this type with an empty value here
+                                                are
+
+                                                almost certainly wrong.
+
+                                                More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                              type: string
+                                            optional:
+                                              description: Specify whether the ConfigMap
+                                                or its key must be defined
+                                              type: boolean
+                                          required:
+                                          - key
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                        fieldRef:
+                                          description: 'Selects a field of the pod:
+                                            supports metadata.name, metadata.namespace,
+                                            `metadata.labels[''<KEY>'']`, `metadata.annotations[''<KEY>'']`,
+
+                                            spec.nodeName, spec.serviceAccountName,
+                                            status.hostIP, status.podIP, status.podIPs.'
+                                          properties:
+                                            apiVersion:
+                                              description: Version of the schema the
+                                                FieldPath is written in terms of,
+                                                defaults to "v1".
+                                              type: string
+                                            fieldPath:
+                                              description: Path of the field to select
+                                                in the specified API version.
+                                              type: string
+                                          required:
+                                          - fieldPath
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                        resourceFieldRef:
+                                          description: 'Selects a resource of the
+                                            container: only resources limits and requests
+
+                                            (limits.cpu, limits.memory, limits.ephemeral-storage,
+                                            requests.cpu, requests.memory and requests.ephemeral-storage)
+                                            are currently supported.'
+                                          properties:
+                                            containerName:
+                                              description: 'Container name: required
+                                                for volumes, optional for env vars'
+                                              type: string
+                                            divisor:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              description: Specifies the output format
+                                                of the exposed resources, defaults
+                                                to "1"
+                                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                              x-kubernetes-int-or-string: true
+                                            resource:
+                                              description: 'Required: resource to
+                                                select'
+                                              type: string
+                                          required:
+                                          - resource
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                        secretKeyRef:
+                                          description: Selects a key of a secret in
+                                            the pod's namespace
+                                          properties:
+                                            key:
+                                              description: The key of the secret to
+                                                select from.  Must be a valid secret
+                                                key.
+                                              type: string
+                                            name:
+                                              default: ''
+                                              description: 'Name of the referent.
+
+                                                This field is effectively required,
+                                                but due to backwards compatibility
+                                                is
+
+                                                allowed to be empty. Instances of
+                                                this type with an empty value here
+                                                are
+
+                                                almost certainly wrong.
+
+                                                More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                              type: string
+                                            optional:
+                                              description: Specify whether the Secret
+                                                or its key must be defined
+                                              type: boolean
+                                          required:
+                                          - key
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                      type: object
+                                  required:
+                                  - name
+                                  type: object
+                                type: array
                               extraVolumes:
-                                description: ExtraVolumes is an extra set of host
+                                description: extraVolumes is an extra set of host
                                   volumes, mounted to the control plane component.
                                 items:
                                   description: 'HostPathMount contains elements describing
@@ -2568,24 +2680,24 @@ spec:
                                     host.'
                                   properties:
                                     hostPath:
-                                      description: 'HostPath is the path in the host
+                                      description: 'hostPath is the path in the host
                                         that will be mounted inside
 
                                         the pod.'
                                       type: string
                                     mountPath:
-                                      description: MountPath is the path inside the
+                                      description: mountPath is the path inside the
                                         pod where hostPath will be mounted.
                                       type: string
                                     name:
-                                      description: Name of the volume inside the pod
+                                      description: name of the volume inside the pod
                                         template.
                                       type: string
                                     pathType:
-                                      description: PathType is the type of the HostPath.
+                                      description: pathType is the type of the HostPath.
                                       type: string
                                     readOnly:
-                                      description: ReadOnly controls write access
+                                      description: readOnly controls write access
                                         to the volume
                                       type: boolean
                                   required:
@@ -2595,7 +2707,7 @@ spec:
                                   type: object
                                 type: array
                               timeoutForControlPlane:
-                                description: TimeoutForControlPlane controls the timeout
+                                description: timeoutForControlPlane controls the timeout
                                   that we use for API server to appear
                                 type: string
                             type: object
@@ -2611,7 +2723,7 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
                             type: string
                           certificatesDir:
-                            description: 'CertificatesDir specifies where to store
+                            description: 'certificatesDir specifies where to store
                               or look for all required certificates.
 
                               NB: if not provided, this will default to `/etc/kubernetes/pki`'
@@ -2620,7 +2732,7 @@ spec:
                             description: The cluster name
                             type: string
                           controlPlaneEndpoint:
-                            description: 'ControlPlaneEndpoint sets a stable IP address
+                            description: 'controlPlaneEndpoint sets a stable IP address
                               or DNS name for the control plane; it
 
                               can be a valid IP address or a RFC-1123 DNS subdomain,
@@ -2654,22 +2766,183 @@ spec:
                               object status.apiEndpoints array.'
                             type: string
                           controllerManager:
-                            description: ControllerManager contains extra settings
+                            description: controllerManager contains extra settings
                               for the controller manager control plane component
                             properties:
                               extraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'ExtraArgs is an extra set of flags to
+                                description: extraArgs is an extra set of flags to
                                   pass to the control plane component.
-
-                                  TODO: This is temporary and ideally we would like
-                                  to switch all components to
-
-                                  use ComponentConfig + ConfigMaps.'
                                 type: object
+                              extraEnvs:
+                                description: 'extraEnvs is an extra set of environment
+                                  variables to pass to the control plane component.
+
+                                  Environment variables passed using ExtraEnvs will
+                                  override any existing environment variables, or
+                                  *_proxy environment variables that kubeadm adds
+                                  by default.
+
+                                  This option takes effect only on Kubernetes >=1.31.0.'
+                                items:
+                                  description: EnvVar represents an environment variable
+                                    present in a Container.
+                                  properties:
+                                    name:
+                                      description: Name of the environment variable.
+                                        Must be a C_IDENTIFIER.
+                                      type: string
+                                    value:
+                                      description: 'Variable references $(VAR_NAME)
+                                        are expanded
+
+                                        using the previously defined environment variables
+                                        in the container and
+
+                                        any service environment variables. If a variable
+                                        cannot be resolved,
+
+                                        the reference in the input string will be
+                                        unchanged. Double $$ are reduced
+
+                                        to a single $, which allows for escaping the
+                                        $(VAR_NAME) syntax: i.e.
+
+                                        "$$(VAR_NAME)" will produce the string literal
+                                        "$(VAR_NAME)".
+
+                                        Escaped references will never be expanded,
+                                        regardless of whether the variable
+
+                                        exists or not.
+
+                                        Defaults to "".'
+                                      type: string
+                                    valueFrom:
+                                      description: Source for the environment variable's
+                                        value. Cannot be used if value is not empty.
+                                      properties:
+                                        configMapKeyRef:
+                                          description: Selects a key of a ConfigMap.
+                                          properties:
+                                            key:
+                                              description: The key to select.
+                                              type: string
+                                            name:
+                                              default: ''
+                                              description: 'Name of the referent.
+
+                                                This field is effectively required,
+                                                but due to backwards compatibility
+                                                is
+
+                                                allowed to be empty. Instances of
+                                                this type with an empty value here
+                                                are
+
+                                                almost certainly wrong.
+
+                                                More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                              type: string
+                                            optional:
+                                              description: Specify whether the ConfigMap
+                                                or its key must be defined
+                                              type: boolean
+                                          required:
+                                          - key
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                        fieldRef:
+                                          description: 'Selects a field of the pod:
+                                            supports metadata.name, metadata.namespace,
+                                            `metadata.labels[''<KEY>'']`, `metadata.annotations[''<KEY>'']`,
+
+                                            spec.nodeName, spec.serviceAccountName,
+                                            status.hostIP, status.podIP, status.podIPs.'
+                                          properties:
+                                            apiVersion:
+                                              description: Version of the schema the
+                                                FieldPath is written in terms of,
+                                                defaults to "v1".
+                                              type: string
+                                            fieldPath:
+                                              description: Path of the field to select
+                                                in the specified API version.
+                                              type: string
+                                          required:
+                                          - fieldPath
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                        resourceFieldRef:
+                                          description: 'Selects a resource of the
+                                            container: only resources limits and requests
+
+                                            (limits.cpu, limits.memory, limits.ephemeral-storage,
+                                            requests.cpu, requests.memory and requests.ephemeral-storage)
+                                            are currently supported.'
+                                          properties:
+                                            containerName:
+                                              description: 'Container name: required
+                                                for volumes, optional for env vars'
+                                              type: string
+                                            divisor:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              description: Specifies the output format
+                                                of the exposed resources, defaults
+                                                to "1"
+                                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                              x-kubernetes-int-or-string: true
+                                            resource:
+                                              description: 'Required: resource to
+                                                select'
+                                              type: string
+                                          required:
+                                          - resource
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                        secretKeyRef:
+                                          description: Selects a key of a secret in
+                                            the pod's namespace
+                                          properties:
+                                            key:
+                                              description: The key of the secret to
+                                                select from.  Must be a valid secret
+                                                key.
+                                              type: string
+                                            name:
+                                              default: ''
+                                              description: 'Name of the referent.
+
+                                                This field is effectively required,
+                                                but due to backwards compatibility
+                                                is
+
+                                                allowed to be empty. Instances of
+                                                this type with an empty value here
+                                                are
+
+                                                almost certainly wrong.
+
+                                                More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                              type: string
+                                            optional:
+                                              description: Specify whether the Secret
+                                                or its key must be defined
+                                              type: boolean
+                                          required:
+                                          - key
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                      type: object
+                                  required:
+                                  - name
+                                  type: object
+                                type: array
                               extraVolumes:
-                                description: ExtraVolumes is an extra set of host
+                                description: extraVolumes is an extra set of host
                                   volumes, mounted to the control plane component.
                                 items:
                                   description: 'HostPathMount contains elements describing
@@ -2678,24 +2951,24 @@ spec:
                                     host.'
                                   properties:
                                     hostPath:
-                                      description: 'HostPath is the path in the host
+                                      description: 'hostPath is the path in the host
                                         that will be mounted inside
 
                                         the pod.'
                                       type: string
                                     mountPath:
-                                      description: MountPath is the path inside the
+                                      description: mountPath is the path inside the
                                         pod where hostPath will be mounted.
                                       type: string
                                     name:
-                                      description: Name of the volume inside the pod
+                                      description: name of the volume inside the pod
                                         template.
                                       type: string
                                     pathType:
-                                      description: PathType is the type of the HostPath.
+                                      description: pathType is the type of the HostPath.
                                       type: string
                                     readOnly:
-                                      description: ReadOnly controls write access
+                                      description: readOnly controls write access
                                         to the volume
                                       type: boolean
                                   required:
@@ -2706,18 +2979,18 @@ spec:
                                 type: array
                             type: object
                           dns:
-                            description: DNS defines the options for the DNS add-on
+                            description: dns defines the options for the DNS add-on
                               installed in the cluster.
                             properties:
                               imageRepository:
-                                description: 'ImageRepository sets the container registry
+                                description: 'imageRepository sets the container registry
                                   to pull images from.
 
                                   if not set, the ImageRepository defined in ClusterConfiguration
                                   will be used instead.'
                                 type: string
                               imageTag:
-                                description: 'ImageTag allows to specify a tag for
+                                description: 'imageTag allows to specify a tag for
                                   the image.
 
                                   In case this value is set, kubeadm does not change
@@ -2726,36 +2999,36 @@ spec:
                                 type: string
                             type: object
                           etcd:
-                            description: 'Etcd holds configuration for etcd.
+                            description: 'etcd holds configuration for etcd.
 
                               NB: This value defaults to a Local (stacked) etcd'
                             properties:
                               external:
-                                description: 'External describes how to connect to
+                                description: 'external describes how to connect to
                                   an external etcd cluster
 
                                   Local and External are mutually exclusive'
                                 properties:
                                   caFile:
-                                    description: 'CAFile is an SSL Certificate Authority
+                                    description: 'caFile is an SSL Certificate Authority
                                       file used to secure etcd communication.
 
                                       Required if using a TLS connection.'
                                     type: string
                                   certFile:
-                                    description: 'CertFile is an SSL certification
+                                    description: 'certFile is an SSL certification
                                       file used to secure etcd communication.
 
                                       Required if using a TLS connection.'
                                     type: string
                                   endpoints:
-                                    description: Endpoints of etcd members. Required
+                                    description: endpoints of etcd members. Required
                                       for ExternalEtcd.
                                     items:
                                       type: string
                                     type: array
                                   keyFile:
-                                    description: 'KeyFile is an SSL key file used
+                                    description: 'keyFile is an SSL key file used
                                       to secure etcd communication.
 
                                       Required if using a TLS connection.'
@@ -2767,13 +3040,13 @@ spec:
                                 - keyFile
                                 type: object
                               local:
-                                description: 'Local provides configuration knobs for
+                                description: 'local provides configuration knobs for
                                   configuring the local etcd instance
 
                                   Local and External are mutually exclusive'
                                 properties:
                                   dataDir:
-                                    description: 'DataDir is the directory etcd will
+                                    description: 'dataDir is the directory etcd will
                                       place its data.
 
                                       Defaults to "/var/lib/etcd".'
@@ -2781,20 +3054,191 @@ spec:
                                   extraArgs:
                                     additionalProperties:
                                       type: string
-                                    description: 'ExtraArgs are extra arguments provided
+                                    description: 'extraArgs are extra arguments provided
                                       to the etcd binary
 
                                       when run inside a static pod.'
                                     type: object
+                                  extraEnvs:
+                                    description: 'extraEnvs is an extra set of environment
+                                      variables to pass to the control plane component.
+
+                                      Environment variables passed using ExtraEnvs
+                                      will override any existing environment variables,
+                                      or *_proxy environment variables that kubeadm
+                                      adds by default.
+
+                                      This option takes effect only on Kubernetes
+                                      >=1.31.0.'
+                                    items:
+                                      description: EnvVar represents an environment
+                                        variable present in a Container.
+                                      properties:
+                                        name:
+                                          description: Name of the environment variable.
+                                            Must be a C_IDENTIFIER.
+                                          type: string
+                                        value:
+                                          description: 'Variable references $(VAR_NAME)
+                                            are expanded
+
+                                            using the previously defined environment
+                                            variables in the container and
+
+                                            any service environment variables. If
+                                            a variable cannot be resolved,
+
+                                            the reference in the input string will
+                                            be unchanged. Double $$ are reduced
+
+                                            to a single $, which allows for escaping
+                                            the $(VAR_NAME) syntax: i.e.
+
+                                            "$$(VAR_NAME)" will produce the string
+                                            literal "$(VAR_NAME)".
+
+                                            Escaped references will never be expanded,
+                                            regardless of whether the variable
+
+                                            exists or not.
+
+                                            Defaults to "".'
+                                          type: string
+                                        valueFrom:
+                                          description: Source for the environment
+                                            variable's value. Cannot be used if value
+                                            is not empty.
+                                          properties:
+                                            configMapKeyRef:
+                                              description: Selects a key of a ConfigMap.
+                                              properties:
+                                                key:
+                                                  description: The key to select.
+                                                  type: string
+                                                name:
+                                                  default: ''
+                                                  description: 'Name of the referent.
+
+                                                    This field is effectively required,
+                                                    but due to backwards compatibility
+                                                    is
+
+                                                    allowed to be empty. Instances
+                                                    of this type with an empty value
+                                                    here are
+
+                                                    almost certainly wrong.
+
+                                                    More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                                  type: string
+                                                optional:
+                                                  description: Specify whether the
+                                                    ConfigMap or its key must be defined
+                                                  type: boolean
+                                              required:
+                                              - key
+                                              type: object
+                                              x-kubernetes-map-type: atomic
+                                            fieldRef:
+                                              description: 'Selects a field of the
+                                                pod: supports metadata.name, metadata.namespace,
+                                                `metadata.labels[''<KEY>'']`, `metadata.annotations[''<KEY>'']`,
+
+                                                spec.nodeName, spec.serviceAccountName,
+                                                status.hostIP, status.podIP, status.podIPs.'
+                                              properties:
+                                                apiVersion:
+                                                  description: Version of the schema
+                                                    the FieldPath is written in terms
+                                                    of, defaults to "v1".
+                                                  type: string
+                                                fieldPath:
+                                                  description: Path of the field to
+                                                    select in the specified API version.
+                                                  type: string
+                                              required:
+                                              - fieldPath
+                                              type: object
+                                              x-kubernetes-map-type: atomic
+                                            resourceFieldRef:
+                                              description: 'Selects a resource of
+                                                the container: only resources limits
+                                                and requests
+
+                                                (limits.cpu, limits.memory, limits.ephemeral-storage,
+                                                requests.cpu, requests.memory and
+                                                requests.ephemeral-storage) are currently
+                                                supported.'
+                                              properties:
+                                                containerName:
+                                                  description: 'Container name: required
+                                                    for volumes, optional for env
+                                                    vars'
+                                                  type: string
+                                                divisor:
+                                                  anyOf:
+                                                  - type: integer
+                                                  - type: string
+                                                  description: Specifies the output
+                                                    format of the exposed resources,
+                                                    defaults to "1"
+                                                  pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                                  x-kubernetes-int-or-string: true
+                                                resource:
+                                                  description: 'Required: resource
+                                                    to select'
+                                                  type: string
+                                              required:
+                                              - resource
+                                              type: object
+                                              x-kubernetes-map-type: atomic
+                                            secretKeyRef:
+                                              description: Selects a key of a secret
+                                                in the pod's namespace
+                                              properties:
+                                                key:
+                                                  description: The key of the secret
+                                                    to select from.  Must be a valid
+                                                    secret key.
+                                                  type: string
+                                                name:
+                                                  default: ''
+                                                  description: 'Name of the referent.
+
+                                                    This field is effectively required,
+                                                    but due to backwards compatibility
+                                                    is
+
+                                                    allowed to be empty. Instances
+                                                    of this type with an empty value
+                                                    here are
+
+                                                    almost certainly wrong.
+
+                                                    More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                                  type: string
+                                                optional:
+                                                  description: Specify whether the
+                                                    Secret or its key must be defined
+                                                  type: boolean
+                                              required:
+                                              - key
+                                              type: object
+                                              x-kubernetes-map-type: atomic
+                                          type: object
+                                      required:
+                                      - name
+                                      type: object
+                                    type: array
                                   imageRepository:
-                                    description: 'ImageRepository sets the container
+                                    description: 'imageRepository sets the container
                                       registry to pull images from.
 
                                       if not set, the ImageRepository defined in ClusterConfiguration
                                       will be used instead.'
                                     type: string
                                   imageTag:
-                                    description: 'ImageTag allows to specify a tag
+                                    description: 'imageTag allows to specify a tag
                                       for the image.
 
                                       In case this value is set, kubeadm does not
@@ -2802,13 +3246,13 @@ spec:
                                       components during upgrades.'
                                     type: string
                                   peerCertSANs:
-                                    description: PeerCertSANs sets extra Subject Alternative
+                                    description: peerCertSANs sets extra Subject Alternative
                                       Names for the etcd peer signing cert.
                                     items:
                                       type: string
                                     type: array
                                   serverCertSANs:
-                                    description: ServerCertSANs sets extra Subject
+                                    description: serverCertSANs sets extra Subject
                                       Alternative Names for the etcd server signing
                                       cert.
                                     items:
@@ -2819,10 +3263,10 @@ spec:
                           featureGates:
                             additionalProperties:
                               type: boolean
-                            description: FeatureGates enabled by the user.
+                            description: featureGates enabled by the user.
                             type: object
                           imageRepository:
-                            description: "ImageRepository sets the container registry\
+                            description: "imageRepository sets the container registry\
                               \ to pull images from.\n* If not set, the default registry\
                               \ of kubeadm will be used, i.e.\n  * registry.k8s.io\
                               \ (new registry): >= v1.22.17, >= v1.23.15, >= v1.24.9,\
@@ -2852,23 +3296,23 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
                             type: string
                           kubernetesVersion:
-                            description: 'KubernetesVersion is the target version
+                            description: 'kubernetesVersion is the target version
                               of the control plane.
 
                               NB: This value defaults to the Machine object spec.version'
                             type: string
                           networking:
-                            description: 'Networking holds configuration for the networking
+                            description: 'networking holds configuration for the networking
                               topology of the cluster.
 
                               NB: This value defaults to the Cluster object spec.clusterNetwork.'
                             properties:
                               dnsDomain:
-                                description: DNSDomain is the dns domain used by k8s
+                                description: dnsDomain is the dns domain used by k8s
                                   services. Defaults to "cluster.local".
                                 type: string
                               podSubnet:
-                                description: 'PodSubnet is the subnet used by pods.
+                                description: 'podSubnet is the subnet used by pods.
 
                                   If unset, the API server will not allocate CIDR
                                   ranges for every node.
@@ -2878,7 +3322,7 @@ spec:
                                   if that is set'
                                 type: string
                               serviceSubnet:
-                                description: 'ServiceSubnet is the subnet used by
+                                description: 'serviceSubnet is the subnet used by
                                   k8s services.
 
                                   Defaults to a comma-delimited string of the Cluster
@@ -2888,22 +3332,183 @@ spec:
                                 type: string
                             type: object
                           scheduler:
-                            description: Scheduler contains extra settings for the
+                            description: scheduler contains extra settings for the
                               scheduler control plane component
                             properties:
                               extraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'ExtraArgs is an extra set of flags to
+                                description: extraArgs is an extra set of flags to
                                   pass to the control plane component.
-
-                                  TODO: This is temporary and ideally we would like
-                                  to switch all components to
-
-                                  use ComponentConfig + ConfigMaps.'
                                 type: object
+                              extraEnvs:
+                                description: 'extraEnvs is an extra set of environment
+                                  variables to pass to the control plane component.
+
+                                  Environment variables passed using ExtraEnvs will
+                                  override any existing environment variables, or
+                                  *_proxy environment variables that kubeadm adds
+                                  by default.
+
+                                  This option takes effect only on Kubernetes >=1.31.0.'
+                                items:
+                                  description: EnvVar represents an environment variable
+                                    present in a Container.
+                                  properties:
+                                    name:
+                                      description: Name of the environment variable.
+                                        Must be a C_IDENTIFIER.
+                                      type: string
+                                    value:
+                                      description: 'Variable references $(VAR_NAME)
+                                        are expanded
+
+                                        using the previously defined environment variables
+                                        in the container and
+
+                                        any service environment variables. If a variable
+                                        cannot be resolved,
+
+                                        the reference in the input string will be
+                                        unchanged. Double $$ are reduced
+
+                                        to a single $, which allows for escaping the
+                                        $(VAR_NAME) syntax: i.e.
+
+                                        "$$(VAR_NAME)" will produce the string literal
+                                        "$(VAR_NAME)".
+
+                                        Escaped references will never be expanded,
+                                        regardless of whether the variable
+
+                                        exists or not.
+
+                                        Defaults to "".'
+                                      type: string
+                                    valueFrom:
+                                      description: Source for the environment variable's
+                                        value. Cannot be used if value is not empty.
+                                      properties:
+                                        configMapKeyRef:
+                                          description: Selects a key of a ConfigMap.
+                                          properties:
+                                            key:
+                                              description: The key to select.
+                                              type: string
+                                            name:
+                                              default: ''
+                                              description: 'Name of the referent.
+
+                                                This field is effectively required,
+                                                but due to backwards compatibility
+                                                is
+
+                                                allowed to be empty. Instances of
+                                                this type with an empty value here
+                                                are
+
+                                                almost certainly wrong.
+
+                                                More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                              type: string
+                                            optional:
+                                              description: Specify whether the ConfigMap
+                                                or its key must be defined
+                                              type: boolean
+                                          required:
+                                          - key
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                        fieldRef:
+                                          description: 'Selects a field of the pod:
+                                            supports metadata.name, metadata.namespace,
+                                            `metadata.labels[''<KEY>'']`, `metadata.annotations[''<KEY>'']`,
+
+                                            spec.nodeName, spec.serviceAccountName,
+                                            status.hostIP, status.podIP, status.podIPs.'
+                                          properties:
+                                            apiVersion:
+                                              description: Version of the schema the
+                                                FieldPath is written in terms of,
+                                                defaults to "v1".
+                                              type: string
+                                            fieldPath:
+                                              description: Path of the field to select
+                                                in the specified API version.
+                                              type: string
+                                          required:
+                                          - fieldPath
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                        resourceFieldRef:
+                                          description: 'Selects a resource of the
+                                            container: only resources limits and requests
+
+                                            (limits.cpu, limits.memory, limits.ephemeral-storage,
+                                            requests.cpu, requests.memory and requests.ephemeral-storage)
+                                            are currently supported.'
+                                          properties:
+                                            containerName:
+                                              description: 'Container name: required
+                                                for volumes, optional for env vars'
+                                              type: string
+                                            divisor:
+                                              anyOf:
+                                              - type: integer
+                                              - type: string
+                                              description: Specifies the output format
+                                                of the exposed resources, defaults
+                                                to "1"
+                                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                                              x-kubernetes-int-or-string: true
+                                            resource:
+                                              description: 'Required: resource to
+                                                select'
+                                              type: string
+                                          required:
+                                          - resource
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                        secretKeyRef:
+                                          description: Selects a key of a secret in
+                                            the pod's namespace
+                                          properties:
+                                            key:
+                                              description: The key of the secret to
+                                                select from.  Must be a valid secret
+                                                key.
+                                              type: string
+                                            name:
+                                              default: ''
+                                              description: 'Name of the referent.
+
+                                                This field is effectively required,
+                                                but due to backwards compatibility
+                                                is
+
+                                                allowed to be empty. Instances of
+                                                this type with an empty value here
+                                                are
+
+                                                almost certainly wrong.
+
+                                                More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                              type: string
+                                            optional:
+                                              description: Specify whether the Secret
+                                                or its key must be defined
+                                              type: boolean
+                                          required:
+                                          - key
+                                          type: object
+                                          x-kubernetes-map-type: atomic
+                                      type: object
+                                  required:
+                                  - name
+                                  type: object
+                                type: array
                               extraVolumes:
-                                description: ExtraVolumes is an extra set of host
+                                description: extraVolumes is an extra set of host
                                   volumes, mounted to the control plane component.
                                 items:
                                   description: 'HostPathMount contains elements describing
@@ -2912,24 +3517,24 @@ spec:
                                     host.'
                                   properties:
                                     hostPath:
-                                      description: 'HostPath is the path in the host
+                                      description: 'hostPath is the path in the host
                                         that will be mounted inside
 
                                         the pod.'
                                       type: string
                                     mountPath:
-                                      description: MountPath is the path inside the
+                                      description: mountPath is the path inside the
                                         pod where hostPath will be mounted.
                                       type: string
                                     name:
-                                      description: Name of the volume inside the pod
+                                      description: name of the volume inside the pod
                                         template.
                                       type: string
                                     pathType:
-                                      description: PathType is the type of the HostPath.
+                                      description: pathType is the type of the HostPath.
                                       type: string
                                     readOnly:
-                                      description: ReadOnly controls write access
+                                      description: readOnly controls write access
                                         to the volume
                                       type: boolean
                                   required:
@@ -2941,48 +3546,48 @@ spec:
                             type: object
                         type: object
                       diskSetup:
-                        description: DiskSetup specifies options for the creation
+                        description: diskSetup specifies options for the creation
                           of partition tables and file systems on devices.
                         properties:
                           filesystems:
-                            description: Filesystems specifies the list of file systems
+                            description: filesystems specifies the list of file systems
                               to setup.
                             items:
                               description: Filesystem defines the file systems to
                                 be created.
                               properties:
                                 device:
-                                  description: Device specifies the device name
+                                  description: device specifies the device name
                                   type: string
                                 extraOpts:
-                                  description: ExtraOpts defined extra options to
+                                  description: extraOpts defined extra options to
                                     add to the command for creating the file system.
                                   items:
                                     type: string
                                   type: array
                                 filesystem:
-                                  description: Filesystem specifies the file system
+                                  description: filesystem specifies the file system
                                     type.
                                   type: string
                                 label:
-                                  description: Label specifies the file system label
+                                  description: label specifies the file system label
                                     to be used. If set to None, no label is used.
                                   type: string
                                 overwrite:
-                                  description: 'Overwrite defines whether or not to
+                                  description: 'overwrite defines whether or not to
                                     overwrite any existing filesystem.
 
                                     If true, any pre-existing file system will be
                                     destroyed. Use with Caution.'
                                   type: boolean
                                 partition:
-                                  description: 'Partition specifies the partition
+                                  description: 'partition specifies the partition
                                     to use. The valid options are: "auto|any", "auto",
                                     "any", "none", and <NUM>, where NUM is the actual
                                     partition number.'
                                   type: string
                                 replaceFS:
-                                  description: 'ReplaceFS is a special directive,
+                                  description: 'replaceFS is a special directive,
                                     used for Microsoft Azure that instructs cloud-init
                                     to replace a file system of <FS_TYPE>.
 
@@ -2996,17 +3601,17 @@ spec:
                               type: object
                             type: array
                           partitions:
-                            description: Partitions specifies the list of the partitions
+                            description: partitions specifies the list of the partitions
                               to setup.
                             items:
                               description: Partition defines how to create and layout
                                 a partition.
                               properties:
                                 device:
-                                  description: Device is the name of the device.
+                                  description: device is the name of the device.
                                   type: string
                                 layout:
-                                  description: 'Layout specifies the device layout.
+                                  description: 'layout specifies the device layout.
 
                                     If it is true, a single partition will be created
                                     for the entire device.
@@ -3015,14 +3620,14 @@ spec:
                                     or ignore existing partitioning.'
                                   type: boolean
                                 overwrite:
-                                  description: 'Overwrite describes whether to skip
+                                  description: 'overwrite describes whether to skip
                                     checks and create the partition if a partition
                                     or filesystem is found on the device.
 
                                     Use with caution. Default is ''false''.'
                                   type: boolean
                                 tableType:
-                                  description: 'TableType specifies the tupe of partition
+                                  description: 'tableType specifies the tupe of partition
                                     table. The following are supported:
 
                                     ''mbr'': default and setups a MS-DOS partition
@@ -3037,33 +3642,33 @@ spec:
                             type: array
                         type: object
                       files:
-                        description: Files specifies extra files to be passed to user_data
+                        description: files specifies extra files to be passed to user_data
                           upon creation.
                         items:
                           description: File defines the input for generating write_files
                             in cloud-init.
                           properties:
                             append:
-                              description: Append specifies whether to append Content
+                              description: append specifies whether to append Content
                                 to existing file if Path exists.
                               type: boolean
                             content:
-                              description: Content is the actual content of the file.
+                              description: content is the actual content of the file.
                               type: string
                             contentFrom:
-                              description: ContentFrom is a referenced source of content
+                              description: contentFrom is a referenced source of content
                                 to populate the file.
                               properties:
                                 secret:
-                                  description: Secret represents a secret that should
+                                  description: secret represents a secret that should
                                     populate this file.
                                   properties:
                                     key:
-                                      description: Key is the key in the secret's
+                                      description: key is the key in the secret's
                                         data map for this value.
                                       type: string
                                     name:
-                                      description: Name of the secret in the KubeadmBootstrapConfig's
+                                      description: name of the secret in the KubeadmBootstrapConfig's
                                         namespace to use.
                                       type: string
                                   required:
@@ -3074,7 +3679,7 @@ spec:
                               - secret
                               type: object
                             encoding:
-                              description: Encoding specifies the encoding of the
+                              description: encoding specifies the encoding of the
                                 file contents.
                               enum:
                               - base64
@@ -3082,15 +3687,15 @@ spec:
                               - gzip+base64
                               type: string
                             owner:
-                              description: Owner specifies the ownership of the file,
+                              description: owner specifies the ownership of the file,
                                 e.g. "root:root".
                               type: string
                             path:
-                              description: Path specifies the full path on disk where
+                              description: path specifies the full path on disk where
                                 to store the file.
                               type: string
                             permissions:
-                              description: Permissions specifies the permissions to
+                              description: permissions specifies the permissions to
                                 assign to the file, e.g. "0640".
                               type: string
                           required:
@@ -3098,39 +3703,38 @@ spec:
                           type: object
                         type: array
                       format:
-                        description: Format specifies the output format of the bootstrap
+                        description: format specifies the output format of the bootstrap
                           data
                         enum:
                         - cloud-config
                         - ignition
                         type: string
                       ignition:
-                        description: Ignition contains Ignition specific configuration.
+                        description: ignition contains Ignition specific configuration.
                         properties:
                           containerLinuxConfig:
-                            description: ContainerLinuxConfig contains CLC specific
+                            description: containerLinuxConfig contains CLC specific
                               configuration.
                             properties:
                               additionalConfig:
-                                description: 'AdditionalConfig contains additional
+                                description: 'additionalConfig contains additional
                                   configuration to be merged with the Ignition
 
                                   configuration generated by the bootstrapper controller.
                                   More info: https://coreos.github.io/ignition/operator-notes/#config-merging
 
 
-
                                   The data format is documented here: https://kinvolk.io/docs/flatcar-container-linux/latest/provisioning/cl-config/'
                                 type: string
                               strict:
-                                description: Strict controls if AdditionalConfig should
+                                description: strict controls if AdditionalConfig should
                                   be strictly parsed. If so, warnings are treated
                                   as errors.
                                 type: boolean
                             type: object
                         type: object
                       initConfiguration:
-                        description: InitConfiguration along with ClusterConfiguration
+                        description: initConfiguration along with ClusterConfiguration
                           are the configurations necessary for the init command
                         properties:
                           apiVersion:
@@ -3145,7 +3749,7 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
                             type: string
                           bootstrapTokens:
-                            description: 'BootstrapTokens is respected at `kubeadm
+                            description: 'bootstrapTokens is respected at `kubeadm
                               init` time and describes a set of Bootstrap Tokens to
                               create.
 
@@ -3156,13 +3760,13 @@ spec:
                                 token, stored as a Secret in the cluster.
                               properties:
                                 description:
-                                  description: 'Description sets a human-friendly
+                                  description: 'description sets a human-friendly
                                     message why this token exists and what it''s used
 
                                     for, so other administrators can know its purpose.'
                                   type: string
                                 expires:
-                                  description: 'Expires specifies the timestamp when
+                                  description: 'expires specifies the timestamp when
                                     this token expires. Defaults to being set
 
                                     dynamically at runtime based on the TTL. Expires
@@ -3170,7 +3774,7 @@ spec:
                                   format: date-time
                                   type: string
                                 groups:
-                                  description: 'Groups specifies the extra groups
+                                  description: 'groups specifies the extra groups
                                     that this token will authenticate as when/if
 
                                     used for authentication'
@@ -3178,19 +3782,19 @@ spec:
                                     type: string
                                   type: array
                                 token:
-                                  description: 'Token is used for establishing bidirectional
+                                  description: 'token is used for establishing bidirectional
                                     trust between nodes and control-planes.
 
                                     Used for joining nodes in the cluster.'
                                   type: string
                                 ttl:
-                                  description: 'TTL defines the time to live for this
+                                  description: 'ttl defines the time to live for this
                                     token. Defaults to 24h.
 
                                     Expires and TTL are mutually exclusive.'
                                   type: string
                                 usages:
-                                  description: 'Usages describes the ways in which
+                                  description: 'usages describes the ways in which
                                     this token can be used. Can by default be used
 
                                     for establishing bidirectional trust, but that
@@ -3216,7 +3820,7 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
                             type: string
                           localAPIEndpoint:
-                            description: 'LocalAPIEndpoint represents the endpoint
+                            description: 'localAPIEndpoint represents the endpoint
                               of the API server instance that''s deployed on this
                               control plane node
 
@@ -3237,11 +3841,11 @@ spec:
                               fails you may set the desired value here.'
                             properties:
                               advertiseAddress:
-                                description: AdvertiseAddress sets the IP address
+                                description: advertiseAddress sets the IP address
                                   for the API server to advertise.
                                 type: string
                               bindPort:
-                                description: 'BindPort sets the secure port for the
+                                description: 'bindPort sets the secure port for the
                                   API Server to bind to.
 
                                   Defaults to 6443.'
@@ -3249,7 +3853,7 @@ spec:
                                 type: integer
                             type: object
                           nodeRegistration:
-                            description: 'NodeRegistration holds fields that relate
+                            description: 'nodeRegistration holds fields that relate
                               to registering the new control-plane node to the cluster.
 
                               When used in the context of control plane nodes, NodeRegistration
@@ -3258,19 +3862,19 @@ spec:
                               across both InitConfiguration and JoinConfiguration'
                             properties:
                               criSocket:
-                                description: CRISocket is used to retrieve container
+                                description: criSocket is used to retrieve container
                                   runtime info. This information will be annotated
                                   to the Node API object, for later re-use
                                 type: string
                               ignorePreflightErrors:
-                                description: IgnorePreflightErrors provides a slice
+                                description: ignorePreflightErrors provides a slice
                                   of pre-flight errors to be ignored when the current
                                   node is registered.
                                 items:
                                   type: string
                                 type: array
                               imagePullPolicy:
-                                description: 'ImagePullPolicy specifies the policy
+                                description: 'imagePullPolicy specifies the policy
                                   for image pulling
 
                                   during kubeadm "init" and "join" operations. The
@@ -3288,10 +3892,19 @@ spec:
                                 - IfNotPresent
                                 - Never
                                 type: string
+                              imagePullSerial:
+                                description: 'imagePullSerial specifies if image pulling
+                                  performed by kubeadm must be done serially or in
+                                  parallel.
+
+                                  This option takes effect only on Kubernetes >=1.31.0.
+
+                                  Default: true (defaulted in kubeadm)'
+                                type: boolean
                               kubeletExtraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'KubeletExtraArgs passes through extra
+                                description: 'kubeletExtraArgs passes through extra
                                   arguments to the kubelet. The arguments here are
                                   passed to the kubelet command line via the environment
                                   file
@@ -3305,7 +3918,7 @@ spec:
                                   on.'
                                 type: object
                               name:
-                                description: 'Name is the `.Metadata.Name` field of
+                                description: 'name is the `.Metadata.Name` field of
                                   the Node API object that will be created in this
                                   `kubeadm init` or `kubeadm join` operation.
 
@@ -3316,7 +3929,7 @@ spec:
                                   Defaults to the hostname of the node if not provided.'
                                 type: string
                               taints:
-                                description: 'Taints specifies the taints the Node
+                                description: 'taints specifies the taints the Node
                                   API object should be registered with. If this field
                                   is unset, i.e. nil, in the `kubeadm init` process
 
@@ -3363,14 +3976,14 @@ spec:
                                 type: array
                             type: object
                           patches:
-                            description: 'Patches contains options related to applying
+                            description: 'patches contains options related to applying
                               patches to components deployed by kubeadm during
 
                               "kubeadm init". The minimum kubernetes version needed
                               to support Patches is v1.22'
                             properties:
                               directory:
-                                description: 'Directory is a path to a directory that
+                                description: 'directory is a path to a directory that
                                   contains files named "target[suffix][+patchtype].extension".
 
                                   For example, "kube-apiserver0+merge.yaml" or just
@@ -3400,7 +4013,7 @@ spec:
                                 type: string
                             type: object
                           skipPhases:
-                            description: 'SkipPhases is a list of phases to skip during
+                            description: 'skipPhases is a list of phases to skip during
                               command execution.
 
                               The list of phases can be obtained with the "kubeadm
@@ -3412,7 +4025,7 @@ spec:
                             type: array
                         type: object
                       joinConfiguration:
-                        description: JoinConfiguration is the kubeadm configuration
+                        description: joinConfiguration is the kubeadm configuration
                           for the join command
                         properties:
                           apiVersion:
@@ -3427,33 +4040,31 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
                             type: string
                           caCertPath:
-                            description: 'CACertPath is the path to the SSL certificate
+                            description: 'caCertPath is the path to the SSL certificate
                               authority used to
 
                               secure comunications between node and control-plane.
 
-                              Defaults to "/etc/kubernetes/pki/ca.crt".
-
-                              TODO: revisit when there is defaulting from k/k'
+                              Defaults to "/etc/kubernetes/pki/ca.crt".'
                             type: string
                           controlPlane:
-                            description: 'ControlPlane defines the additional control
+                            description: 'controlPlane defines the additional control
                               plane instance to be deployed on the joining node.
 
                               If nil, no additional control plane instance will be
                               deployed.'
                             properties:
                               localAPIEndpoint:
-                                description: LocalAPIEndpoint represents the endpoint
+                                description: localAPIEndpoint represents the endpoint
                                   of the API server instance to be deployed on this
                                   node.
                                 properties:
                                   advertiseAddress:
-                                    description: AdvertiseAddress sets the IP address
+                                    description: advertiseAddress sets the IP address
                                       for the API server to advertise.
                                     type: string
                                   bindPort:
-                                    description: 'BindPort sets the secure port for
+                                    description: 'bindPort sets the secure port for
                                       the API Server to bind to.
 
                                       Defaults to 6443.'
@@ -3462,24 +4073,22 @@ spec:
                                 type: object
                             type: object
                           discovery:
-                            description: 'Discovery specifies the options for the
-                              kubelet to use during the TLS Bootstrap process
-
-                              TODO: revisit when there is defaulting from k/k'
+                            description: discovery specifies the options for the kubelet
+                              to use during the TLS Bootstrap process
                             properties:
                               bootstrapToken:
-                                description: 'BootstrapToken is used to set the options
+                                description: 'bootstrapToken is used to set the options
                                   for bootstrap token based discovery
 
                                   BootstrapToken and File are mutually exclusive'
                                 properties:
                                   apiServerEndpoint:
-                                    description: APIServerEndpoint is an IP or domain
+                                    description: apiServerEndpoint is an IP or domain
                                       name to the API server from which info will
                                       be fetched.
                                     type: string
                                   caCertHashes:
-                                    description: 'CACertHashes specifies a set of
+                                    description: 'caCertHashes specifies a set of
                                       public key pins to verify
 
                                       when token-based discovery is used. The root
@@ -3507,13 +4116,13 @@ spec:
                                       type: string
                                     type: array
                                   token:
-                                    description: 'Token is a token used to validate
+                                    description: 'token is a token used to validate
                                       cluster information
 
                                       fetched from the control-plane.'
                                     type: string
                                   unsafeSkipCAVerification:
-                                    description: 'UnsafeSkipCAVerification allows
+                                    description: 'unsafeSkipCAVerification allows
                                       token-based discovery
 
                                       without CA verification via CACertHashes. This
@@ -3526,20 +4135,19 @@ spec:
                                 - token
                                 type: object
                               file:
-                                description: 'File is used to specify a file or URL
+                                description: 'file is used to specify a file or URL
                                   to a kubeconfig file from which to load cluster
                                   information
 
                                   BootstrapToken and File are mutually exclusive'
                                 properties:
                                   kubeConfig:
-                                    description: 'KubeConfig is used (optionally)
+                                    description: 'kubeConfig is used (optionally)
                                       to generate a KubeConfig based on the KubeadmConfig''s
                                       information.
 
                                       The file is generated at the path specified
                                       in KubeConfigPath.
-
 
 
                                       Host address (server field) information is automatically
@@ -3549,10 +4157,9 @@ spec:
                                       field) is gathered from the cluster''s CA secret.'
                                     properties:
                                       cluster:
-                                        description: 'Cluster contains information
+                                        description: 'cluster contains information
                                           about how to communicate with the kubernetes
                                           cluster.
-
 
 
                                           By default the following fields are automatically
@@ -3564,10 +4171,9 @@ spec:
                                           CA certificate.'
                                         properties:
                                           certificateAuthorityData:
-                                            description: 'CertificateAuthorityData
+                                            description: 'certificateAuthorityData
                                               contains PEM-encoded certificate authority
                                               certificates.
-
 
 
                                               Defaults to the Cluster''s CA certificate
@@ -3575,13 +4181,13 @@ spec:
                                             format: byte
                                             type: string
                                           insecureSkipTLSVerify:
-                                            description: InsecureSkipTLSVerify skips
+                                            description: insecureSkipTLSVerify skips
                                               the validity check for the server's
                                               certificate. This will make your HTTPS
                                               connections insecure.
                                             type: boolean
                                           proxyURL:
-                                            description: 'ProxyURL is the URL to the
+                                            description: 'proxyURL is the URL to the
                                               proxy to be used for all requests made
                                               by this
 
@@ -3601,54 +4207,52 @@ spec:
                                               proxy requests.
 
 
-
                                               socks5 proxying does not currently support
                                               spdy streaming endpoints (exec,
 
                                               attach, port forward).'
                                             type: string
                                           server:
-                                            description: 'Server is the address of
+                                            description: 'server is the address of
                                               the kubernetes cluster (https://hostname:port).
-
 
 
                                               Defaults to https:// + Cluster.Spec.ControlPlaneEndpoint.'
                                             type: string
                                           tlsServerName:
-                                            description: TLSServerName is used to
+                                            description: tlsServerName is used to
                                               check server certificate. If TLSServerName
                                               is empty, the hostname used to contact
                                               the server is used.
                                             type: string
                                         type: object
                                       user:
-                                        description: 'User contains information that
+                                        description: 'user contains information that
                                           describes identity information.
 
                                           This is used to tell the kubernetes cluster
                                           who you are.'
                                         properties:
                                           authProvider:
-                                            description: AuthProvider specifies a
+                                            description: authProvider specifies a
                                               custom authentication plugin for the
                                               kubernetes cluster.
                                             properties:
                                               config:
                                                 additionalProperties:
                                                   type: string
-                                                description: Config holds the parameters
+                                                description: config holds the parameters
                                                   for the authentication plugin.
                                                 type: object
                                               name:
-                                                description: Name is the name of the
+                                                description: name is the name of the
                                                   authentication plugin.
                                                 type: string
                                             required:
                                             - name
                                             type: object
                                           exec:
-                                            description: Exec specifies a custom exec-based
+                                            description: exec specifies a custom exec-based
                                               authentication plugin for the kubernetes
                                               cluster.
                                             properties:
@@ -3670,10 +4274,10 @@ spec:
                                                   type: string
                                                 type: array
                                               command:
-                                                description: Command to execute.
+                                                description: command to execute.
                                                 type: string
                                               env:
-                                                description: 'Env defines additional
+                                                description: 'env defines additional
                                                   environment variables to expose
                                                   to the process. These
 
@@ -3698,7 +4302,7 @@ spec:
                                                   type: object
                                                 type: array
                                               provideClusterInfo:
-                                                description: 'ProvideClusterInfo determines
+                                                description: 'provideClusterInfo determines
                                                   whether or not to provide cluster
                                                   information,
 
@@ -3723,7 +4327,7 @@ spec:
                                     - user
                                     type: object
                                   kubeConfigPath:
-                                    description: KubeConfigPath is used to specify
+                                    description: kubeConfigPath is used to specify
                                       the actual file path or URL to the kubeconfig
                                       file from which to load cluster information
                                     type: string
@@ -3731,10 +4335,10 @@ spec:
                                 - kubeConfigPath
                                 type: object
                               timeout:
-                                description: Timeout modifies the discovery timeout
+                                description: timeout modifies the discovery timeout
                                 type: string
                               tlsBootstrapToken:
-                                description: 'TLSBootstrapToken is a token used for
+                                description: 'tlsBootstrapToken is a token used for
                                   TLS bootstrapping.
 
                                   If .BootstrapToken is set, this field is defaulted
@@ -3759,7 +4363,7 @@ spec:
                               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
                             type: string
                           nodeRegistration:
-                            description: 'NodeRegistration holds fields that relate
+                            description: 'nodeRegistration holds fields that relate
                               to registering the new control-plane node to the cluster.
 
                               When used in the context of control plane nodes, NodeRegistration
@@ -3768,19 +4372,19 @@ spec:
                               across both InitConfiguration and JoinConfiguration'
                             properties:
                               criSocket:
-                                description: CRISocket is used to retrieve container
+                                description: criSocket is used to retrieve container
                                   runtime info. This information will be annotated
                                   to the Node API object, for later re-use
                                 type: string
                               ignorePreflightErrors:
-                                description: IgnorePreflightErrors provides a slice
+                                description: ignorePreflightErrors provides a slice
                                   of pre-flight errors to be ignored when the current
                                   node is registered.
                                 items:
                                   type: string
                                 type: array
                               imagePullPolicy:
-                                description: 'ImagePullPolicy specifies the policy
+                                description: 'imagePullPolicy specifies the policy
                                   for image pulling
 
                                   during kubeadm "init" and "join" operations. The
@@ -3798,10 +4402,19 @@ spec:
                                 - IfNotPresent
                                 - Never
                                 type: string
+                              imagePullSerial:
+                                description: 'imagePullSerial specifies if image pulling
+                                  performed by kubeadm must be done serially or in
+                                  parallel.
+
+                                  This option takes effect only on Kubernetes >=1.31.0.
+
+                                  Default: true (defaulted in kubeadm)'
+                                type: boolean
                               kubeletExtraArgs:
                                 additionalProperties:
                                   type: string
-                                description: 'KubeletExtraArgs passes through extra
+                                description: 'kubeletExtraArgs passes through extra
                                   arguments to the kubelet. The arguments here are
                                   passed to the kubelet command line via the environment
                                   file
@@ -3815,7 +4428,7 @@ spec:
                                   on.'
                                 type: object
                               name:
-                                description: 'Name is the `.Metadata.Name` field of
+                                description: 'name is the `.Metadata.Name` field of
                                   the Node API object that will be created in this
                                   `kubeadm init` or `kubeadm join` operation.
 
@@ -3826,7 +4439,7 @@ spec:
                                   Defaults to the hostname of the node if not provided.'
                                 type: string
                               taints:
-                                description: 'Taints specifies the taints the Node
+                                description: 'taints specifies the taints the Node
                                   API object should be registered with. If this field
                                   is unset, i.e. nil, in the `kubeadm init` process
 
@@ -3873,14 +4486,14 @@ spec:
                                 type: array
                             type: object
                           patches:
-                            description: 'Patches contains options related to applying
+                            description: 'patches contains options related to applying
                               patches to components deployed by kubeadm during
 
                               "kubeadm join". The minimum kubernetes version needed
                               to support Patches is v1.22'
                             properties:
                               directory:
-                                description: 'Directory is a path to a directory that
+                                description: 'directory is a path to a directory that
                                   contains files named "target[suffix][+patchtype].extension".
 
                                   For example, "kube-apiserver0+merge.yaml" or just
@@ -3910,7 +4523,7 @@ spec:
                                 type: string
                             type: object
                           skipPhases:
-                            description: 'SkipPhases is a list of phases to skip during
+                            description: 'skipPhases is a list of phases to skip during
                               command execution.
 
                               The list of phases can be obtained with the "kubeadm
@@ -3922,7 +4535,7 @@ spec:
                             type: array
                         type: object
                       mounts:
-                        description: Mounts specifies a list of mount points to be
+                        description: mounts specifies a list of mount points to be
                           setup.
                         items:
                           description: MountPoints defines input for generated mounts
@@ -3932,35 +4545,34 @@ spec:
                           type: array
                         type: array
                       ntp:
-                        description: NTP specifies NTP configuration
+                        description: ntp specifies NTP configuration
                         properties:
                           enabled:
-                            description: Enabled specifies whether NTP should be enabled
+                            description: enabled specifies whether NTP should be enabled
                             type: boolean
                           servers:
-                            description: Servers specifies which NTP servers to use
+                            description: servers specifies which NTP servers to use
                             items:
                               type: string
                             type: array
                         type: object
                       postKubeadmCommands:
-                        description: PostKubeadmCommands specifies extra commands
+                        description: postKubeadmCommands specifies extra commands
                           to run after kubeadm runs
                         items:
                           type: string
                         type: array
                       preKubeadmCommands:
-                        description: PreKubeadmCommands specifies extra commands to
+                        description: preKubeadmCommands specifies extra commands to
                           run before kubeadm runs
                         items:
                           type: string
                         type: array
                       useExperimentalRetryJoin:
-                        description: 'UseExperimentalRetryJoin replaces a basic kubeadm
+                        description: 'useExperimentalRetryJoin replaces a basic kubeadm
                           command with a shell
 
                           script with retries for joins.
-
 
 
                           This is meant to be an experimental temporary workaround
@@ -3972,13 +4584,10 @@ spec:
                           kubeadm proper and use that functionality.
 
 
-
                           This will add about 40KB to userdata
 
 
-
                           For more information, refer to https://github.com/kubernetes-sigs/cluster-api/pull/2763#discussion_r397306055.
-
 
 
                           Deprecated: This experimental fix is no longer needed and
@@ -3988,52 +4597,52 @@ spec:
                           for SA1019 in golangci.yml'
                         type: boolean
                       users:
-                        description: Users specifies extra users to add
+                        description: users specifies extra users to add
                         items:
                           description: User defines the input for a generated user
                             in cloud-init.
                           properties:
                             gecos:
-                              description: Gecos specifies the gecos to use for the
+                              description: gecos specifies the gecos to use for the
                                 user
                               type: string
                             groups:
-                              description: Groups specifies the additional groups
+                              description: groups specifies the additional groups
                                 for the user
                               type: string
                             homeDir:
-                              description: HomeDir specifies the home directory to
+                              description: homeDir specifies the home directory to
                                 use for the user
                               type: string
                             inactive:
-                              description: Inactive specifies whether to mark the
+                              description: inactive specifies whether to mark the
                                 user as inactive
                               type: boolean
                             lockPassword:
-                              description: LockPassword specifies if password login
+                              description: lockPassword specifies if password login
                                 should be disabled
                               type: boolean
                             name:
-                              description: Name specifies the user name
+                              description: name specifies the user name
                               type: string
                             passwd:
-                              description: Passwd specifies a hashed password for
+                              description: passwd specifies a hashed password for
                                 the user
                               type: string
                             passwdFrom:
-                              description: PasswdFrom is a referenced source of passwd
+                              description: passwdFrom is a referenced source of passwd
                                 to populate the passwd.
                               properties:
                                 secret:
-                                  description: Secret represents a secret that should
+                                  description: secret represents a secret that should
                                     populate this password.
                                   properties:
                                     key:
-                                      description: Key is the key in the secret's
+                                      description: key is the key in the secret's
                                         data map for this value.
                                       type: string
                                     name:
-                                      description: Name of the secret in the KubeadmBootstrapConfig's
+                                      description: name of the secret in the KubeadmBootstrapConfig's
                                         namespace to use.
                                       type: string
                                   required:
@@ -4044,27 +4653,27 @@ spec:
                               - secret
                               type: object
                             primaryGroup:
-                              description: PrimaryGroup specifies the primary group
+                              description: primaryGroup specifies the primary group
                                 for the user
                               type: string
                             shell:
-                              description: Shell specifies the user's shell
+                              description: shell specifies the user's shell
                               type: string
                             sshAuthorizedKeys:
-                              description: SSHAuthorizedKeys specifies a list of ssh
+                              description: sshAuthorizedKeys specifies a list of ssh
                                 authorized keys for the user
                               items:
                                 type: string
                               type: array
                             sudo:
-                              description: Sudo specifies a sudo role for the user
+                              description: sudo specifies a sudo role for the user
                               type: string
                           required:
                           - name
                           type: object
                         type: array
                       verbosity:
-                        description: 'Verbosity is the number for the kubeadm log
+                        description: 'verbosity is the number for the kubeadm log
                           level verbosity.
 
                           It overrides the `--v` flag in kubeadm commands.'
