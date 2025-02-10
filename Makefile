@@ -1,15 +1,19 @@
 # Update this for every tagged release.
-CHART_VERSION = v0.2.1
+CHART_VERSION = v0.2.2
 
 # Defines the versions to use for cluster API components.
-CAPI_VERSION = v1.7.4
-CAPO_VERSION = v0.10.4
+CAPI_VERSION = v1.9.4
+CAPO_VERSION = v0.12.0
+
+# CAPO requires ORC.
+ORC_VERSION = v1.0.0
 
 # All the charts we can generate.
 CHARTS = cluster-api-core \
 	 cluster-api-bootstrap-kubeadm \
 	 cluster-api-control-plane-kubeadm \
-	 cluster-api-provider-openstack
+	 cluster-api-provider-openstack \
+	 openstack-resource-controller
 
 # These charts are hand crafted, but still valid for things like
 # validation.
@@ -40,7 +44,11 @@ cluster-api-control-plane-kubeadm:
 
 .PHONY: cluster-api-provider-openstack
 cluster-api-provider-openstack:
-	$(GENERATE) --chart $@ --version $(CHART_VERSION) --app-version $(CAPO_VERSION) --path https://github.com/kubernetes-sigs/cluster-api-provider-openstack/config/default?ref=${CAPO_VERSION} --image registry.k8s.io/capi-openstack/capi-openstack-controller:$(CAPO_VERSION)
+	$(GENERATE) --chart $@ --version $(CHART_VERSION) --app-version $(CAPO_VERSION) --path https://github.com/kubernetes-sigs/cluster-api-provider-openstack/config/default?ref=$(CAPO_VERSION) --image registry.k8s.io/capi-openstack/capi-openstack-controller:$(CAPO_VERSION)
+
+.PHONY: openstack-resource-controller
+openstack-resource-controller:
+	$(GENERATE) --chart $@ --version $(CHART_VERSION) --app-version $(ORC_VERSION) --path https://github.com/k-orc/openstack-resource-controller/config/default?ref=$(ORC_VERSION) --image quay.io/orc/openstack-resource-controller:$(ORC_VERSION)
 
 .PHONY: test
 test:
