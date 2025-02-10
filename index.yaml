@@ -2,6 +2,36 @@ apiVersion: v1
 entries:
   cluster-api:
   - apiVersion: v2
+    appVersion: v1.9.4
+    created: "2025-02-10T12:58:43.404141169Z"
+    dependencies:
+    - name: cluster-api-core
+      repository: file://../cluster-api-core
+      version: v0.2.2
+    - condition: kubeadm.enabled
+      name: cluster-api-bootstrap-kubeadm
+      repository: file://../cluster-api-bootstrap-kubeadm
+      version: v0.2.2
+    - condition: kubeadm.enabled
+      name: cluster-api-control-plane-kubeadm
+      repository: file://../cluster-api-control-plane-kubeadm
+      version: v0.2.2
+    - condition: openstack.enabled
+      name: cluster-api-provider-openstack
+      repository: file://../cluster-api-provider-openstack
+      version: v0.2.2
+    - name: openstack-resource-controller
+      repository: file://../openstack-resource-controller
+      version: v0.2.2
+    description: A Helm chart to deploy Cluster API
+    digest: bbf31620004b61ca5b4ae3c81890f3497e5526474a70cb57a7f16fb0eea110b3
+    icon: https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.png
+    name: cluster-api
+    type: application
+    urls:
+    - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-v0.2.2/cluster-api-v0.2.2.tgz
+    version: v0.2.2
+  - apiVersion: v2
     appVersion: v1.7.4
     created: "2024-07-18T15:02:53.127851434Z"
     dependencies:
@@ -110,6 +140,17 @@ entries:
     - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-v0.1.10/cluster-api-v0.1.10.tgz
     version: v0.1.10
   cluster-api-bootstrap-kubeadm:
+  - apiVersion: v2
+    appVersion: v1.9.4
+    created: "2025-02-10T12:58:42.899377044Z"
+    description: A Helm chart for deploying cluster API.
+    digest: ea2a49c6f639950a551c1fff009a40a1c50e662ca984bb3b695fc26242b4227d
+    icon: https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.png
+    name: cluster-api-bootstrap-kubeadm
+    type: application
+    urls:
+    - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-bootstrap-kubeadm-v0.2.2/cluster-api-bootstrap-kubeadm-v0.2.2.tgz
+    version: v0.2.2
   - apiVersion: v2
     appVersion: v1.7.4
     created: "2024-07-18T15:02:52.172659444Z"
@@ -319,6 +360,17 @@ entries:
     version: v0.3.26
   cluster-api-control-plane-kubeadm:
   - apiVersion: v2
+    appVersion: v1.9.4
+    created: "2025-02-10T12:58:43.075500898Z"
+    description: A Helm chart for deploying cluster API.
+    digest: 9f2117394754e987e1fa00590dce2cd4038db029ff7d9d991542c03e2aa85dc2
+    icon: https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.png
+    name: cluster-api-control-plane-kubeadm
+    type: application
+    urls:
+    - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-control-plane-kubeadm-v0.2.2/cluster-api-control-plane-kubeadm-v0.2.2.tgz
+    version: v0.2.2
+  - apiVersion: v2
     appVersion: v1.7.4
     created: "2024-07-18T15:02:52.557072906Z"
     description: A Helm chart for deploying cluster API.
@@ -363,6 +415,17 @@ entries:
     - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-control-plane-kubeadm-v0.1.10/cluster-api-control-plane-kubeadm-v0.1.10.tgz
     version: v0.1.10
   cluster-api-core:
+  - apiVersion: v2
+    appVersion: v1.9.4
+    created: "2025-02-10T12:58:43.165296162Z"
+    description: A Helm chart for deploying cluster API.
+    digest: 35d0843fb28d350da558b6b75bf052686b323c56f119d7f2a0c9df3216925995
+    icon: https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.png
+    name: cluster-api-core
+    type: application
+    urls:
+    - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-core-v0.2.2/cluster-api-core-v0.2.2.tgz
+    version: v0.2.2
   - apiVersion: v2
     appVersion: v1.7.4
     created: "2024-07-18T15:02:52.752668675Z"
@@ -409,6 +472,17 @@ entries:
     version: v0.1.10
   cluster-api-provider-openstack:
   - apiVersion: v2
+    appVersion: v0.12.0
+    created: "2025-02-10T12:58:43.286695925Z"
+    description: A Helm chart for deploying cluster API.
+    digest: e261f1cb98ceffc09a8f5c2a3a97d049bf0cb83a9947e8a41598c0ca10fb910f
+    icon: https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.png
+    name: cluster-api-provider-openstack
+    type: application
+    urls:
+    - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-provider-openstack-v0.2.2/cluster-api-provider-openstack-v0.2.2.tgz
+    version: v0.2.2
+  - apiVersion: v2
     appVersion: v0.10.4
     created: "2024-07-18T15:02:52.933916047Z"
     description: A Helm chart for deploying cluster API.
@@ -452,4 +526,16 @@ entries:
     urls:
     - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/cluster-api-provider-openstack-v0.1.10/cluster-api-provider-openstack-v0.1.10.tgz
     version: v0.1.10
-generated: "2024-11-28T16:19:44.822615585Z"
+  openstack-resource-controller:
+  - apiVersion: v2
+    appVersion: v1.0.0
+    created: "2025-02-10T12:58:43.500209162Z"
+    description: A Helm chart for deploying cluster API.
+    digest: 471fcf26c6e995526b4a82b8070ebb00337fa9f92d49b83bc832bc5f086ac5cf
+    icon: https://assets.unikorn-cloud.org/assets/images/logos/dark-on-light/icon.png
+    name: openstack-resource-controller
+    type: application
+    urls:
+    - https://github.com/unikorn-cloud/helm-cluster-api/releases/download/openstack-resource-controller-v0.2.2/openstack-resource-controller-v0.2.2.tgz
+    version: v0.2.2
+generated: "2025-02-10T12:58:43.50038577Z"
