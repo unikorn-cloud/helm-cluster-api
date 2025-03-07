@@ -210,6 +210,11 @@
 					}
 				}
 			}
+		},
+		"percentage": {
+			"type": "number",
+			"minimum": 0,
+			"maximum": 100
 		}
 	},
 	"type": "object",
@@ -310,6 +315,19 @@
 					"type": "array",
 					"items": {
 						"type": "string"
+					}
+				},
+				"apiServer": {
+					"type": "object",
+					"properties": {
+						"cpuLimitPercent": {
+							"$ref": "#/$defs/percentage",
+							"description": "Percentage of available CPU to allocate as limit for the API server"
+						},
+						"memoryLimitPercent": {
+							"$ref": "#/$defs/percentage",
+							"description": "Percentage of available memory to allocate as limit for the API server"
+						}
 					}
 				}
 			}
