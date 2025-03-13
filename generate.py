@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import subprocess
+import textwrap
 import yaml
 
 def main():
@@ -42,14 +43,31 @@ def main():
         yaml.safe_dump(chart, out)
 
     # Process the official manifests.
-    content = subprocess.check_output(['kubectl', 'kustomize', args.path])
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    with (
+      open(f'{script_dir}/kustomization.yaml', 'w') as kustomization_file,
+      open(f'{script_dir}/patches.yaml', 'r') as patch_file
+    ):
+      patch_yaml = patch_file.read()
+
+      print(textwrap.dedent(f'''\
+        ---
+        resources:
+         - {args.path}
+
+        patches:
+       '''), patch_yaml, file=kustomization_file)
+
+    content = subprocess.check_output(['kubectl', 'kustomize', script_dir])
+
+    os.remove(f'{script_dir}/kustomization.yaml')
 
     objects = yaml.safe_load_all(content)
 
     counts = collections.Counter()
 
     values = {
-            'image': args.image,
+        'image': args.image,
     }
 
     for o in objects:

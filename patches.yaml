@@ -1,0 +1,13 @@
+# Add metrics port to capo-controller-manager
+- target: 
+    kind: Deployment
+    name: capo-controller-manager
+    labelSelector: "control-plane=capo-controller-manager"
+  patch: |-
+    - op: add
+      path: '/spec/template/spec/containers/0/ports/-'
+      value:
+        containerPort: 8080
+        name: metrics
+        protocol: TCP
+      
