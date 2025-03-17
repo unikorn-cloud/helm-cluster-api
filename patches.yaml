@@ -10,4 +10,27 @@
         containerPort: 8080
         name: metrics
         protocol: TCP
+- target:
+    kind: Deployment
+  patch: |-
+    # The default image is something developer centric and random  
+    - op: add
+      path: '/spec/template/spec/containers/0/image'
+      value: '{{ .Values.image }}'
       
+      # The default pull policy doesn't work in times of network trouble and slows
+      # things down, so allow caching.  If they are force pushing, then shame on
+      # CAPI for breaking semantic versioning.
+    - op: add
+      path: '/spec/template/spec/containers/0/imagePullPolicy'
+      value: 'IfNotPresent'
+- target:
+    kind: Deployment
+    name: 'cap[io].*-controller-manager'
+    # Make the logs structured
+  patch: |-
+    - op: add
+      path: '/spec/template/spec/containers/0/args/-'
+      value: '--logging-format=json'
+
+# TODO: add in scheduling requests/limits for proper scheduling.
