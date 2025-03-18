@@ -10,6 +10,18 @@
         containerPort: 8080
         name: metrics
         protocol: TCP
+# Add metrics port to openstack resource controller
+- target:
+    kind: Deployment
+    name: orc-controller-manager
+  patch: |-
+    - op: add
+      path: '/spec/template/spec/containers/0/ports'
+      value:
+        - containerPort: 8443
+          name: metrics
+          protocol: TCP
+# Changes to all deployments
 - target:
     kind: Deployment
   patch: |-
