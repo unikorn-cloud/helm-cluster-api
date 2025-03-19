@@ -6,6 +6,8 @@ import os
 import re
 import shutil
 import subprocess
+import tempfile
+import textwrap
 import yaml
 
 def main():
@@ -17,6 +19,9 @@ def main():
     parser.add_argument('--image', required=True, help='Controller image')
 
     args = parser.parse_args()
+
+    temp_dir = tempfile.TemporaryDirectory()
+    temp_dir_path = temp_dir.name
 
     chart_root = f'charts/{args.chart}'
 
@@ -42,14 +47,31 @@ def main():
         yaml.safe_dump(chart, out)
 
     # Process the official manifests.
-    content = subprocess.check_output(['kubectl', 'kustomize', args.path])
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    with (
+      open(f'{temp_dir_path}/kustomization.yaml', 'w') as kustomization_file,
+      open(f'{script_dir}/patches.yaml', 'r') as patch_file
+    ):
+      patch_yaml = patch_file.read()
+
+      print(textwrap.dedent(f'''\
+        ---
+        resources:
+         - {args.path}
+
+        patches:
+       '''), patch_yaml, file=kustomization_file)
+
+    content = subprocess.check_output(['kubectl', 'kustomize', temp_dir_path])
+
+    temp_dir.cleanup()
 
     objects = yaml.safe_load_all(content)
 
     counts = collections.Counter()
 
     values = {
-            'image': args.image,
+        'image': args.image,
     }
 
     for o in objects:
@@ -65,24 +87,11 @@ def main():
                 yaml.safe_dump(o, out)
             continue
 
-        # Patch some common overrides.
-        if kind == 'Deployment':
-            # The default image is something develper centric, and random, override.
-            o['spec']['template']['spec']['containers'][0]['image'] = '{{ .Values.image }}'
-            # The default pull policy doesn't work in times of network trouble and slows
-            # things down, so allow caching.  If they are force pushing, then shame on
-            # CAPI for breaking semantic versioning.
-            o['spec']['template']['spec']['containers'][0]['imagePullPolicy'] = 'IfNotPresent'
-            # Make the logs structured, for obvious reasons.
-            if args.chart != "openstack-resource-controller":
-                o['spec']['template']['spec']['containers'][0]['args'].append('--logging-format=json')
-            # TODO: add in scheduling requests/limits for proper scheduling.
+        resource = yaml.safe_dump(o)
 
         # Cluster API for some reason embed environment variables in their manifests
         # because why not, it's not like everyone else uses go templating!  Replace
         # these with a values.yaml.
-        resource = yaml.safe_dump(o)
-
         matches = set(re.findall(r'\$\{.*?\}', resource))
 
         for m in matches:
