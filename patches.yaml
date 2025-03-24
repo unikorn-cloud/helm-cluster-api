@@ -18,9 +18,12 @@
     - op: add
       path: '/spec/template/spec/containers/0/ports'
       value:
-        - containerPort: 8443
+        - containerPort: 8080
           name: metrics
           protocol: TCP
+    - op: replace
+      path: /spec/template/spec/containers/0/args/0
+      value: --metrics-bind-address=:8080
 # Changes to all deployments
 - target:
     kind: Deployment

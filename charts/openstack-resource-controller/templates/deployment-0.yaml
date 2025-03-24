@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - args:
-        - --metrics-bind-address=:8443
+        - --metrics-bind-address=:8080
         - --leader-elect
         - --health-probe-bind-address=:8081
         command:
@@ -36,7 +36,7 @@ spec:
           periodSeconds: 20
         name: manager
         ports:
-        - containerPort: 8443
+        - containerPort: 8080
           name: metrics
           protocol: TCP
         readinessProbe:
