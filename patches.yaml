@@ -1,4 +1,4 @@
-# Add metrics port to capo-controller-manager
+# Add metrics port to deployment templates
 - target: 
     kind: Deployment
     name: capo-controller-manager
@@ -10,7 +10,26 @@
         containerPort: 8080
         name: metrics
         protocol: TCP
-# Add metrics port to openstack-resource-controller
+- target:
+    kind: Deployment
+    name: capi-kubeadm-bootstrap-controller-manager
+  patch: |-
+    - op: replace
+      path: '/spec/template/spec/containers/0/ports/2'
+      value:
+        containerPort: 8080
+        name: metrics
+        protocol: TCP
+- target:
+    kind: Deployment
+    name: capi-controller-manager
+  patch: |-
+    - op: replace
+      path: '/spec/template/spec/containers/0/ports/2'
+      value:
+        containerPort: 8080
+        name: metrics
+        protocol: TCP
 - target:
     kind: Deployment
     name: orc-controller-manager
@@ -21,10 +40,15 @@
         - containerPort: 8080
           name: metrics
           protocol: TCP
+# Add metrics port to openstack-resource-controller args
+- target:
+    kind: Deployment
+    name: orc-controller-manager
+  patch: |-
     - op: replace
       path: /spec/template/spec/containers/0/args/0
       value: --metrics-bind-address=:8080
-# Change port of openstack-resource-controller service
+# Change port of openstack-resource-controller metrics service
 - target:
     kind: Service
     name: orc-controller-manager-metrics-service
