@@ -118,12 +118,9 @@ def main():
 
             variable = fields.group(1).lower()
 
-            if variable in VALUES.keys():
-              value = VALUES[variable]
-            else:
-              value = fields.group(2)
+            value = VALUES[variable] if variable in VALUES else fields.group(2)
 
-            if value in STRING_CONVERSIONS.keys():
+            if value in STRING_CONVERSIONS:
                 value = STRING_CONVERSIONS[value]
 
             values[variable] = value
