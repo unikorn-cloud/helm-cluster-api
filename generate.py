@@ -13,8 +13,8 @@ import yaml
 # Overrides for values.yaml (for all charts)
 VALUES = {
   # Allow access to metrics endpoints without authentication
-  "CAPI_DIAGNOSTICS_ADDRESS": ":8080",
-  "CAPI_INSECURE_DIAGNOSTICS":  "true"
+  "capi_diagnostics_address": ":8080",
+  "capi_insecure_diagnostics":  "true"
 }
 
 def main():
@@ -111,7 +111,7 @@ def main():
             # https://regex101.com/r/8r9GZU/1
             fields = re.match(r'\$\{([A-Z0-9_]+)(?::=(.*))?\}', m)
 
-            variable = fields.group(1)
+            variable = fields.group(1).lower()
 
             if variable in VALUES.keys():
               value = VALUES[variable]
@@ -123,9 +123,9 @@ def main():
             elif value == 'false':
                 value = False
 
-            values[variable.lower()] = value
+            values[variable] = value
 
-            resource = resource.replace(m, '{{ .Values.' + variable.lower() + ' }}')
+            resource = resource.replace(m, '{{ .Values.' + variable + ' }}')
 
         count = counts[kind]
         counts[kind] += 1
