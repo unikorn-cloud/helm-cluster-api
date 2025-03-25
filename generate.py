@@ -17,6 +17,11 @@ VALUES = {
   "capi_insecure_diagnostics":  "true"
 }
 
+STRING_CONVERSIONS = {
+  "true": True,
+  "false": False,
+}
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--chart', required=True, help='Chart name')
@@ -118,10 +123,8 @@ def main():
             else:
               value = fields.group(2)
 
-            if value == 'true':
-                value = True
-            elif value == 'false':
-                value = False
+            if value in STRING_CONVERSIONS.keys():
+                value = STRING_CONVERSIONS[value]
 
             values[variable] = value
 
