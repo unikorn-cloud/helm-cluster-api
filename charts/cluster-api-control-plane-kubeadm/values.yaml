@@ -1,5 +1,5 @@
-capi_diagnostics_address: :8443
-capi_insecure_diagnostics: false
+capi_diagnostics_address: :8080
+capi_insecure_diagnostics: true
 capi_use_deprecated_infra_machine_naming: false
 cluster_topology: false
 exp_kubeadm_bootstrap_format_ignition: false

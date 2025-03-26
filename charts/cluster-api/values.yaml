@@ -7,8 +7,8 @@ openstack:
   enabled: true
 
 cluster-api-core:
-  capi_diagnostics_address: :8443
-  capi_insecure_diagnostics: false
+  capi_diagnostics_address: :8080
+  capi_insecure_diagnostics: true
   capi_use_deprecated_infra_machine_naming: false
   cluster_topology: false
   exp_cluster_resource_set: true
@@ -19,16 +19,16 @@ cluster-api-core:
   image: registry.k8s.io/cluster-api/cluster-api-controller:v1.9.4
 
 cluster-api-bootstrap-kubeadm:
-  capi_diagnostics_address: :8443
-  capi_insecure_diagnostics: false
+  capi_diagnostics_address: :8080
+  capi_insecure_diagnostics: true
   exp_kubeadm_bootstrap_format_ignition: false
   exp_machine_pool: true
   image: registry.k8s.io/cluster-api/kubeadm-bootstrap-controller:v1.9.4
   kubeadm_bootstrap_token_ttl: 15m
 
 cluster-api-control-plane-kubeadm:
-  capi_diagnostics_address: :8443
-  capi_insecure_diagnostics: false
+  capi_diagnostics_address: :8080
+  capi_insecure_diagnostics: true
   capi_use_deprecated_infra_machine_naming: false
   cluster_topology: false
   exp_kubeadm_bootstrap_format_ignition: false

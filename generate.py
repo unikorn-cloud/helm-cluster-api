@@ -10,6 +10,18 @@ import tempfile
 import textwrap
 import yaml
 
+# Overrides for values.yaml (for all charts)
+VALUES = {
+  # Allow access to metrics endpoints without authentication
+  "capi_diagnostics_address": ":8080",
+  "capi_insecure_diagnostics":  "true"
+}
+
+STRING_CONVERSIONS = {
+  "true": True,
+  "false": False,
+}
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--chart', required=True, help='Chart name')
@@ -77,6 +89,12 @@ def main():
     for o in objects:
         kind = o['kind']
 
+        # Skip resources
+        if kind in ['ClusterRole', 'ClusterRoleBinding']:
+          # Remove auth requirement to access /metrics endpoints
+          if o['metadata']['name'] in ['orc-metrics-reader', 'orc-metrics-auth-rolebinding', 'orc-metrics-auth-role']:
+            continue
+
         # Remove erroneous fields added by upstream.
         if 'creationTimestamp' in o['metadata']:
             del o['metadata']['creationTimestamp']
@@ -98,17 +116,16 @@ def main():
             # https://regex101.com/r/8r9GZU/1
             fields = re.match(r'\$\{([A-Z0-9_]+)(?::=(.*))?\}', m)
 
-            value = fields.group(1).lower()
-            default = fields.group(2)
+            variable = fields.group(1).lower()
 
-            if default == 'true':
-                default = True
-            elif default == 'false':
-                default = False
+            value = VALUES[variable] if variable in VALUES else fields.group(2)
 
-            values[value] = default
+            if value in STRING_CONVERSIONS:
+                value = STRING_CONVERSIONS[value]
 
-            resource = resource.replace(m, '{{ .Values.' + value + ' }}')
+            values[variable] = value
+
+            resource = resource.replace(m, '{{ .Values.' + variable + ' }}')
 
         count = counts[kind]
         counts[kind] += 1
