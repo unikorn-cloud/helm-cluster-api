@@ -82,6 +82,11 @@ controlPlane:
   #  - addon/kube-proxy
   #  - addon/coredns
 
+  # Define the CPU and memory limits (as a percentage of the total available) for the Kubernetes API server.
+  apiServer:
+    cpuLimitPercent: 40
+    memoryLimitPercent: 80
+
   # Defines the physical properties of a machine.
   # Modifications to this object will trigger a control plane upgrade.
   machine:
