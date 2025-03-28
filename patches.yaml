@@ -2,10 +2,19 @@
 - target: 
     kind: Deployment
     name: capo-controller-manager
-    labelSelector: "control-plane=capo-controller-manager"
   patch: |-
     - op: add
       path: '/spec/template/spec/containers/0/ports/-'
+      value:
+        containerPort: 8080
+        name: metrics
+        protocol: TCP
+- target:
+    kind: Deployment
+    name: capi-kubeadm-control-plane-controller-manager
+  patch: |-
+    - op: replace
+      path: '/spec/template/spec/containers/0/ports/2'
       value:
         containerPort: 8080
         name: metrics
@@ -40,7 +49,22 @@
         - containerPort: 8080
           name: metrics
           protocol: TCP
-# Add metrics port to openstack-resource-controller args
+# Replace metrics port in cluster-api provider openstack args
+- target:
+    kind: Deployment
+    name: capo-controller-manager
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/2
+      value: --diagnostics-address=0.0.0.0:8080
+# Add metrics port in openstack-resource-controller args
+- target:
+    kind: Deployment
+    name: orc-controller-manager
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --metrics-secure=false
 - target:
     kind: Deployment
     name: orc-controller-manager

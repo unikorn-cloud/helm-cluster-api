@@ -22,7 +22,7 @@ spec:
       - args:
         - --leader-elect
         - --v=2
-        - --diagnostics-address=127.0.0.1:8080
+        - --diagnostics-address=0.0.0.0:8080
         - --insecure-diagnostics=true
         - --logging-format=json
         command:
