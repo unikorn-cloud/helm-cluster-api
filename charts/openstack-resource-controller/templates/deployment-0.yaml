@@ -24,6 +24,7 @@ spec:
         - --metrics-bind-address=:8080
         - --leader-elect
         - --health-probe-bind-address=:8081
+        - --metrics-secure=false
         command:
         - /manager
         image: '{{ .Values.image }}'
