@@ -66,6 +66,34 @@ openstack:
 #  certificateSANs:
 #  - foo.acme.com
 
+# Registry mirrors to configure, e.g. for Docker Hub
+# The keys are registry names and the values are mirror configurations
+# registryMirrors:
+#   docker.io:
+#     # The upstream URL
+#     # If not given, "https://<registry>" is used, except for docker.io which is
+#     # automatically converted to https://registry-1.docker.io
+#     upstream: https://registry-1.docker.io
+#     # The list of mirror endpoints for the repository
+#     endpoints:
+#       - # The URL for the endpoint
+#         url: https://harbor.myorg.com/v2/dockerhub-cache
+#         # The capabilities for the endpoint
+#         # If not given, the default is ["pull", "resolve"]
+#         capabilities: ["pull", "resolve", "push"]
+#         # Indicates whether to skip TLS verification for the endpoint
+#         # Defaults to false if not given
+#         skipVerify: true
+#         # Should be set to true if the endpoint URL includes the full API root
+#         # i.e. containerd does not need to add the /v2 prefix
+#         # Defaults to false if not given
+#         # NOTE: this must be true for Harbor pull-through cache projects
+#         overridePath: true
+#         # Basic authentication for the endpoint, if required
+#         basicAuth:
+#           username: auth-user
+#           password: auth-password
+
 # Control plane topology.
 # Modifications to this object will trigger a control plane upgrade.
 controlPlane:

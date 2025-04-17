@@ -213,3 +213,27 @@ Taints
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{- define "containerd.registry.content" -}}
+{{- $registry := index . 0 -}}
+{{- $mirrors := index . 1 -}}
+{{- $defaultUpstream := eq $registry "docker.io" | ternary "registry-1.docker.io" $registry | printf "https://%s" -}}
+server = "{{ default $defaultUpstream $mirrors.upstream }}"
+{{- range $ep := $mirrors.endpoints }}
+[host."{{ $ep.url }}"]
+{{- $caps := default (list "pull" "resolve") $ep.capabilities }}
+capabilities = [{{ range $i, $cap := $caps }}{{ if gt $i 0 }}, {{ end }}"{{ . }}"{{ end }}]
+{{- if $ep.skipVerify }}
+skip_verify = true
+{{- end }}
+{{- if $ep.overridePath }}
+override_path = true
+{{- end }}
+{{- if $ep.basicAuth }}
+[host."{{ $ep.url }}".header]
+{{- with $ep.basicAuth }}
+Authorization = "Basic {{ printf "%s:%s" .username .password | b64enc }}"
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
