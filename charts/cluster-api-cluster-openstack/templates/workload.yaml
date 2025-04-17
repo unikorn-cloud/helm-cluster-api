@@ -116,6 +116,15 @@ spec:
         content: |
           {{ $config | toJson }}
       {{- end }}
+      {{- with $.Values.registryMirrors }}
+      {{- range $registry, $mirrors := . }}
+      - path: /etc/containerd/certs.d/{{ $registry }}/hosts.toml
+        owner: root:root
+        permissions: "0644"
+        content: |
+          {{- include "containerd.registry.content" (list $registry $mirrors) | nindent 10 }}
+      {{- end }}
+      {{- end }}
       joinConfiguration:
         nodeRegistration:
           name: {{ "'{{ local_hostname }}'" }}
