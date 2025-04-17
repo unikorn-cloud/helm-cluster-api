@@ -71,8 +71,9 @@ openstack:
 # registryMirrors:
 #   docker.io:
 #     # The upstream URL
-#     # If not given, "https://<registry>" is used
-#     # upstream: https://registry-1.docker.io
+#     # If not given, "https://<registry>" is used, except for docker.io which is
+#     # automatically converted to https://registry-1.docker.io
+#     upstream: https://registry-1.docker.io
 #     # The list of mirror endpoints for the repository
 #     endpoints:
 #       - # The URL for the endpoint
