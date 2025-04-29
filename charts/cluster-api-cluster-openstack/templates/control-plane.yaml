@@ -45,8 +45,6 @@ spec:
       - bash /tmp/kubeadm/patches/kube-apiserver-patch.sh -c {{ .Values.controlPlane.apiServer.cpuLimitPercent }} -m {{ .Values.controlPlane.apiServer.memoryLimitPercent }}
     clusterConfiguration:
       apiServer:
-        extraArgs:
-          cloud-provider: external
         certSANs:
         - localhost
         - 127.0.0.1
